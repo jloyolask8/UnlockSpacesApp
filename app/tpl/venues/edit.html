@@ -1,0 +1,304 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">{{selectedVenue.overview.title}}</h1>
+</div>
+
+
+<div class="wrapper-md">
+
+    <div class="row">
+        
+     
+
+        <div class="col-md-8 col-lg-9">
+            <div class="row">
+
+                <tabset class="tab-container" ng-init="steps={percent:10, step1:true, step2:false, step3:false, step4:false}">
+                    <tab heading="Venue" active="steps.step1" select="steps.percent=10">
+                        <p class="m-b">step 1 location help.</p>
+                        <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+                        <form name="step1" class="form-validation">
+
+                            <p>City:</p>
+                            <input type="text" id="city" ng-model="selectedVenue.address.city" class="form-control" 
+                                   ng-autocomplete options="autocompleteCityOptions" details="autocompleteCityDetails"
+                                   />
+                            
+                            <p>Postal code:</p>
+                            <input type="text" name="postalcode" class="form-control" ng-model="selectedVenue.address.postalCode" 
+                                   required ng-change="step1.postalcode.$valid ? (steps.percent=20) : (steps.percent = 20)"/>
+
+                            <p>Address:</p>
+                            <input type="text" name="addressline1" class="form-control" ng-model="selectedVenue.address.line1" 
+                                   ng-autocomplete options="autocompleteAddressOptions" details="addressDetails"
+                                   required ng-change="selectedVenue.address.latitud = addressDetails.geometry.location.A;
+                                   selectedVenue.address.longitud = addressDetails.geometry.location.F"/>
+                            
+                            {{addressDetails.geometry.location.A}}-{{addressDetails.geometry.location.F}}
+
+                            <p>Contact Phone Number</p>
+                            <input type="tel" tel-input="" numbers-only="" id="phone" name="phone" placeholder="E.g. +56 9 12345678" 
+                                   ng-model-on-blur="" ng-model="selectedVenue.contactInfo.phone" 
+                                   ng-change="step1.phone.$valid ? (steps.percent=40) : (steps.percent = 20)"
+                                   class="form-control"/>
+
+                            <p>General email:</p>
+                            <input type="email" name="email" class="form-control" ng-model="selectedVenue.contactInfo.email" 
+                                   required ng-change="step1.email.$valid ? (steps.percent=50) : (steps.percent = 20)"/>
+                            <p class="m-t">Website:</p>
+                            <input type="url" name="url" placeholder="http://" class="form-control" ng-model="selectedVenue.contactInfo.website" required />
+                            <div class="m-t m-b">
+                                <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2 = true">Next</button>
+                                <button type="button" class="btn btn-default btn-rounded" ng-click="log()">log</button>
+                            </div>
+                        </form>
+                    </tab>
+                    <tab heading="Details"  select="steps.percent=30">
+                        <form name="step2" class="form-validation">
+                            <p class="m-b">Continue the next step</p>
+                            <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+
+                            <p>Venue Name</p>
+                            <input name="title" class="form-control" ng-model="selectedVenue.overview.title" 
+                                   required ng-change="step1.email.$valid ? (steps.percent=30) : (steps.percent = 20)"/>
+
+                            <p class="m-t">Venue Type</p>
+
+                            <div class="btn-group m-r" >
+                                <label class="btn btn-default" ng-model="selectedVenue.venueType" btn-radio="'Left'" uncheckable
+                                       ng-repeat="type in getVenueTypes()">{{type}}</label>
+                            </div>
+
+                            <p>Description</p>
+
+                            <textarea id="description" type="text" name="description" class="form-control" 
+                                      ng-model="selectedVenue.overview.summary" ></textarea>
+
+
+                            <p class="m-t">Tax</p>
+
+                            <p class="m-t">Currency</p>
+
+                            <p class="headline headline-light">Venue photos</p>
+
+                            <div id="direct_upload" 
+                                 ng-file-drop
+                                 ng-file-drag-over-class="dragOverClass($event)"
+                                 ng-model="files"
+                                 ng-multiple="true">
+                                <h2>Direct upload from the browser with Angular File Upload</h2>
+                                <p>You can also drag and drop an image file into the dashed area.</p>
+                                    <div class="form_line">
+                                        <label path="title">Title:</label>
+                                        <div class="form_controls">
+                                            <input type="text" class="form-control" placeholder="Title" ng-model="title"/>
+                                        </div>
+                                    </div>
+                                    <div class="form_line">
+                                        <label>Image:</label>
+                                        <div class="form_controls">
+                                            <div class="upload_button_holder">
+                                                <div href="#" class="upload_button" ng-file-select ng-multiple="true" 
+                                                     title="upload" resetOnClick="true" ng-model="files">Upload</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                <h2>Status</h2>
+                                <div class="file" ng-repeat="file in files">
+                                    <h3>{{file.name}}</h3>
+                                    <div class="status">{{file.status}}</div>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: {{file.progress}}%" ng-init="progress = 0"></div>
+                                    </div>
+                                    <div class="form_line">
+                                        <div class="form_controls">
+                                            <div class="preview"></div>
+                                        </div>
+                                    </div>
+                                    <div class="info">
+                                        <table>
+                                            <tr ng-repeat="(key, value) in file.result">
+                                                <td> {{key}} </td> <td> {{ value}} </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <p class="headline headline-light">hours Of Operation</p>
+
+
+
+                            <div class="m-t m-b">
+                                <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1 = true">Prev</button>
+                                <button type="submit" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step3 = true">Next</button>
+
+                            </div>
+                        </form>
+                    </tab>
+
+                    <tab heading="Spaces"  select="steps.percent=60">
+                        <p class="m-b">spaces.</p>
+
+                        <div ng-hide="editSpaceMode" class="wrapper-md">
+
+                            <div>
+
+                                <div class="col-md-4 col-lg-3">
+                                    <a ng-click="addNewSpace()">
+                                        <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
+                                            <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
+                                            <span class="font-bold">Add Space</span>
+
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4 col-lg-4" ng-repeat="space in selectedVenue.spaces track by $index" >
+                                    <div class="panel b-a">
+                                        <div class="panel-heading no-border bg-dark">          
+                                            <span class="text-lt">{{space.overview.title}}</span>
+                                        </div>
+                                        <div class="item m-l-n-xxs m-r-n-xxs">
+                                            <div ng-init="x = 3" class="top text-right padder m-t-xs w-full">
+                                                <rating ng-model="x" max="5" state-on="'fa fa-star text-warning'" state-off="'fa fa-star-o text-white'"></rating>
+                                            </div>
+
+                                            <div class="bottom wrapper bg-gd-dk text-white">            
+                                                <div>{{space.overview.summary}}</div>
+                                                <div>9:00 am - 12:00 pm</div>
+                                            </div>
+                                            <img src="img/c1.jpg" class="img-full"/>
+                                        </div>
+                                        <div class="hbox text-center b-b b-light text-sm">          
+                                            <a href class="col padder-v text-muted b-r b-light">
+                                                <i class="icon-call-end block m-b-xs fa-2x"></i>
+                                                <span>{{space.pricing.perWeek}}</span>
+                                            </a>
+                                            <a href class="col padder-v text-muted b-r b-light">
+                                                <i class="icon-anchor block m-b-xs fa-2x"></i>
+                                                <span>{{space.pricing.perMonth}}</span>
+                                            </a>
+                                            <a ng-click="editSpace(space, $index)"
+                                               class="col padder-v text-muted">
+                                                <i class="icon-edit block m-b-xs fa-2x"></i>
+                                                <span>Edit</span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="editSpaceMode">
+
+                            <p>Space Title.</p>
+
+                            <input name="title" class="form-control" ng-model="space.overview.title" required />
+
+                            <p class="m-t">Space Type</p>
+
+                            <div class="btn-group m-r" >
+                                <label class="btn btn-default" ng-model="space.type" btn-radio="'Left'" uncheckable
+                                       ng-repeat="stype in getSpaceTypes()">{{stype}}</label>
+                            </div>
+
+                            <p>Space Summary.</p>
+
+                            <textarea id="description" type="text" name="description" class="form-control" 
+                                      ng-model="space.overview.summary" ></textarea>
+
+
+
+                            <p>Space Type.</p>
+
+                            <p>Per hour.</p>
+                            <p>Per day.</p>
+                            <p>Per month.</p>
+
+                            <pre><code>{{space| json}}</code></pre>
+
+                            <div class="m-t m-b">
+                                <button type="button" class="btn btn-default btn-rounded" ng-click="revertEditing()">Cancel</button>
+                                <button type="button" class="btn btn-primary btn-rounded" ng-click="doneEditing()">Save</button>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+                    </tab>
+
+                    <tab heading="Admins"  select="steps.percent=60">
+                        <p class="m-b">Congraduations! You got the last step.</p>
+                        <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+                        <p>Just one click to finish it.</p>
+                        <div class="m-t m-b">
+                            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2 = true">Prev</button>
+                            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.percent = 100">Click me to Finish</button>
+                        </div>
+                    </tab>
+
+                    <tab heading="Amenities"  select="steps.percent=60">
+                        <p class="m-b">Congraduations! You got the last step.</p>
+                        <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+                        <p>Just one click to finish it.</p>
+                        <div class="m-t m-b">
+                            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2 = true">Prev</button>
+                            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.percent = 100">Click me to Finish</button>
+                        </div>
+                    </tab>
+
+                    <tab heading="Payment"  select="steps.percent=60">
+                        <p class="m-b">Congraduations! You got the last step.</p>
+                        <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+                        <p>Just one click to finish it.</p>
+                        <div class="m-t m-b">
+                            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2 = true">Prev</button>
+                            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.percent = 100">Click me to Finish</button>
+                        </div>
+                    </tab>
+                </tabset>
+
+
+
+                <div class="m-t m-b">
+                    <button class="btn btn-default btn-rounded" ng-click="cancel()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-rounded" ng-click="edit()">Save</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3 bg-light lter b-l bg-auto">
+
+            help
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <pre><code>{{selectedVenue| json}}</code></pre>
+
+            <pre><code>{{ autocompleteCityDetails}}</code></pre>
+
+        </div>
+        <div class="col">
+            <textarea json-text ng-model='selectedVenue'></textarea>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+

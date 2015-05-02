@@ -1,0 +1,67 @@
+<div ng-controller="MapController as mapCtrl">
+            <input id="pac-input" class="controls" type="text" placeholder="Enter location">
+
+            <div id="opciones" class="controls">
+                <label>centrar en el mapa al seleccionar:
+                    <input type="checkbox" ng-model="optionsModel.centerOnMap">
+                </label><br/>
+            </div>
+            
+            <ui-gmap-google-map center='map.center' options='map.options' zoom='map.zoom' events="map.events" >
+                <ui-gmap-marker ng-repeat="marker in markers" idKey="marker.id" icon="marker.icon" options="marker.opciones" coords="marker.coordinates" click="markerClick(marker)">
+                    <ui-gmap-window show="marker.show"
+                                    options="map.infoWindowWithCustomClass.options"
+                                    templateUrl="map.windowTemplate"
+                                    templateParameter="map.windowParameter(marker)"
+                                    closeClick="markerClose(marker)"
+                                    ng-cloak="ng-cloak">
+                    </ui-gmap-window>
+                </ui-gmap-marker>
+            </ui-gmap-google-map>
+            <div id="container" >
+                <div id="results">
+                    <div ng-show="spacesIsEmpty()">
+                        Searching for spaces around the TO DO PUT STATE yielded no results.
+                    </div>
+                    <div class="card" ng-mouseenter="highlightMarker(space)" ng-mouseleave="normalizeMarker(space)" ng-repeat="space in spaces">
+                        <div >
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 100%; padding: 10px;">
+                                        <div class="ws-content-group">
+                                            <h5 class="ws-item-title text-overflow-dot ng-binding">
+                                                {{space.overview.title}}
+                                                <span class="text-smoky ng-binding ng-scope" >
+                                                    <i class="fa fa-users" aria-hidden="true"></i> 1
+                                                </span><!-- end ngIf: item.workspace.capacity -->
+                                            </h5>
+                                            <!--<small class="text-smoky"><em>at</em> <span class="text-cap">{{item.venue.name}}</span></small>-->
+                                        </div>
+
+                                        <div class="ws-content-group">
+                                            <div class="ws-item-emphasis flex-row flex-gutter-sm">
+                                                <div class="flex-cell-auto flex-align--top">
+                                                    <i aria-hidden="true" class="icon icon-marker-thin-alt align-middle"></i>
+                                                </div>
+                                                <div class="flex-cell flex-align--top">
+                                                    <p class="text-overflow-dot text-cap">
+                                                        <a class="text-link text-positive ng-binding" >{{space.overview.title}}</a>
+                                                    </p>
+                                                    <p class="p-xs text-smoky text-overflow-dot ng-binding">
+                                                        Business Center <!-- ngIf: item.venue.reviews > 1 --> <!-- ngIf: item.venue.reviews < 1 --> <!-- ngIf: item.venue.reviews == 1 --><span ng-if="item.venue.reviews == 1" class="ng-scope"> • 1 review</span><!-- end ngIf: item.venue.reviews == 1 -->
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                <cl-image public-id="{{space.frontPhoto.cloudinaryUrl1}}" width="238" crop="scale" format="jpg">
+                                </cl-image>
+                                </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

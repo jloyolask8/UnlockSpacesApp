@@ -1,0 +1,78 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm fill-height" ng-controller="MapCtrl" ng-init="
+                app.settings.asideFolded = true;
+                app.settings.asideDock = false;
+     ">
+    <!-- main -->
+    <div class="col">
+
+        <div id="map_canvas" style="min-height:600px" ui-map="myMap"
+             ui-event="{'map-click': 'addMarker($event, $params)', 'map-zoom_changed': 'setZoomMessage(myMap.getZoom())' }"
+             ui-options="mapOptions">
+        </div>
+
+        <!-- this is the confusing part. we have to point the map marker directive
+                   at an existing google.maps.Marker object, so it can hook up events -->
+        <div ng-repeat="marker in myMarkers" ui-map-marker="myMarkers[$index]"
+             ui-event="{'map-click': 'openMarkerInfo(marker)'}">
+        </div>
+
+        <div ui-map-info-window="myInfoWindow">
+            <div class="m-b-sm">Marker</div>
+            <div class="m-b-sm">
+                <div class="pull-left m-t-xs">Lat: </div>
+                <input ng-model="currentMarkerLat" class="form-control input-sm w-sm m-l-lg">
+            </div>
+            <div class="m-b-sm">
+                <div class="pull-left m-t-xs">Lng: </div>
+                <input ng-model="currentMarkerLng" class="form-control input-sm w-sm m-l-lg">
+            </div>
+            <a class="btn btn-default btn-sm m-l-lg m-b-sm" ng-click="setMarkerPosition(currentMarker, currentMarkerLat, currentMarkerLng)">Set Position</a>
+        </div>
+
+    </div>
+    <!-- / main -->
+    <!-- right col -->
+
+    <div class="col col-md-4 bg-white-only b-l bg-auto no-border-xs">
+
+        <!-- streamline -->
+
+        <div class="panel-body" ui-jq="slimScroll" ui-options="{height:'600px'}">
+            <h4 class="m-t-none">Click to add a marker!</h4>
+            <p>{{zoomMessage}}</p>
+            <div class="panel panel-default" ng-repeat="marker in myMarkers">
+                <div class="panel-heading">
+                    <div class="clearfix">
+                        <a href class="pull-left thumb-md avatar b-3x m-r">
+                            <img src="img/a2.jpg" alt="...">
+                        </a>
+                        <div class="clear">
+                            <div class="h3 m-t-xs m-b-xs">
+
+                                <a class="btn btn-default m-b-sm" ng-click="myMap.panTo(marker.getPosition())">
+                                    Space name {{$index}}
+                                </a>
+
+                                <i class="fa fa-circle text-success pull-right text-xs m-t-sm"></i>
+                            </div>
+                            <small class="text-muted">space desc</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group no-radius alt">
+
+                    <a class="list-group-item" href>
+                        <span class="badge bg-light">5</span>
+                        <i class="fa fa-eye fa-fw text-muted"></i> 
+                        visits
+                    </a>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- / streamline -->
+
+    </div>
+    <!-- / right col -->
+</div>

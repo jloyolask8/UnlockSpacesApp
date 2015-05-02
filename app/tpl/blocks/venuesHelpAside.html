@@ -1,0 +1,46 @@
+<div class="tips-content-block">
+    <!-- ngIf: false -->
+
+    <!-- ngIf: false -->
+
+    <h4 class="tips-content-title">
+        <i aria-hidden="true" class="icon icon-information tips-icon"></i> Promote your space, beautifully!
+    </h4>
+
+    <div class="tips-content-copy">
+        <div class="paragraph-group">
+            <p class="text-weight-light">Have available desks and idle meeting rooms? Rent your space to mobile professionals. Attract new clients by joining the {{app.name}} global network.</p>
+            <ul class="list-bullet  paragraph-base-group">
+                <li class="list-bullet-item"><p class="mb0 text-weight-light">World's largest platform for flexible workplaces</p></li>
+                <li class="list-bullet-item"><p class="mb0 text-weight-light">Create a beautiful profile for FREE!</p></li>
+                <li class="list-bullet-item"><p class="mb0 text-weight-light">Capture and manage new leads.</p></li>
+                <li class="list-bullet-item"><p class="mb0 text-weight-light">Accept bookings &amp; grow your business.</p></li>
+            </ul>
+            <br>
+        </div>
+    </div>
+
+    <h4 class="tips-content-title"><strong>FAQ</strong></h4>
+
+    <!-- accordion -->      
+    <div ng-controller="FAQAccordionCtrl">
+
+        <label class="checkbox i-checks m-l-sm m-b-sm">
+            <input type="checkbox" ng-model="oneAtATime"><i></i>
+            Open only one at a time
+        </label>
+        <accordion close-others="oneAtATime">
+            <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+                {{group.content}}
+            </accordion-group>
+        </accordion>
+
+    </div>
+    <!-- / accordion -->
+
+    <a ng-click="fetchAll()" class="pull-right">
+        <i class="glyphicon glyphicon-refresh icon text-info-dker"></i>
+        <span class="font-bold">Refresh Venue's List</span>
+    </a>
+
+</div>

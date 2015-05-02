@@ -1,0 +1,287 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+        app.settings.asideFolded = false;
+        app.settings.asideDock = false;
+     ">
+    <!-- main -->
+    <div class="col">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+                </div>
+
+            </div>
+        </div>
+        <!-- / main header -->
+
+
+
+        <div class="wrapper-md" ng-controller="FlotChartDemoCtrl">
+
+            <!-- tasks -->
+            <div class="panel wrapper">
+                <div class="row">
+                    <div class="col-md-6 b-r b-light no-border-xs">
+
+                        <h4 class="font-thin m-t-none m-b-md text-muted">Active Bookings</h4>
+                        <div class=" m-b">
+                            <div class="m-b">
+                                <span class="label text-base bg-warning pos-rlt m-r"><i class="arrow right arrow-warning"></i> 19:30</span>
+                                <a href>Space 1</a>
+                            </div>
+                            <div class="m-b">
+                                <span class="label text-base bg-info pos-rlt m-r"><i class="arrow right arrow-info"></i> 12:30</span>
+                                <a href>Space 2 link</a>
+                            </div>
+                            <div class="m-b">
+                                <span class="label text-base bg-primary pos-rlt m-r"><i class="arrow right arrow-primary"></i> 10:30</span>
+                                <a href>Space 3</a>
+                            </div>
+                            <div class="m-b">
+                                <span class="label text-base bg-light pos-rlt m-r"><i class="arrow right arrow-light"></i> 07:30</span>
+                                <a href>Space 4</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">            
+                        <div class="row row-sm">
+                            <div class="col-xs-6 text-center">
+                                <div ui-jq="easyPieChart" ui-options="{
+                                     percent: 75,
+                                     lineWidth: 4,
+                                     trackColor: '{{app.color.light}}',
+                                     barColor: '{{app.color.primary}}',
+                                     scaleColor: false,
+                                     size: 115,
+                                     rotate: 90,
+                                     lineCap: 'butt'
+                                     }" class="inline m-t">
+                                    <div>
+                                        <span class="text-primary h4">75%</span>
+                                    </div>
+                                </div>
+
+                                <div class="text-muted font-bold text-xs m-t m-b"
+                                     popover="Respond to inquiries and reservation requests within 24 hours" 
+                                     >Response Rate</div>
+                            </div>
+                            <div class="col-xs-6 text-center">
+                                <div ui-jq="easyPieChart" ui-options="{
+                                     percent: 50,
+                                     lineWidth: 4,
+                                     trackColor: '{{app.color.light}}',
+                                     barColor: '{{app.color.info}}',
+                                     scaleColor: false,
+                                     size: 115,
+                                     rotate: 180,
+                                     lineCap: 'butt'
+                                     }" class="inline m-t">
+                                    <div>
+                                        <span class="text-info h4">50%</span>
+                                    </div>
+                                </div>
+                                <div class="text-muted font-bold text-xs m-t m-b" 
+                                     popover="Don't cancel confirmed reservations at your listings" 
+                                     >Commitment Rate</div>
+                            </div>
+                        </div>            
+                    </div>
+                </div>
+            </div>
+            <!-- / tasks -->
+
+            <!-- service -->
+            <div class="panel hbox hbox-auto-xs no-border">
+                <div class="col wrapper">
+                    <ul class="nav nav-pills nav-xxs nav-rounded m-b-lg pull-right" ng-init="period = 'Week'">
+                        <li ng-class="{active: period === 'Week'}"><a href ng-click="refreshData();
+                                    period = 'Week'">Week</a></li>
+                        <li ng-class="{active: period === 'Month'}"><a href ng-click="refreshData();
+                                    period = 'Month'">Month</a></li>
+                        <li ng-class="{active: period === 'Year'}"><a href ng-click="refreshData();
+                                    period = 'Year'">Year</a></li>
+                    </ul>
+
+                    <h4 class="font-thin m-t-none m-b-none text-primary-lt">$$ Revenue</h4>
+                    <span class="m-b block text-sm text-muted">Revenue report of this {{period}} (updated 1 hour ago)</span>
+                    <div ui-jq="plot" ui-options="
+                         [
+                         { data: {{d4}}, lines: { show: true, lineWidth: 1, fill:true, fillColor: { colors: [{opacity: 0.2}, {opacity: 0.8}] } } }
+                         ], 
+                         {
+                         colors: ['{{app.color.light}}'],
+                         series: { shadowSize: 3 },
+                         xaxis:{ show:false },
+                         yaxis:{ font: { color: '#a1a7ac' } },
+                         grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
+                         tooltip: true,
+                         tooltipOpts: { content: '%s of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 10, y: -25 } }
+                         }
+                         " style="height:240px" >
+                    </div>
+                </div>
+
+            </div>
+            <!-- / service -->
+
+            <div class="row row-sm text-center">
+                <div class="col-xs-3">
+                    <div class="panel padder-v item">
+                        <div class="h1 text-info font-thin h1">521</div>
+                        <span class="text-muted text-xs"><span class="font-bold" translate="dashboard.customersQty">Customers</span></span>
+                        <div class="top text-right w-full">
+                            <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="panel padder-v item">
+                        <div class="h1 text-info font-thin h1">434k</div>
+                        <span class="text-muted text-xs"><span class="font-bold" translate="dashboard.reservationsQty">Reservations</span></span>
+                        <div class="top text-right w-full">
+                            <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="panel padder-v item">
+                        <div class="h1 text-info font-thin h1">12</div>
+                        <span class="text-muted text-xs"><span class="font-bold" translate="dashboard.spacesQty">Spaces</span></span>
+                        <div class="top text-right w-full">
+                            <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="panel padder-v item">
+                        <div class="h1 text-info font-thin h1">2</div>
+                        <span class="text-muted text-xs"><span class="font-bold" translate="dashboard.venuesQty">Venues</span></span>
+                        <div class="top text-right w-full">
+                            <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!-- tips -->
+            <div class="panel hbox hbox-auto-xs no-border">
+                <div class="col wrapper">
+
+                    <h4 class="font-thin m-t-none m-b-none text-primary-lt">Tips to get guest's Attention</h4>
+
+                </div>
+
+            </div>
+            <!-- / tips -->
+
+        </div>
+
+
+
+    </div>
+    <!-- / main -->
+    <!-- right col -->
+    <div class="col w-md bg-white-only b-l bg-auto no-border-xs">
+        <tabset class="nav-tabs-alt" justified="true">
+
+
+            <tab>
+                <tab-heading>
+                    <i class="glyphicon glyphicon-comment text-md text-muted wrapper-sm"></i>
+                </tab-heading>
+                <div class="wrapper-md">
+
+
+
+                    <!-- streamline -->
+                    <div class="m-b text-md">Recent Activity</div>
+                    <div class="streamline b-l m-b">
+                        <div class="sl-item">
+                            <div class="m-l">
+                                <div class="text-muted">5 minutes ago</div>
+                                <p><a href class="text-info">Jessi</a> commented your post.</p>
+                            </div>
+                        </div>
+                        <div class="sl-item">
+                            <div class="m-l">
+                                <div class="text-muted">11:30</div>
+                                <p>Join comference</p>
+                            </div>
+                        </div>
+                        <div class="sl-item b-success b-l">
+                            <div class="m-l">
+                                <div class="text-muted">10:30</div>
+                                <p>Call to customer <a href class="text-info">Jacob</a> and discuss the detail.</p>
+                            </div>
+                        </div>
+                        <div class="bg-info wrapper-sm m-l-n m-r-n m-b r r-2x">
+                            Create tasks for the team
+                        </div>
+                        <div class="sl-item b-primary b-l">
+                            <div class="m-l">
+                                <div class="text-muted">Wed, 25 Mar</div>
+                                <p>Finished task <a href class="text-info">Testing</a>.</p>
+                            </div>
+                        </div>
+                        <div class="sl-item b-warning b-l">
+                            <div class="m-l">
+                                <div class="text-muted">Thu, 10 Mar</div>
+                                <p>Trip to the moon</p>
+                            </div>
+                        </div>
+                        <div class="sl-item b-info b-l">
+                            <div class="m-l">
+                                <div class="text-muted">Sat, 5 Mar</div>
+                                <p>Prepare for presentation</p>
+                            </div>
+                        </div>
+                        <div class="sl-item b-l">
+                            <div class="m-l">
+                                <div class="text-muted">Sun, 11 Feb</div>
+                                <p><a href class="text-info">Jessi</a> assign you a task <a href class="text-info">Mockup Design</a>.</p>
+                            </div>
+                        </div>
+                        <div class="sl-item b-l">
+                            <div class="m-l">
+                                <div class="text-muted">Thu, 17 Jan</div>
+                                <p>Follow up to close deal</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- / streamline -->
+                </div>
+            </tab>
+            <tab>
+                <tab-heading>
+                    <i class="glyphicon glyphicon-transfer text-md text-muted wrapper-sm"></i>
+                </tab-heading>
+                <div class="wrapper-md">
+                    <div class="m-b-sm text-md">Transactions</div>
+                    <ul class="list-group list-group-sm list-group-sp list-group-alt auto m-t">
+                        <li class="list-group-item">
+                            <span class="text-muted">Transfer to Jacob at 3:00 pm</span>
+                            <span class="block text-md text-info">B 15,000.00</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-muted">Got from Mike at 1:00 pm</span>
+                            <span class="block text-md text-primary">B 23,000.00</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-muted">Sponsored ORG at 9:00 am</span>
+                            <span class="block text-md text-warning">B 3,000.00</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="text-muted">Send to Jacob at 8:00 am</span>
+                            <span class="block text-md">B 11,000.00</span>
+                        </li>
+                    </ul>
+                </div>
+            </tab>      
+        </tabset>
+    </div>
+    <!-- / right col -->
+</div>

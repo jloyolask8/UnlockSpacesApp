@@ -1,0 +1,77 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Add/Edit venues  </h1>
+</div>
+<div class="wrapper-md">
+
+    <div class="row">
+
+        <div class="col-md-8 col-lg-9">
+            <div class="row">
+                <div class="col-md-4 col-lg-3">
+                    <a ui-sref="app.venues.create" href="#/app/venues/create">
+                        <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
+                            <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
+                            <span class="font-bold">Add Venue</span>
+
+                        </div>
+                    </a>
+
+
+                </div>
+
+
+                <div class="col-md-4 col-lg-4" ng-repeat="venue in data track by $index" >
+                    <div class="panel b-a">
+                        <div class="panel-heading no-border bg-primary">          
+                            <span class="text-lt">{{venue.overview.title}}</span>
+                        </div>
+                        <div class="item m-l-n-xxs m-r-n-xxs">
+                            <div ng-init="x = 3" class="top text-right padder m-t-xs w-full">
+                                <rating ng-model="x" max="5" state-on="'fa fa-star text-white'" state-off="'fa fa-star-o text-white'"></rating>
+                            </div>
+
+                            <div class="bottom wrapper bg-gd-dk text-white">            
+                                <div>{{venue.overview.title}}</div>
+                                <div>9:00 am - 12:00 pm</div>
+                            </div>
+                            <img src="img/c0.jpg" class="img-full"/>
+                        </div>
+                        <div class="hbox text-center b-b b-light text-sm">          
+                            <a href ng-click="remove(venue.id, $index, $event)" class="col padder-v text-muted b-r b-light">
+                                <i class="icon-call-end block m-b-xs fa-2x"></i>
+                                <span>Remove</span>
+                            </a>
+                            <a href class="col padder-v text-muted b-r b-light">
+                                <i class="icon-pointer block m-b-xs fa-2x"></i>
+                                <span>Location</span>
+                            </a>
+                            <a ui-sref="app.venues.edit({venueId:venue.id})"
+                               class="col padder-v text-muted">
+                                <i class="icon-link block m-b-xs fa-2x"></i>
+                                <span>Open</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-md-4 col-lg-3">
+
+            <div data-ng-include="'tpl/blocks/venuesHelpAside.html'">
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+</div>

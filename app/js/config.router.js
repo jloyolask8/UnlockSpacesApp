@@ -1,0 +1,261 @@
+'use strict';
+
+/**
+ * Config for the router
+ */
+angular.module('app')
+        .run(
+                ['$rootScope', '$state', '$stateParams',
+                    function ($rootScope, $state, $stateParams) {
+                        $rootScope.$state = $state;
+                        $rootScope.$stateParams = $stateParams;
+                        $rootScope.appStarted = new Date();
+                    }
+                ]
+                )
+        .config(
+                ['$stateProvider', '$urlRouterProvider', 'JQ_CONFIG',
+                    function ($stateProvider, $urlRouterProvider, JQ_CONFIG) {
+
+                        $urlRouterProvider
+                                .otherwise('/app/ui/search');
+                        $stateProvider
+                                .state('app', {
+                                    abstract: true,
+                                    url: '/app',
+                                    templateUrl: 'tpl/app.html'
+                                })
+
+                                // pages
+                                .state('app.page', {
+                                    url: '/page',
+                                    template: '<div ui-view class="fade-in-down"></div>'
+                                })
+                                // others
+                                .state('lockme', {
+                                    url: '/lockme',
+                                    templateUrl: 'tpl/signin/page_lockme.html'
+                                })
+
+                                .state('access', {
+                                    url: '/access',
+                                    template: '<div ui-view class="fade-in-right-big smooth"></div>'
+                                })
+                                .state('access.signin', {
+                                    url: '/signin',
+                                    templateUrl: 'tpl/signin/signin.html',
+                                    controller: 'LoginCtrl',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load(['tpl/signin/signin.js']);
+                                            }]
+                                    }
+                                })
+                                .state('access.signup', {
+                                    url: '/signup',
+                                    templateUrl: 'tpl/signin/signup.html',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load(['js/app/signin/signup.js']);
+                                            }]
+                                    }
+                                })
+                                .state('access.forgotpwd', {
+                                    url: '/forgotpwd',
+                                    templateUrl: 'tpl/signin/forgotpwd.html'
+                                })
+                                .state('access.404', {
+                                    url: '/404',
+                                    templateUrl: 'tpl/page_404.html'
+                                })
+                                .state('app.page.profile', {
+                                    url: '/profile',
+                                    templateUrl: 'tpl/user_profile/profile.html',
+                                    data: {requiresLogin: true}
+                                })
+                                .state('app.ui', {
+                                    url: '/ui',
+                                    template: '<div ui-view class="fade-in-up"></div>'
+                                })
+
+                                .state('app.ui.portlet', {
+                                    url: '/portlet',
+                                    templateUrl: 'tpl/ui_portlet.html'
+                                })
+
+                                // form
+                                .state('app.venues', {
+                                    url: '/venues',
+                                    template: '<div ui-view class="fade-in"></div>',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load(['tpl/venues/venues.js'
+                                                            , 'tpl/venues/faq.js'
+                                                ]);
+                                            }]
+                                    }
+                                })
+                                .state('app.venues.list', {
+                                    url: '/list',
+                                    templateUrl: 'tpl/venues/list.html',
+                                    controller: 'VenuesListController',
+                                    controllerAs: 'venuesListCtrl',
+                                    data: {requiresLogin: true}
+                                })
+
+                                .state('app.venues.edit', {
+                                    url: '/{venueId:[0-9]{1,20}}/edit',
+                                    templateUrl: 'tpl/venues/edit.html',
+                                    controller: 'VenueEditController',
+                                    data: {requiresLogin: true}
+                                })
+
+                                .state('app.venues.create', {
+                                    url: '/create',
+                                    templateUrl: 'tpl/venues/create.html',
+                                    controller: 'VenuesCreateController',
+                                    controllerAs: 'venuesCreateCtrl',
+                                    data: {requiresLogin: true}
+                                })
+
+                                // form
+                                .state('app.form', {
+                                    url: '/form',
+                                    template: '<div ui-view class="fade-in"></div>',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load('js/controllers/form.js');
+                                            }]
+                                    }
+                                })
+
+                                .state('app.form.wizard', {
+                                    url: '/wizard',
+                                    templateUrl: 'tpl/form_wizard.html'
+                                })
+
+//                                .state('app.ui.search', {
+//                                    url: '/search',
+//                                    templateUrl: 'tpl/search/searchMapList.html',
+//                                    resolve: {
+//                                        deps: ['uiLoad',
+//                                            function (uiLoad) {
+//                                                return uiLoad.load([
+//                                                    'js/app/map/load-google-maps.js',
+//                                                    'js/app/map/ui-map.js',
+//                                                    'js/app/map/map.js']).then(
+//                                                        function () {
+//                                                            return loadGoogleMaps();
+//                                                        }
+//                                                );
+//                                            }]
+//                                    }
+//                                })
+
+                                .state('app.ui.search', {
+                                    url: '/search',
+                                    templateUrl: 'tpl/search/search.html',
+                                })
+
+//                                .state('app.ui.googlemap', {
+//                                    url: '/googlemap',
+//                                    templateUrl: 'tpl/ui_googlemap.html',
+//                                    resolve: {
+//                                        deps: ['uiLoad',
+//                                            function (uiLoad) {
+//                                                return uiLoad.load([
+//                                                    'js/app/map/load-google-maps.js',
+//                                                    'js/app/map/ui-map.js',
+//                                                    'js/app/map/map.js']).then(
+//                                                        function () {
+//                                                            return loadGoogleMaps();
+//                                                        }
+//                                                );
+//                                            }]
+//                                    }
+//                                })
+                                // mail
+                                .state('app.mail', {
+                                    abstract: true,
+                                    url: '/mail',
+                                    templateUrl: 'tpl/mail.html',
+                                    // use resolve to load other dependences
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load(['js/app/mail/mail.js',
+                                                    'js/app/mail/mail-service.js',
+                                                    JQ_CONFIG.moment]);
+                                            }]
+                                    }
+                                })
+                                .state('app.mail.list', {
+                                    url: '/inbox/{fold}',
+                                    templateUrl: 'tpl/mail.list.html'
+                                })
+                                .state('app.mail.detail', {
+                                    url: '/{mailId:[0-9]{1,4}}',
+                                    templateUrl: 'tpl/mail.detail.html'
+                                })
+                                .state('app.mail.compose', {
+                                    url: '/compose',
+                                    templateUrl: 'tpl/mail.new.html'
+                                })
+                                .state('app.dashboard', {
+                                    url: '/dashboard',
+                                    templateUrl: 'tpl/dashboard/dashboard.html',
+                                    resolve: {
+                                        deps: ['$ocLazyLoad',
+                                            function ($ocLazyLoad) {
+                                                return $ocLazyLoad.load(['js/controllers/chart.js', 'js/app/todo/todo.js',
+                                                    JQ_CONFIG.moment]);
+                                            }]
+                                    }
+                                })
+                                .state('app.dashboard-v1', {
+                                    url: '/dashboard-v1',
+                                    templateUrl: 'tpl/app_dashboard_v1.html',
+                                    resolve: {
+                                        deps: ['$ocLazyLoad',
+                                            function ($ocLazyLoad) {
+                                                return $ocLazyLoad.load(['js/controllers/chart.js']);
+                                            }]
+                                    }
+                                })
+                                .state('app.dashboard-v2', {
+                                    url: '/dashboard-v2',
+                                    templateUrl: 'tpl/app_dashboard_v2.html',
+                                    resolve: {
+                                        deps: ['$ocLazyLoad',
+                                            function ($ocLazyLoad) {
+                                                return $ocLazyLoad.load(['js/controllers/chart.js']);
+                                            }]
+                                    }
+                                })
+
+                                .state('app.todo', {
+                                    url: '/todo',
+                                    templateUrl: 'tpl/apps_todo.html',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load(['js/app/todo/todo.js',
+                                                    JQ_CONFIG.moment]);
+                                            }]
+                                    }
+                                })
+                                .state('app.todo.list', {
+                                    url: '/{fold}'
+                                })
+
+
+                                ;
+
+
+                    }
+                ]
+                );

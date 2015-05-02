@@ -1,0 +1,15 @@
+<div ng-controller="winTemplateCtrl" style="white-space:nowrap">
+    <div class="map-bubble-header" ng-cloak>
+        <div class="flex-row flex-gutter" ng-cloak>
+            <!-- ngIf: windowList[0].venue.category --><div class="flex-cell-auto flex-align--middle ng-scope" ng-cloak>
+                <span class="pill pill--stroke pill--light pill--sm text-upper ng-binding" ng-cloak>HUB</span>
+            </div><!-- end ngIf: windowList[0].venue.category -->
+            <div class="flex-cell text-overflow-dot flex-align--middle" ng-cloak>
+                <p class="text-link text-light text-cap ng-binding" ng-cloak>{{parameter.title}}</p>
+            </div>
+            <div class="flex-cell-auto flex-align--middle text-right ng-binding" ng-cloak>
+                <i aria-hidden="true" class="icon icon-compass-circle" ng-cloak></i> {{parameter.distance}}
+            </div>
+        </div>
+    </div>
+</div>
