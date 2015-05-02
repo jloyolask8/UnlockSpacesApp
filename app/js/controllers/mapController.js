@@ -12,11 +12,11 @@
     mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, spacesService) {
 
         var iconimg = {
-            url: './images/Map-Marker-Marker-Outside-Chartreuse-icon.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
+            url: './img/Map-Marker-Marker-Outside-Chartreuse-icon.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
             //scaledSize: new google.maps.Size(48, 48), // size
         };
         var iconimghightlight = {
-            url: './images/Map-Marker-Marker-Outside-Pink-icon.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
+            url: './img/Map-Marker-Marker-Outside-Pink-icon.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
             //scaledSize: new google.maps.Size(48, 48), // size
         };
         /**
@@ -61,7 +61,7 @@
 
         var setMapValues = function (map) {
             $scope.map = {
-                windowTemplate: "venue-small-window.html",
+                windowTemplate: "tpl/blocks/venue-small-window.html",
                 windowParameter: function (marker) {
                     return marker;
                 },
