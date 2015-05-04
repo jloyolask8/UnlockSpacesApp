@@ -51,23 +51,23 @@
             .config(['$httpProvider', function ($httpProvider) {
                     $httpProvider.interceptors.push(['$rootScope', '$q', '$window', 'httpBuffer', function ($rootScope, $q, $window, httpBuffer) {
                             return {
-                                request: function (config) {
-                                    config.headers = config.headers || {};
-//                                    alert("sending request " + config.method + " " + config.url);
-                                    if ($window.sessionStorage.auth_token) {
-                                        config.headers.auth_token = $window.sessionStorage.auth_token;
-                                    }
-                                    return config;
-                                },
-                                response: function (response) {
-//                                    if (response.status === 401) {
-//                                        alert("server says you are not auth to see that " + response.status);
-                                    // handle the case where the user is not authenticated
-//                                    }else{
-//                                        alert("got response " + " " + response.status);
+//                                request: function (config) {
+//                                    config.headers = config.headers || {};
+////                                    alert("sending request " + config.method + " " + config.url);
+//                                    if ($window.sessionStorage.auth_token) {
+//                                        config.headers.auth_token = $window.sessionStorage.auth_token;
 //                                    }
-                                    return response || $q.when(response);
-                                },
+//                                    return config;
+//                                },
+//                                response: function (response) {
+////                                    if (response.status === 401) {
+////                                        alert("server says you are not auth to see that " + response.status);
+//                                    // handle the case where the user is not authenticated
+////                                    }else{
+////                                        alert("got response " + " " + response.status);
+////                                    }
+//                                    return response || $q.when(response);
+//                                },
                                 responseError: function (rejection) {
                                     if (!rejection.config.ignoreAuthModule) {
                                         switch (rejection.status) {

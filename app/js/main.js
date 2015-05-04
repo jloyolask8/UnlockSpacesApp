@@ -8,6 +8,15 @@ angular.module('app')
 
             $scope.auth = auth;
 
+            $scope.isUserAuthenticated = function () {
+
+                if (store.get('profile')) {
+                    return true;
+                }else{
+                    return false;
+                }
+            };
+
             $scope.$watch('auth.profile', function (profile) {
                 if (!profile) {
                     return;
@@ -38,11 +47,16 @@ angular.module('app')
                 }
             });
 
-//            $scope.$on('event:auth-loginRequired', function () {
-//                $state.go('access.signin');
-//            });
-//            $scope.$on('event:auth-loginConfirmed', function () {
-//            });
+            $scope.$on('event:auth-loginRequired', function () {
+                $state.go('access.signin');
+            });
+
+            $scope.$on('event:auth-forbidden', function () {
+                alert('forbidden');
+            });
+
+            $scope.$on('event:auth-loginConfirmed', function () {
+            });
 
             // config
             $scope.app = {

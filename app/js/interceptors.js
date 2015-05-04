@@ -27,7 +27,7 @@ angular.module('httpInterceptors', [])
                 return responsePromise.then(null, function (errResponse) {
                     alert(errResponse.status);
                     if (errResponse.status === 503) {
-                        alert('503');
+                        alert('503 i could retry here!');
                         //503. The server is currently unavailable (because it is overloaded or down for maintenance).
                         //Generally, this is a temporary state.
 //                        return $injector.get('$http')(errResponse.config);

@@ -52,8 +52,9 @@
           <li class="hidden-xs">
             <a ui-fullscreen></a>
           </li>
-          <li class="dropdown" dropdown ng-if="auth.profile !== null">
-            <a href class="dropdown-toggle" dropdown-toggle>
+          <li class="dropdown" dropdown ng-if="isUserAuthenticated()">
+              
+              <a href class="dropdown-toggle" dropdown-toggle title="{{auth.profile}}">
               <i class="icon-bell fa-fw"></i>
               <span class="visible-xs-inline">Notifications</span>
               <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
@@ -89,7 +90,7 @@
             </div>
             <!-- / dropdown -->
           </li>
-          <li class="dropdown" dropdown ng-if="auth.profile !== null">
+          <li class="dropdown" dropdown ng-if="isUserAuthenticated()">
             <a href class="dropdown-toggle clear" dropdown-toggle>
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
                 <img ng-src="{{auth.profile.picture}}" alt="..."/>

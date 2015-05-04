@@ -13,6 +13,13 @@
     "NOTIFICATIONS" : "Notifications"
   }
 },
+"dashboard" : {
+    "DASHBOARD" : "Dashboard",
+    "customersQty" : "Clientes",
+    "reservationsQty" : "Reservas",
+    "spacesQty" : "Espacios",
+    "venuesQty" : "Lugares"
+},
 "aside" : {
   "nav" : {
     "LOGINMSG": "Log in/Sign up",
@@ -20,6 +27,7 @@
     "EDITSPACES" : "Your Listings",
     "HEADER" : "Navigation",
     "DASHBOARD" : "Dashboard",
+    "TODOS": "To-Do",
     "CALENDAR" : "Calendar",
     "EMAIL" : "Inbox",
     "WIDGETS" : "Widgets",

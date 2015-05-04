@@ -19,6 +19,7 @@ angular.module('app')
 
                         $urlRouterProvider
                                 .otherwise('/app/ui/search');
+
                         $stateProvider
                                 .state('app', {
                                     abstract: true,
@@ -26,55 +27,6 @@ angular.module('app')
                                     templateUrl: 'tpl/app.html'
                                 })
 
-                                // pages
-                                .state('app.page', {
-                                    url: '/page',
-                                    template: '<div ui-view class="fade-in-down"></div>'
-                                })
-                                // others
-                                .state('lockme', {
-                                    url: '/lockme',
-                                    templateUrl: 'tpl/signin/page_lockme.html'
-                                })
-
-                                .state('access', {
-                                    url: '/access',
-                                    template: '<div ui-view class="fade-in-right-big smooth"></div>'
-                                })
-                                .state('access.signin', {
-                                    url: '/signin',
-                                    templateUrl: 'tpl/signin/signin.html',
-                                    controller: 'LoginCtrl',
-                                    resolve: {
-                                        deps: ['uiLoad',
-                                            function (uiLoad) {
-                                                return uiLoad.load(['tpl/signin/signin.js']);
-                                            }]
-                                    }
-                                })
-                                .state('access.signup', {
-                                    url: '/signup',
-                                    templateUrl: 'tpl/signin/signup.html',
-                                    resolve: {
-                                        deps: ['uiLoad',
-                                            function (uiLoad) {
-                                                return uiLoad.load(['js/app/signin/signup.js']);
-                                            }]
-                                    }
-                                })
-                                .state('access.forgotpwd', {
-                                    url: '/forgotpwd',
-                                    templateUrl: 'tpl/signin/forgotpwd.html'
-                                })
-                                .state('access.404', {
-                                    url: '/404',
-                                    templateUrl: 'tpl/page_404.html'
-                                })
-                                .state('app.page.profile', {
-                                    url: '/profile',
-                                    templateUrl: 'tpl/user_profile/profile.html',
-                                    data: {requiresLogin: true}
-                                })
                                 .state('app.ui', {
                                     url: '/ui',
                                     template: '<div ui-view class="fade-in-up"></div>'
@@ -252,6 +204,59 @@ angular.module('app')
                                     url: '/{fold}'
                                 })
 
+
+                                // others
+                                .state('lockme', {
+                                    url: '/lockme',
+                                    templateUrl: 'tpl/signin/page_lockme.html'
+                                })
+
+                                // pages
+                                .state('app.page', {
+                                    url: '/page',
+                                    template: '<div ui-view class="fade-in-down"></div>'
+                                })
+
+                                .state('app.page.profile', {
+                                    url: '/profile',
+                                    templateUrl: 'tpl/user_profile/profile.html',
+                                    data: {requiresLogin: true}
+                                })
+
+
+                                .state('access', {
+                                    url: '/access',
+                                    template: '<div ui-view class="fade-in-right-big smooth"></div>'
+                                })
+                                .state('access.signin', {
+                                    url: '/signin',
+                                    templateUrl: 'tpl/signin/signin.html',
+                                    controller: 'LoginCtrl',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load(['tpl/signin/signin.js']);
+                                            }]
+                                    }
+                                })
+                                .state('access.signup', {
+                                    url: '/signup',
+                                    templateUrl: 'tpl/signin/signup.html',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load(['js/app/signin/signup.js']);
+                                            }]
+                                    }
+                                })
+                                .state('access.forgotpwd', {
+                                    url: '/forgotpwd',
+                                    templateUrl: 'tpl/signin/forgotpwd.html'
+                                })
+                                .state('access.404', {
+                                    url: '/404',
+                                    templateUrl: 'tpl/page_404.html'
+                                })
 
                                 ;
 
