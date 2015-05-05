@@ -30,9 +30,19 @@ var app =
                 loginState: 'access.signin'
             });
 
-            jwtInterceptorProvider.tokenGetter = function (store) {
-                return store.get('token');//TODO: note i use auth_token
-            };
+//            jwtInterceptorProvider.tokenGetter = function (store) {
+//                return store.get('token');//TODO: note i use auth_token
+//            };
+
+            jwtInterceptorProvider.tokenGetter = ['config', 'store', function (config, store) {
+                    // Skip authentication for any requests ending in .html
+                    if (config.url.indexOf('api.cloudinary.com') === -1) {
+                        return null;
+                    }
+
+                    return store.get('token');
+//                    return localStorage.getItem('token');
+                }];
 
             // Add a simple interceptor that will fetch all requests and add the jwt token to its authorization header.
             // NOTE: in case you are calling APIs which expect a token signed with a different secret, you might
