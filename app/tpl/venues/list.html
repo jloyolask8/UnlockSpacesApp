@@ -34,7 +34,9 @@
                                 <div>{{venue.overview.title}}</div>
                                 <div>9:00 am - 12:00 pm</div>
                             </div>
-                            <img src="img/c0.jpg" class="img-full"/>
+                            <cl-image public-id="{{venue.frontPhoto.cloudinaryUrl1}}" class="img-full" width="238" crop="scale">
+                                </cl-image>
+                            
                         </div>
                         <div class="hbox text-center b-b b-light text-sm">          
                             <a href ng-click="remove(venue.id, $index, $event)" class="col padder-v text-muted b-r b-light">

@@ -32,3 +32,67 @@
 .login-page .login-box {
   padding: 100px 0;
 }
+
+.button {
+    -moz-appearance: button;
+    /* Firefox */
+    -webkit-appearance: button;
+    /* Safari and Chrome */
+    padding: 10px;
+    margin: 10px;
+    width: 70px;
+}
+
+.upload_button_holder {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.upload_button {
+    display: inline-block;
+    position: relative;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: rgb(15, 97, 172);
+    color: #fff;
+    padding: 5px 0;
+    border: 1px solid #000;
+    border-radius: 4px;
+    width: 100px;
+    height: 18px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.upload_button_holder .upload_button {
+    display: block;
+} 
+
+.upload_button:hover {
+    background-color: rgb(17, 133, 240);
+}
+.upload_button_holder .cloudinary_fileupload {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+.progress-bar{
+  width: 100px;
+  position: relative;
+  height: 4px;
+}
+.progress-bar .progress{
+  height: 4px;
+  background-color: #ff0000;
+  width: 0%;
+}

@@ -58,11 +58,12 @@ app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Ve
 
     }]);
 
-app.controller('VenueEditController', ['REST_CONFIG', '$scope', '$rootScope', '$http', '$state', 'Venues', '$stateParams', '$upload',
-    function (REST_CONFIG, $scope, $rootScope, $http, $state, Venues, $stateParams, $upload) {
+app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootScope', '$http', '$state', 'Venues', '$stateParams', 'Upload',
+    function (REST_CONFIG, $log, $scope, $rootScope, $http, $state, Venues, $stateParams, Upload) {
 
         var that = this;
         $scope.space = {};
+        $scope.uploadingImages = false;
         $scope.editSpaceMode = false;
         $scope.selectedVenue = {};
         $scope.addressDetails = '';
@@ -84,38 +85,49 @@ app.controller('VenueEditController', ['REST_CONFIG', '$scope', '$rootScope', '$
                 }
         );
 
-//
-//        $scope.$watch('addressDetails.geometry.location.A', function (old, newv) {
-//              console.log('addressDetails a watched ' + old + " " + newv);
-//        });
+        //
+        //        $scope.$watch('addressDetails.geometry.location.A', function (old, newv) {
+        //              console.log('addressDetails a watched ' + old + " " + newv);
+        //        });
 
-
-        $scope.$watch('files', function () {
-            if (!$scope.files)
-                return;
-            $scope.files.forEach(function (file) {
-                alert('uploading file ' + file);
-                $scope.upload = $upload.upload({
-                    url: "https://api.cloudinary.com/v1_1/" + $.cloudinary.config().cloud_name + "/upload",
-                    data: {upload_preset: $.cloudinary.config().upload_preset, tags: 'myphotoalbum', context: 'photo=' + $scope.title},
+        $scope.selectedFile ={
+            progress: 0
+        };
+    
+        $scope.uploadImages = function (files) {
+            var imagesToUpload = files;
+            for (var i = 0; i < imagesToUpload.length; i++) {
+                var file = imagesToUpload[i];
+                $log.info('uploading file ' + file.name);
+                var serviceUrl = "https://api.cloudinary.com/v1_1/" + $.cloudinary.config().cloud_name + "/upload";
+                $log.info("serviceUrl: " + serviceUrl);
+                $scope.upload = Upload.upload({
+                    url: serviceUrl,
+                    fields: {upload_preset: $.cloudinary.config().upload_preset, tags: 'myphotoalbum', context: 'photo=' + $scope.title},
                     file: file
                 }).progress(function (e) {
-                    file.progress = Math.round((e.loaded * 100.0) / e.total);
-                    file.status = "Uploading... " + file.progress + "%";
+                    $scope.selectedFile.progress = Math.round((e.loaded * 100.0) / e.total);
+                    $scope.selectedFile.status = "Uploading... " + $scope.selectedFile.progress + "%";
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
                 }).success(function (data, status, headers, config) {
-                    $rootScope.photos = $rootScope.photos || [];
+//                    $rootScope.photos = $rootScope.photos || [];
                     data.context = {custom: {photo: $scope.title}};
-                    file.result = data;
-                    $rootScope.photos.push(data);
+                    $scope.selectedFile.result = data;
+                    $scope.selectedVenue.frontPhoto = {cloudinaryUrl1: data.public_id};
+                    $scope.selectedFile.status = "Imagen lista!";
+//                    $rootScope.photos.push(data);
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
+                    $scope.selectedFile.progress = 0;
+                }).error(function(){
+                    $scope.selectedFile.status = "Ups, no hemos podido subir la imagen, prueba otra vez!";
+                    $scope.selectedFile.progress = 0;
                 });
-            });
-        });
+            }
+        };
 
         /* Modify the look and fill of the dropzone when files are being dragged over it */
         $scope.dragOverClass = function ($event) {

@@ -1,3 +1,4 @@
+
 <div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3">{{selectedVenue.overview.title}}</h1>
 </div>
@@ -6,8 +7,8 @@
 <div class="wrapper-md">
 
     <div class="row">
-        
-     
+
+
 
         <div class="col-md-8 col-lg-9">
             <div class="row">
@@ -22,7 +23,7 @@
                             <input type="text" id="city" ng-model="selectedVenue.address.city" class="form-control" 
                                    ng-autocomplete options="autocompleteCityOptions" details="autocompleteCityDetails"
                                    />
-                            
+
                             <p>Postal code:</p>
                             <input type="text" name="postalcode" class="form-control" ng-model="selectedVenue.address.postalCode" 
                                    required ng-change="step1.postalcode.$valid ? (steps.percent=20) : (steps.percent = 20)"/>
@@ -31,8 +32,8 @@
                             <input type="text" name="addressline1" class="form-control" ng-model="selectedVenue.address.line1" 
                                    ng-autocomplete options="autocompleteAddressOptions" details="addressDetails"
                                    required ng-change="selectedVenue.address.latitud = addressDetails.geometry.location.A;
-                                   selectedVenue.address.longitud = addressDetails.geometry.location.F"/>
-                            
+                                           selectedVenue.address.longitud = addressDetails.geometry.location.F"/>
+
                             {{addressDetails.geometry.location.A}}-{{addressDetails.geometry.location.F}}
 
                             <p>Contact Phone Number</p>
@@ -78,49 +79,46 @@
 
                             <p class="m-t">Currency</p>
 
-                            <p class="headline headline-light">Venue photos</p>
+                            <p class="headline headline-light">Venue images</p>
 
+                            <div class="form_line">
+                                <label path="title">Image title:</label>
+                                <div class="form_controls">
+                                    <input type="text" class="form-control" placeholder="Title" ng-model="title"/>
+                                </div>
+                            </div>
                             <div id="direct_upload" 
-                                 ng-file-drop
-                                 ng-file-drag-over-class="dragOverClass($event)"
-                                 ng-model="files"
-                                 ng-multiple="true">
-                                <h2>Direct upload from the browser with Angular File Upload</h2>
+                                 ngf-drag-over-class="dragOverClass($event)"
+                                 ngf-drop="uploadImages($files)"
+                                 
+                                 >
+                                <!--                                <h2>Direct upload from the browser with Angular File Upload</h2>-->
                                 <p>You can also drag and drop an image file into the dashed area.</p>
-                                    <div class="form_line">
-                                        <label path="title">Title:</label>
-                                        <div class="form_controls">
-                                            <input type="text" class="form-control" placeholder="Title" ng-model="title"/>
-                                        </div>
-                                    </div>
-                                    <div class="form_line">
-                                        <label>Image:</label>
-                                        <div class="form_controls">
-                                            <div class="upload_button_holder">
-                                                <div href="#" class="upload_button" ng-file-select ng-multiple="true" 
-                                                     title="upload" resetOnClick="true" ng-model="files">Upload</div>
-                                            </div>
 
+                                <div class="form_line">
+                                    <!--<label>Image:</label>-->
+                                    <!--<div class="upload_button" style="height: 30px;" ng-file-select="uploadImages($files)" data-multiple="false">Select file</div>-->
+                                    <div class="form_controls">
+                                        <div class="upload_button_holder">
+                                            <div href="#" class="upload_button" style="height: 30px;" ngf-select="uploadImages($files)" ng-multiple="false" 
+                                                 title="upload" resetOnClick="true">Select file</div>
                                         </div>
+
                                     </div>
-                                <h2>Status</h2>
-                                <div class="file" ng-repeat="file in files">
-                                    <h3>{{file.name}}</h3>
-                                    <div class="status">{{file.status}}</div>
-                                    <div class="progress-bar">
-                                        <div class="progress" style="width: {{file.progress}}%" ng-init="progress = 0"></div>
+                                    <!--<input type="button" value="do it!!" ng-click="uploadImages()"/>-->
+                                </div>
+                                <!--<h2>Status</h2>-->
+                                <!--<h2>{{files}}</h2>-->
+                                <div class="file">
+                                    <h3>{{selectedFile.name}}</h3>
+                                    <div class="status">{{selectedFile.status}}</div>
+                                    <div class="progress-bar" style="background-color: rgba(0,0,0,0.2); width: 100%; height: 6px;">
+                                        <div class="progress" style="background-color: green; height: 6px; width: {{selectedFile.progress}}%" ></div>
                                     </div>
                                     <div class="form_line">
                                         <div class="form_controls">
                                             <div class="preview"></div>
                                         </div>
-                                    </div>
-                                    <div class="info">
-                                        <table>
-                                            <tr ng-repeat="(key, value) in file.result">
-                                                <td> {{key}} </td> <td> {{ value}} </td>
-                                            </tr>
-                                        </table>
                                     </div>
                                 </div>
 
@@ -168,8 +166,8 @@
                                                 <div>{{space.overview.summary}}</div>
                                                 <div>9:00 am - 12:00 pm</div>
                                             </div>
-                                             <cl-image public-id="{{space.frontPhoto.cloudinaryUrl1}}"  class="img-full"
-                                                       width="238" crop="scale" format="jpg">
+                                            <cl-image public-id="{{space.frontPhoto.cloudinaryUrl1}}"  class="img-full"
+                                                      width="238" crop="scale" format="jpg">
                                             </cl-image>
                                         </div>
                                         <div class="hbox text-center b-b b-light text-sm">          
@@ -301,6 +299,4 @@
 
 
 </div>
-
-
 

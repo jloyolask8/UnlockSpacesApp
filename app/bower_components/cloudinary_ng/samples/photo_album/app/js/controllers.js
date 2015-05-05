@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-var photoAlbumControllers = angular.module('photoAlbumControllers', ['angularFileUpload']);
+var photoAlbumControllers = angular.module('photoAlbumControllers', ['ngFileUpload']);
 
 photoAlbumControllers.controller('photoUploadCtrlJQuery', ['$scope', '$rootScope', '$routeParams', '$location',
   /* Uploading with jQuery File Upload */
