@@ -35,8 +35,8 @@ var app =
 //            };
 
             jwtInterceptorProvider.tokenGetter = ['config', 'store', function (config, store) {
-                    // Skip authentication for any requests ending in .html
-                    if (config.url.indexOf('api.cloudinary.com') === -1) {
+                    // Skip authentication for any requests to api.cloudinary.com
+                    if (config.url.indexOf('api.cloudinary.com') !== -1) {
                         return null;
                     }
 

@@ -1,5 +1,10 @@
 <div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3">Add/Edit venues  </h1>
+    <a ui-sref="app.venues.create" href="#/app/venues/create" class="flex-align--middle">
+                            <i class="glyphicon glyphicon-plus icon text-info-dker"></i>
+                            <span class="font-bold">Add Venue</span>
+
+                    </a>
 </div>
 <div class="wrapper-md">
 
@@ -7,19 +12,6 @@
 
         <div class="col-md-8 col-lg-9">
             <div class="row">
-                <div class="col-md-4 col-lg-3">
-                    <a ui-sref="app.venues.create" href="#/app/venues/create">
-                        <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
-                            <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
-                            <span class="font-bold">Add Venue</span>
-
-                        </div>
-                    </a>
-
-
-                </div>
-
-
                 <div class="col-md-4 col-lg-4" ng-repeat="venue in data track by $index" >
                     <div class="panel b-a">
                         <div class="panel-heading no-border bg-primary">          
@@ -38,7 +30,7 @@
                         </div>
                         <div class="hbox text-center b-b b-light text-sm">          
                             <a href ng-click="remove(venue.id, $index, $event)" class="col padder-v text-muted b-r b-light">
-                                <i class="icon-call-end block m-b-xs fa-2x"></i>
+                                <i class="fa fa-trash block m-b-xs fa-2x"></i>
                                 <span>Remove</span>
                             </a>
                             <a href class="col padder-v text-muted b-r b-light">
@@ -47,13 +39,16 @@
                             </a>
                             <a ui-sref="app.venues.edit({venueId:venue.id})"
                                class="col padder-v text-muted">
-                                <i class="icon-link block m-b-xs fa-2x"></i>
-                                <span>Open</span>
+                                <i class="fa fa-edit block m-b-xs fa-2x"></i>
+                                <span>Edit</span>
                             </a>
                         </div>
 
                     </div>
                 </div>
+
+
+                   
 
 
             </div>
