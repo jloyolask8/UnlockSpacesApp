@@ -3,14 +3,14 @@
 "header" : {
   "navbar" : {
     "UPLOAD" : "Upload",
+    "NOTIFICATIONS" : "Notificaciones",
     "new" : {
       "NEW" : "New",
       "PROJECT" : "Projects",
       "TASK" : "Task",
       "USER" : "User",
       "EMAIL" : "Email"
-    },
-    "NOTIFICATIONS" : "Notificaciones"
+    }
   }
 },
 "dashboard" : {
@@ -27,7 +27,7 @@
       "EDITSPACES" : "Mis espacios",
     "HEADER" : "Navigation",
     "DASHBOARD" : "Dashboard",
-    "TODOS": "Tareas por hacer",
+    "TODO": "Tareas por hacer",
     "CALENDAR" : "Calendario",
     "EMAIL" : "Inbox",
     "WIDGETS" : "Widgets",
