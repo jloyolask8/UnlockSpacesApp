@@ -90,11 +90,15 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
         //              console.log('addressDetails a watched ' + old + " " + newv);
         //        });
 
-        $scope.selectedFile ={
+        $scope.selectedFile = {
             progress: 0
         };
-    
-        $scope.uploadImages = function (files) {
+
+        $scope.selectedSpaceFile = {
+            progress: 0
+        };
+
+        $scope.uploadImages = function (files, isvenue) {
             var imagesToUpload = files;
             for (var i = 0; i < imagesToUpload.length; i++) {
                 var file = imagesToUpload[i];
@@ -115,14 +119,18 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
 //                    $rootScope.photos = $rootScope.photos || [];
                     data.context = {custom: {photo: $scope.title}};
                     $scope.selectedFile.result = data;
-                    $scope.selectedVenue.frontPhoto = {cloudinaryUrl1: data.public_id};
+                    if (isvenue) {
+                        $scope.selectedVenue.frontPhoto = {cloudinaryUrl1: data.public_id};
+                    } else {
+                        $scope.space.frontPhoto = {cloudinaryUrl1: data.public_id};
+                    }
                     $scope.selectedFile.status = "Imagen lista!";
 //                    $rootScope.photos.push(data);
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
                     $scope.selectedFile.progress = 0;
-                }).error(function(){
+                }).error(function () {
                     $scope.selectedFile.status = "Ups, no hemos podido subir la imagen, prueba otra vez!";
                     $scope.selectedFile.progress = 0;
                 });
@@ -145,10 +153,6 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
             }
             return hasFile ? "dragover" : "dragover-err";
         };
-
-
-
-
 
         $scope.addNewSpace = function () {
 
@@ -184,6 +188,22 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
                 $scope.selectedVenue.spaces[$scope.spaceIndex] = $scope.space;
             }
 
+//            $http.put(REST_CONFIG.baseUrl + 'spaces' + '/' + $scope.space.id, $scope.space)
+//                    .success(function (data, status, headers) {
+//
+//                        $scope.headers = headers;
+//                        $scope.data = data;
+//                        $scope.status = status;
+//                    })
+//                    .error(function (data, status) {
+//                        $scope.data = data || "Request failed";
+//                        $scope.status = status;
+//                        if (status === 0) {
+//                            alert("Sorry we are not able to complete the operation. Connection to the server is lost.");
+//                            return;
+//                        }
+//
+//                    });
             $scope.space = {};
             $scope.originalSpace = {};
 

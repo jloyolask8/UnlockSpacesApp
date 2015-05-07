@@ -17,6 +17,15 @@
     max-width: none;
 }
 
+.angular-google-map {
+    top: 80px;
+}
+
+/** FIX for Bootstrap and Google Maps Info window styes problem **/
+img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
+    max-width: none;
+}
+
 .custom-info-window{
     background: rgba(0,0,0,0.5);
     color: white;
@@ -68,7 +77,7 @@
     overflow-y: scroll; position: absolute; top: 0; right:0; bottom: 0; left: 0;
     background: rgba(245, 245, 245, 1);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    padding: 0px 20px 0px 20px;
+    padding: 0px 0px 0px 0px;
     z-index: 2; 
 } /* Has to be at least one increment larger in value than the Google Maps iframe z-index */
 

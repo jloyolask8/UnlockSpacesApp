@@ -87,28 +87,18 @@
                                     <input type="text" class="form-control" placeholder="Title" ng-model="title"/>
                                 </div>
                             </div>
-                            <div id="direct_upload" 
-                                 ngf-drag-over-class="dragOverClass($event)"
-                                 ngf-drop="uploadImages($files)"
-                                 
-                                 >
-                                <!--                                <h2>Direct upload from the browser with Angular File Upload</h2>-->
+                            <div id="direct_upload" ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,true)">
                                 <p>You can also drag and drop an image file into the dashed area.</p>
 
                                 <div class="form_line">
-                                    <!--<label>Image:</label>-->
-                                    <!--<div class="upload_button" style="height: 30px;" ng-file-select="uploadImages($files)" data-multiple="false">Select file</div>-->
                                     <div class="form_controls">
                                         <div class="upload_button_holder">
-                                            <div href="#" class="upload_button" style="height: 30px;" ngf-select="uploadImages($files)" ng-multiple="false" 
+                                            <div href="#" class="upload_button" style="height: 30px;" ngf-select="uploadImages($files,true)" ng-multiple="false" 
                                                  title="upload" resetOnClick="true">Select file</div>
                                         </div>
 
                                     </div>
-                                    <!--<input type="button" value="do it!!" ng-click="uploadImages()"/>-->
                                 </div>
-                                <!--<h2>Status</h2>-->
-                                <!--<h2>{{files}}</h2>-->
                                 <div class="file">
                                     <h3>{{selectedFile.name}}</h3>
                                     <div class="status">{{selectedFile.status}}</div>
@@ -121,7 +111,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <p class="headline headline-light">hours Of Operation</p>
@@ -166,9 +155,13 @@
                                                 <div>{{space.overview.summary}}</div>
                                                 <div>9:00 am - 12:00 pm</div>
                                             </div>
-                                            <cl-image public-id="{{space.frontPhoto.cloudinaryUrl1}}"  class="img-full"
-                                                      width="238" crop="scale" format="jpg">
+
+                                            <cl-image ng-show="space.frontPhoto.cloudinaryUrl1 == null" public-id="hhvzs6odg4v9wmg0qfjr" class="img-full" width="373" height="239" crop="pad">
                                             </cl-image>
+
+                                            <cl-image ng-hide="space.frontPhoto.cloudinaryUrl1 == null" public-id="{{space.frontPhoto.cloudinaryUrl1}}" class="img-full" width="373" height="239" crop="pad">
+                                            </cl-image>
+            
                                         </div>
                                         <div class="hbox text-center b-b b-light text-sm">          
                                             <a href class="col padder-v text-muted b-r b-light">
@@ -209,9 +202,39 @@
                             <textarea id="description" type="text" name="description" class="form-control" 
                                       ng-model="space.overview.summary" ></textarea>
 
-
-
                             <p>Space Type.</p>
+
+                            <div class="form_line">
+                                <label path="title">Image title:</label>
+                                <div class="form_controls">
+                                    <input type="text" class="form-control" placeholder="Title" ng-model="title"/>
+                                </div>
+                            </div>
+                            <div ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,false)">
+                                <p>You can also drag and drop an image file into the dashed area.</p>
+
+                                <div class="form_line">
+                                    <div class="form_controls">
+                                        <div class="upload_button_holder">
+                                            <div href="#" class="upload_button" style="height: 30px;" ngf-select="uploadImages($files,false)" ng-multiple="false" 
+                                                 title="upload" resetOnClick="true">Select file</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="file">
+                                    <h3>{{selectedFile.name}}</h3>
+                                    <div class="status">{{selectedFile.status}}</div>
+                                    <div class="progress-bar" style="background-color: rgba(0,0,0,0.2); width: 100%; height: 6px;">
+                                        <div class="progress" style="background-color: green; height: 6px; width: {{selectedFile.progress}}%" ></div>
+                                    </div>
+                                    <div class="form_line">
+                                        <div class="form_controls">
+                                            <div class="preview"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <p>Per hour.</p>
                             <p>Per day.</p>
