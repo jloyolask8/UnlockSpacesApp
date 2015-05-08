@@ -156,10 +156,10 @@
                                                 <div>9:00 am - 12:00 pm</div>
                                             </div>
 
-                                            <cl-image ng-show="space.frontPhoto.cloudinaryUrl1 == null" public-id="hhvzs6odg4v9wmg0qfjr" class="img-full" width="373" height="239" crop="pad">
+                                            <cl-image ng-show="space.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" class="img-full" width="373" height="239" crop="pad">
                                             </cl-image>
 
-                                            <cl-image ng-hide="space.frontPhoto.cloudinaryUrl1 == null" public-id="{{space.frontPhoto.cloudinaryUrl1}}" class="img-full" width="373" height="239" crop="pad">
+                                            <cl-image ng-hide="space.frontPhoto == null" public-id="{{space.frontPhoto}}" class="img-full" width="373" height="239" crop="pad">
                                             </cl-image>
             
                                         </div>

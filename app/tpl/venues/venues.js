@@ -120,9 +120,9 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
                     data.context = {custom: {photo: $scope.title}};
                     $scope.selectedFile.result = data;
                     if (isvenue) {
-                        $scope.selectedVenue.frontPhoto = {cloudinaryUrl1: data.public_id};
+                        $scope.selectedVenue.frontPhoto = data.public_id;
                     } else {
-                        $scope.space.frontPhoto = {cloudinaryUrl1: data.public_id};
+                        $scope.space.frontPhoto = data.public_id;
                     }
                     $scope.selectedFile.status = "Imagen lista!";
 //                    $rootScope.photos.push(data);
