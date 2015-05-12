@@ -1,3 +1,26 @@
+4.1.1
+  - Fix name of `parseInt` replacement.
+  - Update copyright year
+  - Update `eslint`, `jscs`
+  - Lock `uglify-js` down to v2.4.17, since v2.4.18 and v2.4.19 have a breaking change.
+  - All grade A-supported `node`/`iojs` versions now ship with an `npm` that understands `^`.
+  - Run `travis-ci` tests on latest `node` and `iojs`; speed up builds; allow 0.8 failures.
+  - Ensure some Object tests don't fail in ES6
+  - Make sure `Date` instances don't have an enumerable `constructor` property, when possible.
+
+4.1.0
+  - Update `eslint`
+  - Improve type checks: `Array.isArray`, `isRegex`
+  - Replace `isRegex`/`isString`/`isCallable` checks with inlined versions from npm modules
+  - Note which ES abstract methods are replaceable via `es-abstract`
+  - Run `travis-ci` tests on `iojs`!
+
+4.0.6
+  - Update `jscs`, `uglify-js`, add `eslint`
+  - es5-sham: fix Object.defineProperty to not check for own properties (#211)
+  - Fix Array#splice bug in Safari 5 (#284)
+  - Fix `Object.keys` issue with boxed primitives with extra properties in older browsers. (#242, #285)
+
 4.0.5
   - Update `jscs` so tests pass
 
