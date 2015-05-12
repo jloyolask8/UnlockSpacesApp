@@ -129,8 +129,12 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
                     } else {
                         if (isfront) {
                             $scope.space.frontPhoto = data.public_id;
-                        }else{
-                            $scope.space.photos.push(data.public_id);
+                        } else {
+                            if ($scope.space.photos instanceof Array) {
+                                $scope.space.photos.push(data.public_id);
+                            }else{
+                                $scope.space.photos = [data.public_id];
+                            }
                         }
                     }
                     $scope.selectedFile.status = "Imagen lista!";
