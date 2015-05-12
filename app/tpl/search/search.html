@@ -68,9 +68,23 @@
                                                 </div>
                                             </td>
                                             <td>
-                                        <cl-image public-id="{{space.frontPhoto}}" width="238" height="159" crop="pad">
-                                        </cl-image>
-                                        </td>
+
+                                                <figure class="changeable-picture" ng-init="visible=0">
+                                                    <div ng-show="visible === 0" style="width: 238px; height: 159px;">
+                                                        <cl-image public-id="{{space.frontPhoto}}" width="238" height="159" crop="fill">
+                                                        </cl-image>
+                                                    </div>
+                                                    <div ng-show="visible === ($index+1)" style="width: 238px; height: 159px;" ng-repeat="photo in space.photos track by $index">
+                                                        <cl-image public-id="{{photo}}"  width="238" height="159" crop="fill">
+                                                        </cl-image>
+                                                    </div>
+                                                    <figcaption ng-show="space.photos.length >0" ng-click="visible = (visible >= space.photos.length)?0:(visible + 1)"><p>mostrar siguiente</p></figcaption>
+                                                    
+                                                </figure>
+
+
+
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -85,19 +99,19 @@
 </div>
 
 <script>
-    //<![CDATA[
-    function resizeScrollPanel() {
-    var fullHeight = $(window).height() - 50;
-            $("#main-mapsearch-container").css('height', fullHeight + 'px');
-    }
-    $(document).ready(function () {
-    resizeScrollPanel();
-    });
-    var id;
-    $(window).resize(function () {
-    id = setTimeout(resizeScrollPanel, 500);
-    });
- //]]>
+            //<![CDATA[
+                    function resizeScrollPanel() {
+                    var fullHeight = $(window).height() - 50;
+                            $("#main-mapsearch-container").css('height', fullHeight + 'px');
+                    }
+            $(document).ready(function () {
+            resizeScrollPanel();
+            });
+                    var id;
+                    $(window).resize(function () {
+            id = setTimeout(resizeScrollPanel, 500);
+            });
+                    //]]>
 </script>
 <!--</div>-->
 

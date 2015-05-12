@@ -98,7 +98,7 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
             progress: 0
         };
 
-        $scope.uploadImages = function (files, isvenue) {
+        $scope.uploadImages = function (files, isvenue, isfront) {
             var imagesToUpload = files;
             for (var i = 0; i < imagesToUpload.length; i++) {
                 var file = imagesToUpload[i];
@@ -120,9 +120,18 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
                     data.context = {custom: {photo: $scope.title}};
                     $scope.selectedFile.result = data;
                     if (isvenue) {
-                        $scope.selectedVenue.frontPhoto = data.public_id;
+                        if (isfront) {
+                            $scope.selectedVenue.frontPhoto = data.public_id;
+                        } else
+                        {
+                            $scope.selectedVenue.photos.push(data.public_id);
+                        }
                     } else {
-                        $scope.space.frontPhoto = data.public_id;
+                        if (isfront) {
+                            $scope.space.frontPhoto = data.public_id;
+                        }else{
+                            $scope.space.photos.push(data.public_id);
+                        }
                     }
                     $scope.selectedFile.status = "Imagen lista!";
 //                    $rootScope.photos.push(data);
