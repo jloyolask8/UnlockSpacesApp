@@ -61,8 +61,8 @@
         $scope.blackStyle = [{"featureType": "all", "elementType": "labels.text.fill", "stylers": [{"saturation": 36}, {"color": "#000000"}, {"lightness": 40}]}, {"featureType": "all", "elementType": "labels.text.stroke", "stylers": [{"visibility": "on"}, {"color": "#000000"}, {"lightness": 16}]}, {"featureType": "all", "elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {"featureType": "administrative", "elementType": "geometry.fill", "stylers": [{"color": "#000000"}, {"lightness": 20}]}, {"featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 17}, {"weight": 1.2}]}, {"featureType": "landscape", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 20}]}, {"featureType": "poi", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 21}]}, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#000000"}, {"lightness": 17}]}, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 29}, {"weight": 0.2}]}, {"featureType": "road.arterial", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 18}]}, {"featureType": "road.local", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 16}]}, {"featureType": "transit", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 19}]}, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 17}]}];
 
         var setMapValues = function (map) {
-            
-            
+
+
             $scope.iconimg = {
                 url: './img/Map-Marker-Flat-Yellow.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
                 scaledSize: new google.maps.Size(36, 36), // size
@@ -274,18 +274,19 @@
             require: 'ngModel',
             scope: {
                 ngModel: '=',
-                options: '=?',
-                details: '=?'
+                options: '=',
+                details: '='
             },
             link: function (scope, element, attrs, controller) {
-
                 //options for autocomplete
                 var opts
                 var watchEnter = false
                 var libraryReady = false
+                var mustInitOps = false;
                 //convert options provided to opts
                 var initOpts = function () {
                     if (libraryReady) {
+                        mustInitOps = false;
                         opts = {}
                         if (scope.options) {
 
@@ -319,17 +320,13 @@
                                 scope.gPlace.setComponentRestrictions(null)
                             }
                         }
+                    } else {
+                        mustInitOps = true;
                     }
                 }
 
-                uiGmapGoogleMapApi.then(function (maps) {
-                    executeAfterLoadLibrary();
-                    libraryReady = true;
-                    initOpts();
-                });
-
                 var executeAfterLoadLibrary = function () {
-                    if (scope.gPlace == undefined) {
+                    if (scope.gPlace === undefined) {
                         scope.gPlace = new google.maps.places.Autocomplete(element[0], {});
                     }
                     google.maps.event.addListener(scope.gPlace, 'place_changed', function () {
@@ -339,7 +336,7 @@
 
                                 scope.$apply(function () {
 
-                                    scope.details = result;
+                                    scope.details.result = result;
 
                                     controller.$setViewValue(element.val());
                                 });
@@ -397,6 +394,16 @@
                         });
                     }
                 }
+
+                uiGmapGoogleMapApi.then(function (maps) {
+                    if (!libraryReady) {
+                        libraryReady = true;
+                        executeAfterLoadLibrary();
+                        if (mustInitOps) {
+                            initOpts();
+                        }
+                    }
+                });
 
                 controller.$render = function () {
                     var location = controller.$viewValue;

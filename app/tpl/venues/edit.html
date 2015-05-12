@@ -30,11 +30,8 @@
 
                             <p>Address:</p>
                             <input type="text" name="addressline1" class="form-control" ng-model="selectedVenue.address.line1" 
-                                   ng-autocomplete options="autocompleteAddressOptions" details="addressDetails"
-                                   required ng-change="selectedVenue.address.latitud = addressDetails.geometry.location.A;
-                                                       selectedVenue.address.longitud = addressDetails.geometry.location.F"/>
-
-                            {{addressDetails.geometry.location.A}}-{{addressDetails.geometry.location.F}}
+                                   options="autocompleteAddressOptions" details="addressDetails" ng-autocomplete 
+                                   required />
 
                             <p>Contact Phone Number</p>
                             <input type="tel" tel-input="" numbers-only="" id="phone" name="phone" placeholder="E.g. +56 9 12345678" 

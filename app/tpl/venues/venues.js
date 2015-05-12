@@ -66,7 +66,9 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
         $scope.uploadingImages = false;
         $scope.editSpaceMode = false;
         $scope.selectedVenue = {};
-        $scope.addressDetails = '';
+        $scope.addressDetails = {};
+
+
 
         $scope.autocompleteCityOptions = {
             types: '(cities)'
@@ -85,10 +87,12 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
                 }
         );
 
-        //
-        //        $scope.$watch('addressDetails.geometry.location.A', function (old, newv) {
-        //              console.log('addressDetails a watched ' + old + " " + newv);
-        //        });
+        $scope.$watch('addressDetails.result', function (newv, old) {
+            if ($scope.addressDetails.result) {
+                $scope.selectedVenue.address.latitude = $scope.addressDetails.result.geometry.location.lat();
+                $scope.selectedVenue.address.longitude = $scope.addressDetails.result.geometry.location.lng();
+            }
+        });
 
         $scope.selectedFile = {
             progress: 0
@@ -132,7 +136,7 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
                         } else {
                             if ($scope.space.photos instanceof Array) {
                                 $scope.space.photos.push(data.public_id);
-                            }else{
+                            } else {
                                 $scope.space.photos = [data.public_id];
                             }
                         }
