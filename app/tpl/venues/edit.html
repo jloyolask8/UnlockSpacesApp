@@ -61,13 +61,13 @@
 
                                     <div class="pull-left" href="#" ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,true,true)" ngf-select="uploadImages($files,true,true)" ng-multiple="false" resetOnClick="true">
 
-                                        <figure class="changeable-picture">
+                                        <figure class="changeable-picture" ng-init="captionvisible=false" ng-mouseenter="captionvisible=true" ng-mouseleave="captionvisible=false">
                                             <cl-image ng-show="selectedVenue.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
                                             </cl-image>
 
                                             <cl-image ng-hide="selectedVenue.frontPhoto == null" public-id="{{selectedVenue.frontPhoto}}" width="373" height="209" crop="fill">
                                             </cl-image>
-                                            <figcaption><p>Cambiar foto</p></figcaption>
+                                            <figcaption ng-show="captionvisible"><p>Cambiar foto</p></figcaption>
                                         </figure>
                                     </div>
 
@@ -230,13 +230,14 @@
 
                                     <div class="pull-left" href="#" ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,false,true)" ngf-select="uploadImages($files,false,true)" ng-multiple="false" resetOnClick="true">
 
-                                        <figure class="changeable-picture">
+                                        
+                                        <figure class="changeable-picture" ng-init="captionvisible=false" ng-mouseenter="captionvisible=true" ng-mouseleave="captionvisible=false">
                                             <cl-image ng-show="space.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
                                             </cl-image>
 
                                             <cl-image ng-hide="space.frontPhoto == null" public-id="{{space.frontPhoto}}" width="373" height="209" crop="fill">
                                             </cl-image>
-                                            <figcaption><p>Cambiar foto</p></figcaption>
+                                            <figcaption ng-show="captionvisible"><p>Cambiar foto</p></figcaption>
                                         </figure>
                                     </div>
 
