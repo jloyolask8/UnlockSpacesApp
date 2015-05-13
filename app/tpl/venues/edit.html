@@ -52,7 +52,7 @@
                     </tab>
                     <tab heading="Details"  select="steps.percent=30">
                         <form name="step2" class="form-validation">
-                            <p class="m-b">Continue the next step</p>
+                            <p class="m-b">step 2 - define details</p>
                             <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
 
                             <p>Preview</p>
@@ -172,11 +172,11 @@
 
                     <tab heading="Spaces"  select="steps.percent=60">
                         <!--                        <p class="m-b">spaces.</p>-->
+                        <p class="m-b">step 3 - manage spaces</p>
+                        <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
 
-                        <div ng-hide="editSpaceMode" class="wrapper-md">
-
-                            <div>
-
+                        <div ng-hide="editSpaceMode" >
+                            <div class="row">
                                 <div class="col-md-4 col-lg-4">
                                     <a ng-click="addNewSpace()">
                                         <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">

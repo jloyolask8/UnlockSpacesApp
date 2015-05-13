@@ -3,11 +3,11 @@
 </div>-->
 <!--<div class="wrapper-md">-->
 
-<div id="main-mapsearch-container" class="fullheight-map">
+<div id="main-mapsearch-container" class="fullheight-map" ng-cloak>
     <div ng-controller="MapController as mapCtrl" class="hbox hbox-auto-xs hbox-auto-sm fill-height">
-        <input id="pac-input" class="controls" type="text" placeholder="Enter location">
+        <input id="pac-input" class="controls" type="text" placeholder="Enter location" ng-cloak>
 
-        <div id="opciones" class="controls map-opciones">
+        <div id="opciones" class="controls map-opciones" ng-cloak>
             <label>centrar en el mapa al seleccionar:
                 <input type="checkbox" ng-model="optionsModel.centerOnMap">
             </label><br/>
@@ -23,7 +23,7 @@
                                                 templateUrl="map.windowTemplate"
                                                 templateParameter="map.windowParameter(marker)"
                                                 closeClick="markerClose(marker)"
-                                                ng-cloak="ng-cloak">
+                                                ng-cloak>
                                 </ui-gmap-window>
                             </ui-gmap-marker>
                         </ui-gmap-google-map>
@@ -32,61 +32,60 @@
                 <td class="td-results-map-search">
                     <div id="container" class="result-map-container">
                         <div id="results" class="results-map-search">
-                            <div ng-show="spacesIsEmpty()">
-                                Searching for spaces around the TO DO PUT STATE yielded no results.
+                            <div ng-show="venuesIsEmpty()">
+                                Searching for venues around the <b>{{formattedAddress}}</b> yielded no results.
                             </div>
-                            <div class="card" ng-mouseenter="highlightMarker(space)" ng-mouseleave="normalizeMarker(space)" ng-repeat="space in spaces">
-                                <div >
-                                    <table style="width: 100%;">
-                                        <tr>
-                                            <td style="width: 100%; padding: 10px;">
-                                                <div class="ws-content-group">
-                                                    <h5 class="ws-item-title text-overflow-dot ng-binding" style="width: 200px;">
-                                                        {{space.overview.title}}
-                                                        <!-- end ngIf: item.workspace.capacity -->
-                                                    </h5>
-                                                    <span class="text-smoky ng-binding ng-scope" >
-                                                        <i class="fa fa-users" aria-hidden="true"></i> 1
-                                                    </span>
-                                                    <!--<small class="text-smoky"><em>at</em> <span class="text-cap">{{item.venue.name}}</span></small>-->
-                                                </div>
+                            <div ng-repeat="venue in venues">
+                                <div class="card" ng-mouseenter="highlightMarker(venue)" ng-mouseleave="normalizeMarker(venue)" ng-repeat="space in venue.spaces">
+                                    <div >
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td style="width: 100%; padding: 10px;">
+                                                    <div class="ws-content-group">
+                                                        <h5 class="ws-item-title text-overflow-dot ng-binding" style="width: 200px;">
+                                                            {{space.overview.title}}
+                                                            <!-- end ngIf: item.workvenue.capacity -->
+                                                        </h5>
+                                                        <span class="text-smoky ng-binding ng-scope" >
+                                                            <i class="fa fa-users" aria-hidden="true"></i> 1
+                                                        </span>
+                                                        <!--<small class="text-smoky"><em>at</em> <span class="text-cap">{{item.venue.name}}</span></small>-->
+                                                    </div>
 
-                                                <div class="ws-content-group">
-                                                    <div class="ws-item-emphasis flex-row flex-gutter-sm">
-                                                        <div class="flex-cell-auto flex-align--top">
-                                                            <i aria-hidden="true" class="icon icon-marker-thin-alt align-middle"></i>
+                                                    <div class="ws-content-group">
+                                                        <div class="ws-item-emphasis flex-row flex-gutter-sm">
+                                                            <div class="flex-cell-auto flex-align--top">
+                                                                <i aria-hidden="true" class="icon icon-marker-thin-alt align-middle"></i>
+                                                            </div>
+                                                            <div class="flex-cell flex-align--top">
+                                                                <p>
+                                                                    {{space.overview.summary}}
+                                                                </p>
+                                                                <p class="p-xs text-smoky text-overflow-dot ng-binding">
+                                                                    Business Center
+                                                                    <span ng-if="space.reviews == 1" class="ng-scope"> • 1 review</span><!-- end ngIf: item.venue.reviews == 1 -->
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div class="flex-cell flex-align--top">
-                                                            <p class="text-overflow-dot text-cap">
-                                                                <a class="text-link text-positive ng-binding" >{{space.overview.title}}</a>
-                                                            </p>
-                                                            <p class="p-xs text-smoky text-overflow-dot ng-binding">
-                                                                Business Center <!-- ngIf: item.venue.reviews > 1 --> <!-- ngIf: item.venue.reviews < 1 --> <!-- ngIf: item.venue.reviews == 1 --><span ng-if="item.venue.reviews == 1" class="ng-scope"> • 1 review</span><!-- end ngIf: item.venue.reviews == 1 -->
-                                                            </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <figure class="changeable-picture" ng-init="visible = 0">
+                                                        <div ng-show="visible === 0" style="width: 238px; height: 159px;">
+                                                            <cl-image public-id="{{space.frontPhoto}}" width="238" height="159" crop="fill">
+                                                            </cl-image>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
+                                                        <div ng-show="visible === ($index + 1)" style="width: 238px; height: 159px;" ng-repeat="photo in space.photos track by $index">
+                                                            <cl-image public-id="{{photo}}"  width="238" height="159" crop="fill">
+                                                            </cl-image>
+                                                        </div>
+                                                        <figcaption ng-show="space.photos.length > 0" ng-click="visible = (visible >= space.photos.length)?0:(visible + 1)"><p>mostrar siguiente</p></figcaption>
 
-                                                <figure class="changeable-picture" ng-init="visible=0">
-                                                    <div ng-show="visible === 0" style="width: 238px; height: 159px;">
-                                                        <cl-image public-id="{{space.frontPhoto}}" width="238" height="159" crop="fill">
-                                                        </cl-image>
-                                                    </div>
-                                                    <div ng-show="visible === ($index+1)" style="width: 238px; height: 159px;" ng-repeat="photo in space.photos track by $index">
-                                                        <cl-image public-id="{{photo}}"  width="238" height="159" crop="fill">
-                                                        </cl-image>
-                                                    </div>
-                                                    <figcaption ng-show="space.photos.length >0" ng-click="visible = (visible >= space.photos.length)?0:(visible + 1)"><p>mostrar siguiente</p></figcaption>
-                                                    
-                                                </figure>
-
-
-
-                                            </td>
-                                        </tr>
-                                    </table>
+                                                    </figure>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

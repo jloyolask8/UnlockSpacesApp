@@ -21,10 +21,10 @@
          */
         var firstTime = true;
         /**
-         * lista que contiene localmente los spaces devueltos por el backend
-         * @type Array|@exp;spacesService@call;geoSearch
+         * lista que contiene localmente los venues devueltos por el backend
+         * @type Array|@exp;venuesService@call;geoSearch
          */
-        var spacesList = [];
+        var venuesList = [];
 
         /**
          * input busqueda de lugares en el mapa
@@ -33,14 +33,16 @@
         var searchBox = null;
 
         /**
-         * Expone a nivel de scope los spaces recuperados desde el backend
+         * Expone a nivel de scope los venues recuperados desde el backend
          */
-        $scope.spaces = [];
+        $scope.venues = [];
 
         /**
-         * Expone a nivel de scope los markers creados a partir de los spaces recuperados
+         * Expone a nivel de scope los markers creados a partir de los venues recuperados
          */
         $scope.markers = [];
+
+        $scope.formattedAddress = "";
 
         $scope.mapInstance = null;
 
@@ -144,12 +146,28 @@
             //$scope.markers = [];
             var radio = calcRadio(map);
             var center = map.getCenter();
-            spacesList = venuesService.geoSearch(center.lat(), center.lng(), radio);
-            spacesList.$promise.then(function () {
+
+            venuesList = venuesService.geoSearch(center.lat(), center.lng(), radio);
+            venuesList.$promise.then(function () {
                 refreshMapMarkers();
+                if (venuesList.length === 0) {
+                    findFormattedAddress(center);
+                }
 //                $log.info("markers length:" + $scope.markers.length);
             });
         };
+
+        var findFormattedAddress = function (center) {
+            var latlng = new google.maps.LatLng(center.lat(), center.lng());
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'latLng': latlng}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        $scope.formattedAddress = results[1].formatted_address;
+                    }
+                }
+            });
+        }
 
         var compareSpace = function (a, b) {
             if (a.id < b.id)
@@ -159,19 +177,19 @@
             return 0;
         };
 
-        $scope.spacesIsEmpty = function () {
-            var retorno = ($scope.spaces.length === 0);
-            //$log.info("spacesIsEmpty:"+retorno);
+        $scope.venuesIsEmpty = function () {
+            var retorno = ($scope.venues.length === 0);
+            //$log.info("venuesIsEmpty:"+retorno);
             return retorno;
         };
 
         var refreshMapMarkers = function () {
             var tempmarkers = [];
-            $scope.spaces = [];
-            spacesList.sort(compareSpace);
-            for (var i = 0; i < spacesList.length; i++) {
-                tempmarkers.push(createMarker(spacesList[i]));
-                $scope.spaces.push(spacesList[i]);
+            $scope.venues = [];
+            venuesList.sort(compareSpace);
+            for (var i = 0; i < venuesList.length; i++) {
+                tempmarkers.push(createMarker(venuesList[i]));
+                $scope.venues.push(venuesList[i]);
             }
             var i = 0;
             while (i < $scope.markers.length) {
