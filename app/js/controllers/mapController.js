@@ -9,7 +9,7 @@
         });
     });
 
-    mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, spacesService) {
+    mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, venuesService) {
 
         $scope.iconimg = {
         };
@@ -69,15 +69,15 @@
             };
             $scope.iconimghightlight = {
                 url: './img/Map-Marker-Flat-Blue.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
-                scaledSize: new google.maps.Size(48, 48), // size
+                scaledSize: new google.maps.Size(40, 40), // size
             };
             $scope.map = {
                 windowTemplate: "tpl/blocks/venue-small-window.html",
                 windowParameter: function (marker) {
                     return marker;
                 },
-                center: {latitude: -33.407550, longitude: -70.570209}, zoom: 13,
-                options: {maxZoom: 16, minZoom: 13, styles: $scope.styleMapApple},
+                center: {latitude: -33.407550, longitude: -70.570209}, zoom: 12,
+                options: {maxZoom: 16, minZoom: 11, styles: $scope.styleMapFlat},
                 events: {
                     dragend: function (map) {
                         $scope.$apply(function () {
@@ -144,7 +144,7 @@
             //$scope.markers = [];
             var radio = calcRadio(map);
             var center = map.getCenter();
-            spacesList = spacesService.geoSearch(center.lat(), center.lng(), radio);
+            spacesList = venuesService.geoSearch(center.lat(), center.lng(), radio);
             spacesList.$promise.then(function () {
                 refreshMapMarkers();
 //                $log.info("markers length:" + $scope.markers.length);
@@ -216,7 +216,7 @@
                 title: space.overview.title,
                 id: space.id,
                 show: false,
-                distance: ((space.distance > 1000) ? (Number((space.distance / 1000).toFixed(1)) + " Kms") : (Number((space.distance).toFixed(1)) + " Mts")),
+                //distance: ((space.distance > 1000) ? (Number((space.distance / 1000).toFixed(1)) + " Kms") : (Number((space.distance).toFixed(1)) + " Mts")),
                 icon: $scope.iconimg,
                 opciones: {
                     labelAnchor: (('' + space.id).length * 4) + " 32",

@@ -7,6 +7,7 @@
     var constantsModule = angular.module('constants',[]);
     constantsModule.constant('servicesUrls', {
         findSpacesUrl: 'http://localhost\\:8090/unlockServices/search/findspaces/searchSpacesLatLong/:latitude/:longitude/:radiometers',
+        findVenuesUrl: 'http://localhost\\:8090/unlockServices/search/findspaces/searchVenuesLatLong/:latitude/:longitude/:radiometers',
         spacesCrudUrl: 'http://localhost\\:8090/unlockServices/api/spaces/:id',
         venuesCrudUrl: 'http://localhost\\:8090/unlockServices/api/venues/:id',
     });

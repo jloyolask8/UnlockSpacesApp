@@ -61,7 +61,7 @@
 
                                     <div class="pull-left" href="#" ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,true,true)" ngf-select="uploadImages($files,true,true)" ng-multiple="false" resetOnClick="true">
 
-                                        <figure class="changeable-picture" ng-init="captionvisible=false" ng-mouseenter="captionvisible=true" ng-mouseleave="captionvisible=false">
+                                        <figure class="changeable-picture" ng-init="captionvisible = false" ng-mouseenter="captionvisible = true" ng-mouseleave="captionvisible = false">
                                             <cl-image ng-show="selectedVenue.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
                                             </cl-image>
 
@@ -81,7 +81,13 @@
 
 
                                         <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                            <li>{{selectedVenue.spaces.length}} spaces</li>
+                                            <li>
+                                            <ng-pluralize count="selectedVenue.spaces.length"
+                                                          when="{'0': 'no spaces yet',
+                                                          'one': '1 space',
+                                                          'other': '{} spaces'}">
+                                            </ng-pluralize>
+                                            </li>
                                         </ul>
 
                                         <p class="hidden-xs">{{selectedVenue.overview.summary}}</p>
@@ -165,7 +171,7 @@
                     </tab>
 
                     <tab heading="Spaces"  select="steps.percent=60">
-<!--                        <p class="m-b">spaces.</p>-->
+                        <!--                        <p class="m-b">spaces.</p>-->
 
                         <div ng-hide="editSpaceMode" class="wrapper-md">
 
@@ -230,8 +236,8 @@
 
                                     <div class="pull-left" href="#" ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,false,true)" ngf-select="uploadImages($files,false,true)" ng-multiple="false" resetOnClick="true">
 
-                                        
-                                        <figure class="changeable-picture" ng-init="captionvisible=false" ng-mouseenter="captionvisible=true" ng-mouseleave="captionvisible=false">
+
+                                        <figure class="changeable-picture" ng-init="captionvisible = false" ng-mouseenter="captionvisible = true" ng-mouseleave="captionvisible = false">
                                             <cl-image ng-show="space.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
                                             </cl-image>
 
