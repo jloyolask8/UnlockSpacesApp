@@ -55,6 +55,7 @@ angular.module('app')
                                     templateUrl: 'tpl/venues/list.html',
                                     controller: 'VenuesListController',
                                     controllerAs: 'venuesListCtrl',
+                                   
                                     data: {requiresLogin: true}
                                 })
 
@@ -62,6 +63,12 @@ angular.module('app')
                                     url: '/{venueId:[0-9]{1,20}}/edit',
                                     templateUrl: 'tpl/venues/edit.html',
                                     controller: 'VenueEditController',
+                                     resolve: {
+                                        deps: ['$ocLazyLoad',
+                                            function ($ocLazyLoad) {
+                                                return $ocLazyLoad.load('ui.select');
+                                            }]
+                                    },
                                     data: {requiresLogin: true}
                                 })
 

@@ -58,15 +58,45 @@ app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Ve
 
     }]);
 
+
+
 app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootScope', '$http', '$state', 'Venues', '$stateParams', 'Upload',
     function (REST_CONFIG, $log, $scope, $rootScope, $http, $state, Venues, $stateParams, Upload) {
 
+        //amenities
+        //
+        // load from db
+        $scope.amenitiesList = [
+            {id: 'apple', name: 'apple', selected: false},
+            {id: 'orange', name: 'orange', selected: false},
+            {id: 'pear', name: 'pear', selected: true},
+            {id: 'naartjie', name: 'naartjie', selected: false}
+        ];
+
+
+        // watch amenity for changes
+        $scope.$watch('amenitiesList|filter:{selected:true}', function (nv) {
+            $scope.selectedVenue.amenitiesAvailable = nv.map(function (amenity) {
+                return amenity;
+            });
+        }, true);
+        
+        //      selectedVenueAdmin
+        $scope.selectedVenueAdmin = {};//new and selected selectedVenueAdmin for edit
+        $scope.addNewAdmin = addNewAdmin;
+        $scope.editAdmin = editAdmin;
+        $scope.doneEditingAdmin = doneEditingAdmin;
+        $scope.revertEditingAdmin = revertEditingAdmin;
+        $scope.adminRoles = ['Role 1', 'Role 2'];
+//      --selectedVenueAdmin 
         var that = this;
         $scope.space = {};
+
         $scope.uploadingImages = false;
         $scope.editSpaceMode = false;
         $scope.selectedVenue = {};
         $scope.addressDetails = '';
+
 
         $scope.autocompleteCityOptions = {
             types: '(cities)'
@@ -132,7 +162,7 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
                         } else {
                             if ($scope.space.photos instanceof Array) {
                                 $scope.space.photos.push(data.public_id);
-                            }else{
+                            } else {
                                 $scope.space.photos = [data.public_id];
                             }
                         }
@@ -261,6 +291,51 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
         $scope.cancel = function () {
             $state.go("app.venues.list");
         };
+
+        //selectedVenueAdmin crud logic, please refactor some day
+
+        function editAdmin(venueAdmin, $index) {
+            $scope.editAdminMode = true;
+            // Clone the original obj to restore it on demand.
+            $scope.originalAdmin = angular.extend({}, venueAdmin);
+            $scope.selectedVenueAdmin = venueAdmin;
+            $scope.selectedVenueAdminIndex = $index;
+        }
+        ;
+
+        function addNewAdmin() {
+
+            var newVenueAdmin = {
+                adminName: '',
+                adminRole: '',
+                adminEmail: ''
+            };
+
+            newVenueAdmin.isNew = true;
+
+            $scope.editAdmin(newVenueAdmin);
+
+        }
+        ;
+
+        function doneEditingAdmin() {
+            $scope.editAdminMode = false;
+            if ($scope.selectedVenueAdmin.isNew) {
+                $scope.selectedVenueAdmin.isNew = false;
+                $scope.selectedVenue.admins.push($scope.selectedVenueAdmin);
+            } else {
+                $scope.selectedVenue.admins[$scope.selectedVenueAdminIndex] = $scope.selectedVenueAdmin;
+            }
+            $scope.selectedVenueAdmin = {};
+            $scope.originalAdmin = {};
+        }
+        ;
+
+        function revertEditingAdmin() {
+            $scope.editAdminMode = false;
+            $scope.selectedVenueAdminIndex = -1;
+        }
+        ;
 
     }]);
 
