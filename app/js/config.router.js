@@ -55,7 +55,6 @@ angular.module('app')
                                     templateUrl: 'tpl/venues/list.html',
                                     controller: 'VenuesListController',
                                     controllerAs: 'venuesListCtrl',
-                                   
                                     data: {requiresLogin: true}
                                 })
 
@@ -63,12 +62,6 @@ angular.module('app')
                                     url: '/{venueId:[0-9]{1,20}}/edit',
                                     templateUrl: 'tpl/venues/edit.html',
                                     controller: 'VenueEditController',
-                                     resolve: {
-                                        deps: ['$ocLazyLoad',
-                                            function ($ocLazyLoad) {
-                                                return $ocLazyLoad.load('ui.select');
-                                            }]
-                                    },
                                     data: {requiresLogin: true}
                                 })
 
@@ -79,6 +72,30 @@ angular.module('app')
                                     controllerAs: 'venuesCreateCtrl',
                                     data: {requiresLogin: true}
                                 })
+
+                                .state('app.venues.view', {
+                                    url: '/{venueId:[0-9]{1,20}}/view',
+                                    templateUrl: 'tpl/venues/view.html',
+                                    controller: 'VenueViewController'
+                                })
+
+                                .state('pages', {
+                                    url: '/pages',
+                                    template: '<div ui-view class="fade-in-right-big smooth"></div>'
+                                })
+
+                                .state('pages.venue', {
+                                    url: '/venue/{venueId:[0-9]{1,20}}',
+                                    templateUrl: 'tpl/venues/view.html',
+                                    controller: 'VenueViewController'
+                                })
+
+                                .state('pages.space', {
+                                    url: '/space/{spaceId:[0-9]{1,20}}',
+                                    templateUrl: 'tpl/spaces/view.html',
+                                    controller: 'SpaceViewController'
+                                })
+
 
                                 // form
                                 .state('app.form', {
@@ -229,6 +246,8 @@ angular.module('app')
                                     templateUrl: 'tpl/user_profile/profile.html',
                                     data: {requiresLogin: true}
                                 })
+
+
 
 
                                 .state('access', {

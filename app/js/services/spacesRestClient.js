@@ -15,8 +15,8 @@
                 });
     });
 
-    clientModule.factory('SpacesGeoSearch', function ($resource, servicesUrls) {
-        return $resource(servicesUrls.findSpacesUrl,
+    clientModule.factory('VenuesGeoSearch', function ($resource, servicesUrls) {
+        return $resource(servicesUrls.findVenuesUrl,
                 {
                     //apiKey: '4fb51e55e4b02e56a67b0b66',
                     latitude: '@lat',
@@ -25,7 +25,7 @@
                 });
     });
 
-    clientModule.service('spacesService', function (SpacesCrud, SpacesGeoSearch) {
+    clientModule.service('spacesService', function (SpacesCrud) {
         var spacesService = {};
 
         spacesService.findAll = function () {
@@ -33,15 +33,21 @@
             
         };
 
-        spacesService.geoSearch = function (lat, lon, radio) {
-            return SpacesGeoSearch.query({latitude: lat, longitude: lon, radiometers: radio});
-        };
-
         spacesService.findById = function (id) {
             return SpacesCrud.get({id: id});
         };
 
         return spacesService;
+    });
+    
+    clientModule.service('venuesService', function (VenuesGeoSearch) {
+        var venuesService = {};
+
+        venuesService.geoSearch = function (lat, lon, radio) {
+            return VenuesGeoSearch.query({latitude: lat, longitude: lon, radiometers: radio});
+        };
+
+        return venuesService;
     });
 
 })();

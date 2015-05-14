@@ -1,0 +1,61 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = false;">
+  <div class="col">
+    <div style="">
+      <div class="wrapper-lg bg-white-opacity">
+        <div class="row m-t">
+          <div class="col-sm-7">
+            <a href class="thumb-lg pull-left m-r">
+                <img ng-src=""  class="img-circle"/>
+            </a>
+            <div class="clear m-b">
+              <div class="m-b m-t-sm">
+                <span class="h3 text-black">{{selectedVenue.overview.title}}</span>
+                <small class="m-l">{{selectedVenue.overview.details}}</small>
+              </div>
+                
+                Verified by
+                <p class="m-b">
+                    <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon" ng-if="auth.profile.email_verified === true"><i class="fa fa-envelope"></i></a>
+                <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-google-plus"></i></a>
+              </p>
+              
+            </div>
+          </div>
+          <div class="col-sm-5">
+            <div class="pull-right pull-none-xs text-center">
+              <a href class="m-b-md inline m">
+                <span class="h3 block font-bold">2</span>
+                <small>Venues</small>
+              </a>
+              <a href class="m-b-md inline m">
+                <span class="h3 block font-bold">250</span>
+                <small>Spaces</small>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper bg-white b-b">
+      <ul class="nav nav-pills nav-sm">
+        <li class="active"><a href>Profile</a></li>
+        <li><a href>Messages</a></li>
+      </ul>
+    </div>
+    <div class="padder">      
+        
+ <div>
+  <br />
+  <div style="margin-top: 10px">User Profile</div>
+  <pre><code>{{selectedVenue | json}}</code></pre>
+</div>       
+        
+    </div>
+  </div>
+  <div class="col w-lg bg-light lter b-l bg-auto">
+    <div class="wrapper">
+      
+      
+    </div>
+  </div>
+</div>

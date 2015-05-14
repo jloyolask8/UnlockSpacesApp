@@ -13,165 +13,230 @@
 
                 <tabset class="tab-container" ng-init="steps={percent:10, step1:true, step2:false, step3:false, step4:false}">
                     <tab heading="Venue" active="steps.step1" select="steps.percent=10">
-                        <p class="m-b">step 1 location help.</p>
-                        <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
-                        <form name="step1" class="form-validation">
 
-                            <p>City:</p>
-                            <input type="text" id="city" ng-model="selectedVenue.address.city" class="form-control" 
-                                   ng-autocomplete options="autocompleteCityOptions" details="autocompleteCityDetails"
-                                   />
+                        <div class="panel-body">
+                            <form name="step1" class="form-horizontal">
 
-                            <p>Postal code:</p>
-                            <input type="text" name="postalcode" class="form-control" ng-model="selectedVenue.address.postalCode" 
-                                   required ng-change="step1.postalcode.$valid ? (steps.percent=20) : (steps.percent = 20)"/>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Venue Location</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="addressline1" class="form-control" ng-model="selectedVenue.address.line1" 
+                                               options="autocompleteAddressOptions" details="addressDetails" ng-autocomplete 
+                                               required />
+                                    </div>
 
-                            <p>Address:</p>
-                            <input type="text" name="addressline1" class="form-control" ng-model="selectedVenue.address.line1" 
-                                   ng-autocomplete options="autocompleteAddressOptions" details="addressDetails"
-                                   required ng-change="selectedVenue.address.latitud = addressDetails.geometry.location.A;
-                                                       selectedVenue.address.longitud = addressDetails.geometry.location.F"/>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
 
-                            {{addressDetails.geometry.location.A}}-{{addressDetails.geometry.location.F}}
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">City</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" id="city" ng-model="selectedVenue.address.city" class="form-control" 
+                                               ng-autocomplete options="autocompleteCityOptions" details="autocompleteCityDetails"
+                                               />
+                                    </div>
 
-                            <p>Contact Phone Number</p>
-                            <input type="tel" tel-input="" numbers-only="" id="phone" name="phone" placeholder="E.g. +56 9 12345678" 
-                                   ng-model-on-blur="" ng-model="selectedVenue.contactInfo.phone" 
-                                   ng-change="step1.phone.$valid ? (steps.percent=40) : (steps.percent = 20)"
-                                   class="form-control"/>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Postal code</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="postalcode" class="form-control" ng-model="selectedVenue.address.postalCode" 
+                                               required ng-change="step1.postalcode.$valid ? (steps.percent=20) : (steps.percent = 20)"/>
+                                    </div>
 
-                            <p>General email:</p>
-                            <input type="email" name="email" class="form-control" ng-model="selectedVenue.contactInfo.email" 
-                                   required ng-change="step1.email.$valid ? (steps.percent=50) : (steps.percent = 20)"/>
-                            <p class="m-t">Website:</p>
-                            <input type="url" name="url" placeholder="http://" class="form-control" ng-model="selectedVenue.contactInfo.website" required />
-                            <div class="m-t m-b">
-                                <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2 = true">Next</button>
-                                <button type="button" class="btn btn-default btn-rounded" ng-click="log()">log</button>
-                            </div>
-                        </form>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Contact Phone Number</label>
+                                    <div class="col-sm-6">
+                                        <input type="tel" tel-input="" numbers-only="" id="phone" name="phone" placeholder="E.g. +56 9 12345678" 
+                                               ng-model-on-blur="" ng-model="selectedVenue.contactInfo.phone" 
+                                               ng-change="step1.phone.$valid ? (steps.percent=40) : (steps.percent = 20)"
+                                               class="form-control"/>
+                                    </div>
+
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Contact Email</label>
+                                    <div class="col-sm-6">
+                                        <input type="email" name="email" class="form-control" ng-model="selectedVenue.contactInfo.email" 
+                                               required ng-change="step1.email.$valid ? (steps.percent=50) : (steps.percent = 20)"/>
+                                    </div>
+
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Venue website</label>
+                                    <div class="col-sm-6">
+                                        <input type="url" name="url" placeholder="http://" class="form-control" ng-model="selectedVenue.contactInfo.website" required />
+
+                                    </div>
+
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-6">
+                                        <div class="m-t m-b">
+                                            <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2 = true">Next</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+
                     </tab>
-                    <tab heading="Details"  select="steps.percent=30">
-                        <form name="step2" class="form-validation">
-                            <p class="m-b">Continue the next step</p>
-                            <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+                    <tab heading="Details" active="steps.step2" select="steps.percent=30">
 
-                            <p>Preview</p>
-                            <div class="brdr bgc-fff pad-10 btm-mrg-20 property-listing">
-                                <div class="media">
+                        <p>Preview</p>
+                        <div class="brdr bgc-fff pad-10 btm-mrg-20 property-listing">
+                            <div class="media">
 
-                                    <div class="pull-left" href="#" ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,true,true)" ngf-select="uploadImages($files,true,true)" ng-multiple="false" resetOnClick="true">
+                                <div class="pull-left" href="#" ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,true,true)" ngf-select="uploadImages($files,true,true)" ng-multiple="false" resetOnClick="true">
 
-                                        <figure class="changeable-picture">
-                                            <cl-image ng-show="selectedVenue.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
-                                            </cl-image>
-
-                                            <cl-image ng-hide="selectedVenue.frontPhoto == null" public-id="{{selectedVenue.frontPhoto}}" width="373" height="209" crop="fill">
-                                            </cl-image>
-                                            <figcaption><p>Cambiar foto</p></figcaption>
-                                        </figure>
-                                    </div>
-
-                                    <div class="clearfix visible-sm"></div>
-
-                                    <div class="media-body fnt-smaller">
-                                        <a href="#" target="_parent"></a>
-
-                                        <h4 class="media-heading">
-                                            {{selectedVenue.overview.title}} <small class="pull-right">{{selectedVenue.address.line1}}</small></h4>
-
-
-                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                            <li>{{selectedVenue.spaces.length}} spaces</li>
-                                        </ul>
-
-                                        <p class="hidden-xs">{{selectedVenue.overview.summary}}</p>
-                                        <span class="fnt-smaller fnt-lighter fnt-arial">
-                                            <div>phone: {{selectedVenue.contactInfo.phone}}</div><div> email: {{selectedVenue.contactInfo.email}}</div><div> website: {{selectedVenue.contactInfo.website}}</div>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="file" ng-hide="selectedFile.progress === 0">
-                                    <div class="status">{{selectedFile.status}}</div>
-                                    <div class="progress-bar" style="background-color: rgba(0,0,0,0.2); width: 100%; height: 6px;">
-                                        <div class="progress" style="background-color: green; height: 6px; width: {{selectedFile.progress}}%" ></div>
-                                    </div>
-                                </div>
-                            </div><!-- End Listing-->
-
-                            <p>Venue Name</p>
-                            <input name="title" class="form-control" ng-model="selectedVenue.overview.title" 
-                                   required ng-change="step1.email.$valid ? (steps.percent=30) : (steps.percent = 20)"/>
-
-                            <p class="m-t">Venue Type</p>
-
-                            <div class="btn-group m-r" >
-                                <label class="btn btn-default" ng-model="selectedVenue.venueType" btn-radio="'Left'" uncheckable
-                                       ng-repeat="type in getVenueTypes()">{{type}}</label>
-                            </div>
-
-                            <p>Description</p>
-
-                            <textarea id="description" type="text" name="description" style="height: 120px;" class="form-control" 
-                                      ng-model="selectedVenue.overview.summary" ></textarea>
-
-
-                            <p class="m-t">Tax</p>
-
-                            <p class="m-t">Currency</p>
-
-                            <p class="headline headline-light">More pictures</p>
-
-
-                            <div class="form-control" style="height: 100% !important; padding-top: 20px;" ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,true,false)">
-                                <!--<p>You can also drag and drop an image file into the dashed area.</p>-->
-                                <div class="row">
-
-                                    <div class="col-md-4 col-sm-4 col-xs-6">
-                                        <a ngf-select="uploadImages($files,true,false)" ng-multiple="false" resetOnClick="true">
-                                            <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
-                                                <i class="glyphicon glyphicon-camera icon text-info-dker"></i>
-                                                <span class="font-bold">Add picture</span>
-                                            </div>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-md-4 col-sm-4 col-xs-6" ng-repeat="photo in selectedVenue.photos track by $index">
-                                        <cl-image class="img-responsive venue-img-gallery" public-id="{{photo}}" width="300" height="200" crop="fill">
+                                    <figure class="changeable-picture" ng-init="captionvisible = false" ng-mouseenter="captionvisible = true" ng-mouseleave="captionvisible = false">
+                                        <cl-image ng-show="selectedVenue.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
                                         </cl-image>
+
+                                        <cl-image ng-hide="selectedVenue.frontPhoto == null" public-id="{{selectedVenue.frontPhoto}}" width="373" height="209" crop="fill">
+                                        </cl-image>
+                                        <figcaption ng-show="captionvisible"><p>Cambiar foto</p></figcaption>
+                                    </figure>
+                                </div>
+
+                                <div class="clearfix visible-sm"></div>
+
+                                <div class="media-body fnt-smaller">
+                                    <a href="#" target="_parent"></a>
+
+                                    <h4 class="media-heading">
+                                        {{selectedVenue.overview.title}} <small class="pull-right">{{selectedVenue.address.line1}}</small></h4>
+
+
+                                    <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                        <li>
+                                        <ng-pluralize count="selectedVenue.spaces.length"
+                                                      when="{'0': 'no spaces yet',
+                                                      'one': '1 space',
+                                                      'other': '{} spaces'}">
+                                        </ng-pluralize>
+                                        </li>
+                                    </ul>
+
+                                    <p class="hidden-xs">{{selectedVenue.overview.summary}}</p>
+                                    <span class="fnt-smaller fnt-lighter fnt-arial">
+                                        <div>phone: {{selectedVenue.contactInfo.phone}}</div><div> email: {{selectedVenue.contactInfo.email}}</div><div> website: {{selectedVenue.contactInfo.website}}</div>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="file" ng-hide="selectedFile.progress < 0">
+                                <div class="status">{{selectedFile.status}}</div>
+                                <div class="progress-bar" style="background-color: rgba(0,0,0,0.2); width: 100%; height: 6px;">
+                                    <div class="progress" style="background-color: green; height: 6px; width: {{selectedFile.progress}}%" ></div>
+                                </div>
+                            </div>
+                        </div><!-- End Listing-->
+
+                        <div class="panel-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Venue Name</label>
+                                    <div class="col-sm-6">
+                                        <input name="title" class="form-control" ng-model="selectedVenue.overview.title" 
+                                               required ng-change="step1.email.$valid ? (steps.percent=30) : (steps.percent = 20)"/>
                                     </div>
-
-
 
                                 </div>
 
-                                <div class="file" ng-hide="selectedFile.progress === 0">
-                                    <div class="status">{{selectedFile.status}}</div>
-                                    <div class="progress-bar" style="background-color: rgba(0,0,0,0.2); width: 100%; height: 6px;">
-                                        <div class="progress" style="background-color: green; height: 6px; width: {{selectedFile.progress}}%" ></div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Venue Type</label>
+                                    <div class="col-sm-6">
+
+                                        <select class="form-control" ng-model="selectedVenue.venueType">
+                                            <option ng-repeat="venueItem in venueTypeList">{{venueItem}}</option>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Description</label>
+                                    <div class="col-sm-6">
+                                        <textarea id="description" type="text" name="description" style="height: 120px;" class="form-control" 
+                                                  ng-model="selectedVenue.overview.summary" ></textarea>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">hours Of Operation</label>
+                                    <div class="col-sm-6">
+                                        hh
+                                    </div>
+
+                                </div>
+
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Photos</label>
+                                    <div class="col-sm-6">
+                                        <div  ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,true,false)">
+                                            <!--<p>You can also drag and drop an image file into the dashed area.</p>-->
+                                            <div class="row">
+
+                                                <div class="col-md-4 col-sm-4 col-xs-6">
+                                                    <a ngf-select="uploadImages($files,true,false)" ng-multiple="false" resetOnClick="true">
+                                                        <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
+                                                            <i class="glyphicon glyphicon-camera icon text-info-dker"></i>
+                                                            <span class="font-bold">Add photo</span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-md-4 col-sm-4 col-xs-6" ng-repeat="photo in selectedVenue.photos track by $index">
+                                                    <cl-image class="img-responsive venue-img-gallery" public-id="{{photo}}" width="300" height="200" crop="fill">
+                                                    </cl-image>
+                                                </div>
+
+
+
+                                            </div>
+
+                                            <div class="file" ng-hide="selectedFile.progress < 0">
+                                                <div class="status">{{selectedFile.status}}</div>
+                                                <div class="progress-bar" style="background-color: rgba(0,0,0,0.2); width: 100%; height: 6px;">
+                                                    <div class="progress" style="background-color: green; height: 6px; width: {{selectedFile.progress}}%" ></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <p class="headline headline-light">hours Of Operation</p>
 
 
 
-                            <div class="m-t m-b">
-                                <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1 = true">Prev</button>
-                                <button type="submit" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step3 = true">Next</button>
 
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+
+
+
                     </tab>
 
                     <tab heading="Spaces & Pricing"  select="steps.percent=60">
                         <!--                        <p class="m-b">spaces.</p>-->
 
-                        <div ng-hide="editSpaceMode" class="wrapper-md">
-
-                            <div>
-
+                        <div ng-hide="editSpaceMode" >
+                            <div class="row">
                                 <div class="col-md-4 col-lg-4">
                                     <a ng-click="addNewSpace()">
                                         <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
@@ -231,13 +296,14 @@
 
                                     <div class="pull-left" href="#" ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,false,true)" ngf-select="uploadImages($files,false,true)" ng-multiple="false" resetOnClick="true">
 
-                                        <figure class="changeable-picture">
+
+                                        <figure class="changeable-picture" ng-init="captionvisible = false" ng-mouseenter="captionvisible = true" ng-mouseleave="captionvisible = false">
                                             <cl-image ng-show="space.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
                                             </cl-image>
 
                                             <cl-image ng-hide="space.frontPhoto == null" public-id="{{space.frontPhoto}}" width="373" height="209" crop="fill">
                                             </cl-image>
-                                            <figcaption><p>Cambiar foto</p></figcaption>
+                                            <figcaption ng-show="captionvisible"><p>Cambiar foto</p></figcaption>
                                         </figure>
                                     </div>
 
@@ -265,7 +331,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="file" ng-hide="selectedFile.progress === 0">
+                                <div class="file" ng-hide="selectedFile.progress < 0">
                                     <div class="status">{{selectedFile.status}}</div>
                                     <div class="progress-bar" style="background-color: rgba(0,0,0,0.2); width: 100%; height: 6px;">
                                         <div class="progress" style="background-color: green; height: 6px; width: {{selectedFile.progress}}%" ></div>
@@ -273,67 +339,159 @@
                                 </div>
                             </div><!-- End Listing-->
 
-                            <p>Space Title.</p>
-
-                            <input name="title" class="form-control" ng-model="space.overview.title" required />
-
-                            <p class="m-t">Space Type</p>
-
-                            <div class="btn-group m-r" >
-                                <label class="btn btn-default" ng-model="space.type" btn-radio="'Left'" uncheckable
-                                       ng-repeat="stype in getSpaceTypes()">{{stype}}</label>
-                            </div>
-
-                            <p>Space Summary.</p>
-
-                            <textarea id="description" type="text" name="description" class="form-control" 
-                                      ng-model="space.overview.summary" ></textarea>
-
-                            <p>Space Type.</p>
-
-                            <p class="headline headline-light">More pictures</p>
+                            <div class="panel-body">
+                                <form class="form-horizontal">
 
 
-                            <div class="form-control" style="height: 100% !important; padding-top: 20px;" ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,false,false)">
-                                <!--<p>You can also drag and drop an image file into the dashed area.</p>-->
-                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Space Title</label>
+                                        <div class="col-sm-6">
+                                            <input name="title" class="form-control" ng-model="space.overview.title" required />
+                                        </div>
 
-                                    <div class="col-md-4 col-sm-4 col-xs-6">
-                                        <a ngf-select="uploadImages($files,false,false)" ng-multiple="false" resetOnClick="true">
-                                            <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
-                                                <i class="glyphicon glyphicon-camera icon text-info-dker"></i>
-                                                <span class="font-bold">Add picture</span>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Space Type</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" 
+                                                    ng-model="space.type" ng-options="stype.name for stype in spaceTypeList track by stype.id">
+                                                <option value="">-- choose space type --</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Space Summary</label>
+                                        <div class="col-sm-6">
+                                            <textarea id="description" type="text" name="description" class="form-control" 
+                                                      ng-model="space.overview.summary" ></textarea>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Capacity</label>
+                                        <div class="col-sm-6">
+                                            <div class="m-b">
+                                                <input type="number" ng-model="space.capacity"
+                                                       class="form-control" 
+                                                       />
                                             </div>
-                                        </a>
+                                            <span class="help-block">Indicates How many people this space can host.</span>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-4 col-sm-4 col-xs-6" ng-repeat="photo in space.photos track by $index">
-                                        <cl-image class="img-responsive venue-img-gallery" public-id="{{photo}}" width="300" height="200" crop="fill">
-                                        </cl-image>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Photos</label>
+                                        <div class="col-sm-6">
+                                            <div ngf-drag-over-class="dragOverClass($event)" ngf-drop="uploadImages($files,false,false)">
+                                                <!--<p>You can also drag and drop an image file into the dashed area.</p>-->
+                                                <div class="row">
+
+                                                    <div class="col-md-4 col-sm-4 col-xs-6">
+                                                        <a ngf-select="uploadImages($files,false,false)" ng-multiple="false" resetOnClick="true">
+                                                            <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
+                                                                <i class="glyphicon glyphicon-camera icon text-info-dker"></i>
+                                                                <span class="font-bold">Add picture</span>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-4 col-xs-6" ng-repeat="photo in space.photos track by $index">
+                                                        <cl-image class="img-responsive venue-img-gallery" public-id="{{photo}}" width="300" height="200" crop="fill">
+                                                        </cl-image>
+                                                    </div>
+
+
+
+                                                </div>
+
+                                                <div class="file" ng-hide="selectedFile.progress < 0">
+                                                    <div class="status">{{selectedFile.status}}</div>
+                                                    <div class="progress-bar" style="background-color: rgba(0,0,0,0.2); width: 100%; height: 6px;">
+                                                        <div class="progress" style="background-color: green; height: 6px; width: {{selectedFile.progress}}%" ></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
 
 
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Pricing</label>
+                                        <div class="col-sm-4">
 
-                                </div>
 
-                                <div class="file" ng-hide="selectedFile.progress === 0">
-                                    <div class="status">{{selectedFile.status}}</div>
-                                    <div class="progress-bar" style="background-color: rgba(0,0,0,0.2); width: 100%; height: 6px;">
-                                        <div class="progress" style="background-color: green; height: 6px; width: {{selectedFile.progress}}%" ></div>
+                                            <div class="m-b">
+                                                <input ui-jq="TouchSpin" type="number" ng-model="space.pricing.perHour" 
+                                                       value="0" class="form-control" data-min='0' data-max="10000000" 
+                                                       data-step="5000" data-decimals="0" data-prefix="$ Per Hour">
+                                            </div>
+                                            <div class="m-b">
+                                                <input ui-jq="TouchSpin" type="number" ng-model="space.pricing.perDay" 
+                                                       value="0" class="form-control" data-min='0' data-max="10000000" 
+                                                       data-step="50000" data-decimals="0" data-prefix="$ Per Day">
+                                            </div>
+                                            <div class="m-b">
+                                                <input ui-jq="TouchSpin" type="number" ng-model="space.pricing.perMonth" 
+                                                       value="0" class="form-control" data-min='0' data-max="10000000" 
+                                                       data-step="100000" data-decimals="0" data-prefix="$ Per Month">
+                                            </div>
+
+                                        </div>
+
                                     </div>
-                                </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Currency</label>
+                                        <div class="col-sm-4">
+                                            <div class="m-b">
+                                                <input type="text" value="CLP" ng-init="space.pricing.currency.currencyCode = 'CLP'" ng-model="space.pricing.currency.currencyCode"
+                                                       class="form-control" ng-disabled="true"
+                                                       />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">IVA/VAT/Tax rate</label>
+                                        <div class="col-sm-4">
+                                            <div class="m-b">
+                                                <input ui-jq="TouchSpin" type="number" value="19" ng-model="space.pricing.tax"
+                                                       class="form-control" 
+                                                       data-min='0' data-max="19" data-step="1" data-decimals="0" data-postfix="%">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"></label>
+                                        <div class="col-sm-5">
+                                            <div class="m-t m-b">
+                                                <button type="button" class="btn btn-default btn-rounded" ng-click="revertEditing()">Cancel</button>
+                                                <button type="button" class="btn btn-primary btn-rounded" ng-click="doneEditing()">Save</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </form>        
                             </div>
 
-                            <p>Per hour.</p>
-                            <p>Per day.</p>
-                            <p>Per month.</p>
+
+
+
 
                             <pre><code>{{space| json}}</code></pre>
 
-                            <div class="m-t m-b">
-                                <button type="button" class="btn btn-default btn-rounded" ng-click="revertEditing()">Cancel</button>
-                                <button type="button" class="btn btn-primary btn-rounded" ng-click="doneEditing()">Save</button>
-                            </div>
+
 
                         </div>
 
@@ -348,23 +506,27 @@
 
                         <div class="panel-body">
                             <form class="form-horizontal">
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
+
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Amenities</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-6">
                                         <div class="checkbox">
                                             <label class="i-checks" ng-repeat="amenity in amenitiesList">
-                                                <input
+                                                <input 
                                                     type="checkbox"
                                                     name="selectedAmenities[]"
                                                     value="{{amenity.name}}"
                                                     ng-model="amenity.selected"
                                                     ><i></i> {{amenity.name}}
                                             </label>
+
                                         </div>
+                                        <span class="help-block">Custom amenities are not supported yet.</span>
+
                                     </div>
+
                                 </div>
-                                
+
                             </form>
                         </div>
 
@@ -377,98 +539,98 @@
                     <tab heading="Admins"  select="steps.percent=60">
                         <p class="m-b">Add multiple users to look after the administration of this venue..</p>
                         <div class="row">
-                              <div class="m-t m-b">
-                            <div ng-if="!editAdminMode" class="wrapper-md">
-                                <div class="col-md-4 col-lg-4">
-                                    <a ng-click="addNewAdmin()">
-                                        <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
-                                            <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
-                                            <span class="font-bold">Add Admin</span>
+                            <div class="m-t m-b">
+                                <div ng-if="!editAdminMode" class="wrapper-md">
+                                    <div class="col-md-4 col-lg-4">
+                                        <a ng-click="addNewAdmin()">
+                                            <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
+                                                <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
+                                                <span class="font-bold">Add Admin</span>
 
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-lg-4" ng-repeat="admin in selectedVenue.admins track by $index" >
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4" ng-repeat="admin in selectedVenue.admins track by $index" >
 
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <div class="clearfix">
-                                                <a href class="pull-left thumb-md avatar b-3x m-r">
-                                                    <img src="img/a2.jpg" alt="...">
-                                                </a>
-                                                <div class="clear">
-                                                    <div class="h3 m-t-xs m-b-xs">
-                                                        {{admin.adminName}}
-                                                        <i class="fa fa-circle text-danger pull-right text-xs m-t-sm"></i>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <div class="clearfix">
+                                                    <a href class="pull-left thumb-md avatar b-3x m-r">
+                                                        <img src="img/a2.jpg" alt="...">
+                                                    </a>
+                                                    <div class="clear">
+                                                        <div class="h3 m-t-xs m-b-xs">
+                                                            {{admin.adminName}}
+                                                            <i class="fa fa-circle text-danger pull-right text-xs m-t-sm"></i>
+                                                        </div>
+                                                        <small class="text-muted">{{admin.adminRole}}</small>
+                                                        <small class="text-muted">{{admin.adminEmail}}</small>
                                                     </div>
-                                                    <small class="text-muted">{{admin.adminRole}}</small>
-                                                    <small class="text-muted">{{admin.adminEmail}}</small>
                                                 </div>
                                             </div>
+                                            <div class="list-group no-radius alt">
+                                                <a ng-click="editAdmin(admin, $index)"
+                                                   class="col padder-v text-muted">
+                                                    <i class="icon-edit block m-b-xs fa-2x"></i>
+                                                    <span>Edit</span>
+                                                </a>
+                                            </div>
                                         </div>
-                                        <div class="list-group no-radius alt">
-                                            <a ng-click="editAdmin(admin, $index)"
-                                               class="col padder-v text-muted">
-                                                <i class="icon-edit block m-b-xs fa-2x"></i>
-                                                <span>Edit</span>
-                                            </a>
-                                        </div>
+
                                     </div>
+                                </div>
+
+                                <div ng-if="editAdminMode" class="wrapper-md">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Admin Name</label>
+                                            <div class="col-sm-6">
+
+                                                <input name="adminName" class="form-control" ng-model="selectedVenueAdmin.adminName" required />
+                                            </div>
+                                        </div>
+                                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Admin Role</label>
+                                            <div class="col-sm-6">
+
+                                                <ui-select ng-model="selectedVenueAdmin.adminRole" theme="bootstrap">
+                                                    <ui-select-match placeholder="Select or search a role in the list...">{{$select.selected}}</ui-select-match>
+                                                    <ui-select-choices repeat="rolitem in adminRoles | filter: $select.search">
+                                                        <div ng-bind-html="rolitem | highlight: $select.search"></div>
+                                                        <small ng-bind-html="rolitem | highlight: $select.search"></small>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Admin Email</label>
+                                            <div class="col-sm-6">
+
+                                                <input name="adminEmail" class="form-control" ng-model="selectedVenueAdmin.adminEmail" required />
+                                                <span class="help-block">We will send an email to this address with the invitation</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-6">
+                                                <button type="button" class="btn btn-default btn-rounded" 
+                                                        ng-click="revertEditingAdmin()">Cancel</button>
+                                                <button type="button" class="btn btn-primary btn-rounded" 
+                                                        ng-click="doneEditingAdmin()">Add</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+
 
                                 </div>
-                            </div>
-
-                            <div ng-if="editAdminMode" class="wrapper-md">
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label text-left">Admin Name</label>
-                                        <div class="col-sm-6">
-
-                                            <input name="adminName" class="form-control" ng-model="selectedVenueAdmin.adminName" required />
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label text-left">Admin Role</label>
-                                        <div class="col-sm-6">
-
-                                            <ui-select ng-model="selectedVenueAdmin.adminRole" theme="bootstrap">
-                                                <ui-select-match placeholder="Select or search a role in the list...">{{$select.selected}}</ui-select-match>
-                                                <ui-select-choices repeat="rolitem in adminRoles | filter: $select.search">
-                                                    <div ng-bind-html="rolitem | highlight: $select.search"></div>
-                                                    <small ng-bind-html="rolitem | highlight: $select.search"></small>
-                                                </ui-select-choices>
-                                            </ui-select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label text-left">Admin Email</label>
-                                        <div class="col-sm-6">
-
-                                            <input name="adminEmail" class="form-control" ng-model="selectedVenueAdmin.adminEmail" required />
-                                            <span class="help-block">...</span>
-                                        </div>
-                                    </div>
-
-<div class="line line-dashed b-b line-lg pull-in"></div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label text-left"></label>
-                                        <div class="col-sm-6">
-                                            <button type="button" class="btn btn-default btn-rounded" 
-                                                    ng-click="revertEditingAdmin()">Cancel</button>
-                                            <button type="button" class="btn btn-primary btn-rounded" 
-                                                    ng-click="doneEditingAdmin()">Save</button>
-                                        </div>
-                                    </div>
-                                </form>
-
 
 
                             </div>
-
-
-                        </div>
                         </div>
                     </tab>
 

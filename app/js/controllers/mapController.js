@@ -9,7 +9,7 @@
         });
     });
 
-    mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, spacesService) {
+    mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, venuesService) {
 
         $scope.iconimg = {
         };
@@ -21,10 +21,10 @@
          */
         var firstTime = true;
         /**
-         * lista que contiene localmente los spaces devueltos por el backend
-         * @type Array|@exp;spacesService@call;geoSearch
+         * lista que contiene localmente los venues devueltos por el backend
+         * @type Array|@exp;venuesService@call;geoSearch
          */
-        var spacesList = [];
+        var venuesList = [];
 
         /**
          * input busqueda de lugares en el mapa
@@ -33,14 +33,16 @@
         var searchBox = null;
 
         /**
-         * Expone a nivel de scope los spaces recuperados desde el backend
+         * Expone a nivel de scope los venues recuperados desde el backend
          */
-        $scope.spaces = [];
+        $scope.venues = [];
 
         /**
-         * Expone a nivel de scope los markers creados a partir de los spaces recuperados
+         * Expone a nivel de scope los markers creados a partir de los venues recuperados
          */
         $scope.markers = [];
+
+        $scope.formattedAddress = "";
 
         $scope.mapInstance = null;
 
@@ -61,23 +63,23 @@
         $scope.blackStyle = [{"featureType": "all", "elementType": "labels.text.fill", "stylers": [{"saturation": 36}, {"color": "#000000"}, {"lightness": 40}]}, {"featureType": "all", "elementType": "labels.text.stroke", "stylers": [{"visibility": "on"}, {"color": "#000000"}, {"lightness": 16}]}, {"featureType": "all", "elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {"featureType": "administrative", "elementType": "geometry.fill", "stylers": [{"color": "#000000"}, {"lightness": 20}]}, {"featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 17}, {"weight": 1.2}]}, {"featureType": "landscape", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 20}]}, {"featureType": "poi", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 21}]}, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#000000"}, {"lightness": 17}]}, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 29}, {"weight": 0.2}]}, {"featureType": "road.arterial", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 18}]}, {"featureType": "road.local", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 16}]}, {"featureType": "transit", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 19}]}, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 17}]}];
 
         var setMapValues = function (map) {
-            
-            
+
+
             $scope.iconimg = {
                 url: './img/Map-Marker-Flat-Yellow.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
                 scaledSize: new google.maps.Size(36, 36), // size
             };
             $scope.iconimghightlight = {
                 url: './img/Map-Marker-Flat-Blue.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
-                scaledSize: new google.maps.Size(48, 48), // size
+                scaledSize: new google.maps.Size(40, 40), // size
             };
             $scope.map = {
                 windowTemplate: "tpl/blocks/venue-small-window.html",
                 windowParameter: function (marker) {
                     return marker;
                 },
-                center: {latitude: -33.407550, longitude: -70.570209}, zoom: 13,
-                options: {maxZoom: 16, minZoom: 13, styles: $scope.styleMapApple},
+                center: {latitude: -33.407550, longitude: -70.570209}, zoom: 12,
+                options: {maxZoom: 16, minZoom: 11, styles: $scope.styleMapFlat},
                 events: {
                     dragend: function (map) {
                         $scope.$apply(function () {
@@ -144,12 +146,28 @@
             //$scope.markers = [];
             var radio = calcRadio(map);
             var center = map.getCenter();
-            spacesList = spacesService.geoSearch(center.lat(), center.lng(), radio);
-            spacesList.$promise.then(function () {
+
+            venuesList = venuesService.geoSearch(center.lat(), center.lng(), radio);
+            venuesList.$promise.then(function () {
                 refreshMapMarkers();
+                if (venuesList.length === 0) {
+                    findFormattedAddress(center);
+                }
 //                $log.info("markers length:" + $scope.markers.length);
             });
         };
+
+        var findFormattedAddress = function (center) {
+            var latlng = new google.maps.LatLng(center.lat(), center.lng());
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({'latLng': latlng}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        $scope.formattedAddress = results[1].formatted_address;
+                    }
+                }
+            });
+        }
 
         var compareSpace = function (a, b) {
             if (a.id < b.id)
@@ -159,19 +177,19 @@
             return 0;
         };
 
-        $scope.spacesIsEmpty = function () {
-            var retorno = ($scope.spaces.length === 0);
-            //$log.info("spacesIsEmpty:"+retorno);
+        $scope.venuesIsEmpty = function () {
+            var retorno = ($scope.venues.length === 0);
+            //$log.info("venuesIsEmpty:"+retorno);
             return retorno;
         };
 
         var refreshMapMarkers = function () {
             var tempmarkers = [];
-            $scope.spaces = [];
-            spacesList.sort(compareSpace);
-            for (var i = 0; i < spacesList.length; i++) {
-                tempmarkers.push(createMarker(spacesList[i]));
-                $scope.spaces.push(spacesList[i]);
+            $scope.venues = [];
+            venuesList.sort(compareSpace);
+            for (var i = 0; i < venuesList.length; i++) {
+                tempmarkers.push(createMarker(venuesList[i]));
+                $scope.venues.push(venuesList[i]);
             }
             var i = 0;
             while (i < $scope.markers.length) {
@@ -216,7 +234,7 @@
                 title: space.overview.title,
                 id: space.id,
                 show: false,
-                distance: ((space.distance > 1000) ? (Number((space.distance / 1000).toFixed(1)) + " Kms") : (Number((space.distance).toFixed(1)) + " Mts")),
+                //distance: ((space.distance > 1000) ? (Number((space.distance / 1000).toFixed(1)) + " Kms") : (Number((space.distance).toFixed(1)) + " Mts")),
                 icon: $scope.iconimg,
                 opciones: {
                     labelAnchor: (('' + space.id).length * 4) + " 32",
@@ -274,18 +292,19 @@
             require: 'ngModel',
             scope: {
                 ngModel: '=',
-                options: '=?',
-                details: '=?'
+                options: '=',
+                details: '='
             },
             link: function (scope, element, attrs, controller) {
-
                 //options for autocomplete
                 var opts
                 var watchEnter = false
                 var libraryReady = false
+                var mustInitOps = false;
                 //convert options provided to opts
                 var initOpts = function () {
                     if (libraryReady) {
+                        mustInitOps = false;
                         opts = {}
                         if (scope.options) {
 
@@ -319,17 +338,13 @@
                                 scope.gPlace.setComponentRestrictions(null)
                             }
                         }
+                    } else {
+                        mustInitOps = true;
                     }
                 }
 
-                uiGmapGoogleMapApi.then(function (maps) {
-                    executeAfterLoadLibrary();
-                    libraryReady = true;
-                    initOpts();
-                });
-
                 var executeAfterLoadLibrary = function () {
-                    if (scope.gPlace == undefined) {
+                    if (scope.gPlace === undefined) {
                         scope.gPlace = new google.maps.places.Autocomplete(element[0], {});
                     }
                     google.maps.event.addListener(scope.gPlace, 'place_changed', function () {
@@ -339,7 +354,7 @@
 
                                 scope.$apply(function () {
 
-                                    scope.details = result;
+                                    scope.details.result = result;
 
                                     controller.$setViewValue(element.val());
                                 });
@@ -397,6 +412,16 @@
                         });
                     }
                 }
+
+                uiGmapGoogleMapApi.then(function (maps) {
+                    if (!libraryReady) {
+                        libraryReady = true;
+                        executeAfterLoadLibrary();
+                        if (mustInitOps) {
+                            initOpts();
+                        }
+                    }
+                });
 
                 controller.$render = function () {
                     var location = controller.$viewValue;
