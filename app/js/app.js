@@ -34,6 +34,10 @@ angular.module('app', [
         .factory('Venues', function (unlockRestResource) {
             return unlockRestResource('venues');
         })
+        
+         .factory('SpacesRS', function (unlockRestResource) {
+            return unlockRestResource('spaces');
+        })
 
         .factory('SpaceTypes', function (unlockRestResource) {
             return unlockRestResource('spacetypes');
@@ -46,7 +50,7 @@ angular.module('app', [
         .factory('Currencies', function (unlockRestResource) {
             return unlockRestResource('currencies');
         })
-        
+
         .factory('Amenities', function (unlockRestResource) {
             return unlockRestResource('amenity');
         })
@@ -66,5 +70,44 @@ angular.module('app', [
 
             });
         })
-        ;
+
+        .factory('httpInterceptor', function ($q, $rootScope) {
+
+            var numLoadings = 0;
+
+            return {
+                request: function (config) {
+
+                    numLoadings++;
+
+                    // Show loader
+                    $rootScope.$broadcast("loader_show");
+                    return config || $q.when(config)
+
+                },
+                response: function (response) {
+
+                    if ((--numLoadings) === 0) {
+                        // Hide loader
+                        $rootScope.$broadcast("loader_hide");
+                    }
+
+                    return response || $q.when(response);
+
+                },
+                responseError: function (response) {
+
+                    if (!(--numLoadings)) {
+                        // Hide loader
+                        $rootScope.$broadcast("loader_hide");
+                    }
+
+                    return $q.reject(response);
+                }
+            };
+        })
+        .config(function ($httpProvider) {
+            $httpProvider.interceptors.push('httpInterceptor');
+        })
+;
 

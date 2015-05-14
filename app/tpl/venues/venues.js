@@ -47,23 +47,6 @@ app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Ve
 
     }]);
 
-app.controller('VenueViewController', ['$scope', '$http', '$state', '$log', '$stateParams','Venues', function ($scope, $http, $state, $log, $stateParams, Venues) {
-        $scope.messageVenue = 'hello from venues VenuesViewController';
-        $log.log($scope.messageVenue);
-        $scope.selectedVenue = {};
-
-
-        Venues.getById($stateParams.venueId).then(
-                function (v) {
-                    $scope.selectedVenue = v;
-                },
-                function (err) {
-                    alert('error:' + err);
-                }
-        );
-
-    }]);
-
 app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootScope', '$http', '$state', 'Venues', '$stateParams', 'Upload', 'SpaceTypes', 'VenueTypes', 'Currencies', 'Amenities',
     function (REST_CONFIG, $log, $scope, $rootScope, $http, $state, Venues, $stateParams, Upload, SpaceTypes, VenueTypes, Currencies, Amenities) {
         var vm = this;

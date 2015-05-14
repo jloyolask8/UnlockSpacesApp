@@ -31,7 +31,7 @@
                 </td>
                 <td class="td-results-map-search">
                     <div id="container" class="result-map-container">
-                        <div id="results" class="results-map-search" ng-hide="detailView">
+                        <div id="results" class="results-map-search" ng-if="!detailView">
                             <div ng-show="venuesIsEmpty()">
                                 Searching for venues around the <b>{{formattedAddress}}</b> yielded no results.
                             </div>
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div ng-show="detailView" >
+                        <div ng-if="detailView" >
                             <div class="panel panel-default">
                                 <div class="panel-heading font-bold" ng-click="viewResults()">Details</div>
                                 <div class="panel-body" set-ng-animate="false">

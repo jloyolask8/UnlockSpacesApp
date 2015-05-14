@@ -9,7 +9,18 @@
         });
     });
 
-    mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, venuesService) {
+    mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, venuesService, $stateParams) {
+
+        $scope.venuesSearchText = '';
+        
+        loadParams();
+        
+        function loadParams(){
+            if($stateParams.venuesSearchText){
+                var input = (document.getElementById('pac-input'));
+                input.value = $stateParams.venuesSearchText;
+            }
+        }
 
         var firstTime = true;
         var venuesList = [];
