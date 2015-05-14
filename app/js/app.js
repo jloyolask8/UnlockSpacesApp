@@ -29,10 +29,26 @@ angular.module('app', [
     'spacesRestClient',
     'uiGmapgoogle-maps',
     'mapControllers',
-   ,'http-auth-interceptor'
+    , 'http-auth-interceptor'
 ])
         .factory('Venues', function (unlockRestResource) {
             return unlockRestResource('venues');
+        })
+
+        .factory('SpaceTypes', function (unlockRestResource) {
+            return unlockRestResource('spacetypes');
+        })
+
+        .factory('VenueTypes', function (unlockRestResource) {
+            return unlockRestResource('venuetypes');
+        })
+
+        .factory('Currencies', function (unlockRestResource) {
+            return unlockRestResource('currencies');
+        })
+        
+        .factory('Amenities', function (unlockRestResource) {
+            return unlockRestResource('amenity');
         })
 
         .run(function ($rootScope, auth, store, jwtHelper, $location) {

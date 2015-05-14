@@ -43,26 +43,60 @@ app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Ve
             });
         };
 
-//        $scope.remove = function (Venue) {
-//
-//            Venue.$remove(function (data) {
-//                alert("removed ok:" + data);
-//            }, function (data) {
-//                alert("error:" + data);
-//            });
-////            $state.go("app.venues.list");
-//
-//        };
-
         $scope.fetchAll();
 
     }]);
 
-app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootScope', '$http', '$state', 'Venues', '$stateParams', 'Upload',
-    function (REST_CONFIG, $log, $scope, $rootScope, $http, $state, Venues, $stateParams, Upload) {
+app.controller('VenueViewController', ['$scope', '$http', '$state', '$log', '$stateParams','Venues', function ($scope, $http, $state, $log, $stateParams, Venues) {
+        $scope.messageVenue = 'hello from venues VenuesViewController';
+        $log.log($scope.messageVenue);
+        $scope.selectedVenue = {};
 
-        var that = this;
+
+        Venues.getById($stateParams.venueId).then(
+                function (v) {
+                    $scope.selectedVenue = v;
+                },
+                function (err) {
+                    alert('error:' + err);
+                }
+        );
+
+    }]);
+
+app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootScope', '$http', '$state', 'Venues', '$stateParams', 'Upload', 'SpaceTypes', 'VenueTypes', 'Currencies', 'Amenities',
+    function (REST_CONFIG, $log, $scope, $rootScope, $http, $state, Venues, $stateParams, Upload, SpaceTypes, VenueTypes, Currencies, Amenities) {
+        var vm = this;
+        //amenities
+        //
+        // load from db
+        $scope.amenitiesList = [];
+        $scope.spaceTypeList = [];
+        $scope.venueTypeList = ['Bussiness Center', 'Corporate Office', 'Coworking spaces', 'Startup offices'];
+//        getVenueTypes();
+        getAmenities();
+        getSpaceTypes();
+
+
+
+        // watch amenity for changes
+        $scope.$watch('amenitiesList|filter:{selected:true}', function (nv) {
+            $scope.selectedVenue.amenitiesAvailable = nv.map(function (amenity) {
+                return amenity;
+            });
+        }, true);
+
+        //      selectedVenueAdmin
+        $scope.selectedVenueAdmin = {};//new and selected selectedVenueAdmin for edit
+        $scope.addNewAdmin = addNewAdmin;
+        $scope.editAdmin = editAdmin;
+        $scope.doneEditingAdmin = doneEditingAdmin;
+        $scope.revertEditingAdmin = revertEditingAdmin;
+        $scope.adminRoles = ['Role 1', 'Role 2'];
+//      --selectedVenueAdmin 
+
         $scope.space = {};
+
         $scope.uploadingImages = false;
         $scope.editSpaceMode = false;
         $scope.selectedVenue = {};
@@ -95,11 +129,11 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
         });
 
         $scope.selectedFile = {
-            progress: 0
+            progress: -1
         };
 
         $scope.selectedSpaceFile = {
-            progress: 0
+            progress: -1
         };
 
         $scope.uploadImages = function (files, isvenue, isfront) {
@@ -146,10 +180,10 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
-                    $scope.selectedFile.progress = 0;
+                    $scope.selectedFile.progress = -1;
                 }).error(function () {
                     $scope.selectedFile.status = "Ups, no hemos podido subir la imagen, prueba otra vez!";
-                    $scope.selectedFile.progress = 0;
+                    $scope.selectedFile.progress = -1;
                 });
             }
         };
@@ -266,9 +300,110 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
             $state.go("app.venues.list");
         };
 
+        //selectedVenueAdmin crud logic, please refactor some day
+
+        function editAdmin(venueAdmin, $index) {
+            $scope.editAdminMode = true;
+            // Clone the original obj to restore it on demand.
+            $scope.originalAdmin = angular.extend({}, venueAdmin);
+            $scope.selectedVenueAdmin = venueAdmin;
+            $scope.selectedVenueAdminIndex = $index;
+        }
+        ;
+
+        function addNewAdmin() {
+
+            var newVenueAdmin = {
+                adminName: '',
+                adminRole: '',
+                adminEmail: ''
+            };
+
+            newVenueAdmin.isNew = true;
+
+            $scope.editAdmin(newVenueAdmin);
+
+        }
+        ;
+
+        function doneEditingAdmin() {
+            $scope.editAdminMode = false;
+            if ($scope.selectedVenueAdmin.isNew) {
+                $scope.selectedVenueAdmin.isNew = false;
+                $scope.selectedVenue.admins.push($scope.selectedVenueAdmin);
+            } else {
+                $scope.selectedVenue.admins[$scope.selectedVenueAdminIndex] = $scope.selectedVenueAdmin;
+            }
+            $scope.selectedVenueAdmin = {};
+            $scope.originalAdmin = {};
+        }
+        ;
+
+        function revertEditingAdmin() {
+            $scope.editAdminMode = false;
+            $scope.selectedVenueAdminIndex = -1;
+        }
+        ;
+
+        //venue types, it would be nice to cache this values somehow
+        function getVenueTypes() {
+
+            console.log('get venue types');
+
+            VenueTypes.query().then(function (data) {
+                vm.venueTypeList = data;
+            }, function (errResponse) {
+                if (errResponse.status === 0) {
+                    alert("Cannot load venue types. Connection to server Lost!");
+                } else {
+                    alert("Sorry we are not able to complete the operation. " + errResponse.status);
+                }
+            });
+
+        }
+        ;
+
+        //space types - it would be nice to cache this values somehow
+
+        function getSpaceTypes() {
+
+            console.log('get space types');
+
+            SpaceTypes.query().then(function (data) {
+                $scope.spaceTypeList = data;
+            }, function (errResponse) {
+                if (errResponse.status === 0) {
+                    alert("Cannot load space types. Connection to server Lost!");
+                } else {
+                    alert("Sorry we are not able to complete the operation. " + errResponse.status);
+                }
+            });
+
+        }
+        ;
+        //amenities - it would be nice to cache this values somehow
+
+        function getAmenities() {
+
+            console.log('get amenities');
+
+            Amenities.query().then(function (data) {
+                $scope.amenitiesList = data;
+            }, function (errResponse) {
+                if (errResponse.status === 0) {
+                    alert("Cannot load amenities. Connection to server Lost!");
+                } else {
+                    alert("Sorry we are not able to complete the operation. " + errResponse.status);
+                }
+            });
+
+        }
+        ;
+
     }]);
 
-app.controller('VenuesCreateController', ['REST_CONFIG', '$scope', '$http', '$state', '$log', 'Venues', function (REST_CONFIG, $scope, $http, $state, $log, Venues) {
+app.controller('VenuesCreateController', ['REST_CONFIG', '$scope', '$http', '$state', '$log', 'Venues',
+    function (REST_CONFIG, $scope, $http, $state, $log, Venues) {
 
         $scope.messageVenue = 'hello from venues VenuesCrateController';
         $log.log($scope.messageVenue);

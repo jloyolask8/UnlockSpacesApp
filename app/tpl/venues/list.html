@@ -23,7 +23,7 @@
                             </div>
 
                             <div class="bottom wrapper bg-gd-dk text-white">            
-                                <div>{{venue.overview.title}}</div>
+                                <div>{{venue.overview.title}} {{venue.venueType}}</div>
                                 <div>9:00 am - 12:00 pm</div>
                             </div>
                             <cl-image ng-show="venue.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" class="img-full" width="373" height="209" crop="fill">
@@ -38,9 +38,10 @@
                                 <i class="fa fa-trash block m-b-xs fa-2x"></i>
                                 <span>Remove</span>
                             </a>
-                            <a href class="col padder-v text-muted b-r b-light">
-                                <i class="icon-pointer block m-b-xs fa-2x"></i>
-                                <span>Location</span>
+                            <a ui-sref="pages.venue({venueId:venue.id})"
+                               class="col padder-v text-muted">
+                                <i class="fa fa-edit block m-b-xs fa-2x"></i>
+                                <span>Preview</span>
                             </a>
                             <a ui-sref="app.venues.edit({venueId:venue.id})"
                                class="col padder-v text-muted">

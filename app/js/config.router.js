@@ -73,6 +73,30 @@ angular.module('app')
                                     data: {requiresLogin: true}
                                 })
 
+                                .state('app.venues.view', {
+                                    url: '/{venueId:[0-9]{1,20}}/view',
+                                    templateUrl: 'tpl/venues/view.html',
+                                    controller: 'VenueViewController'
+                                })
+
+                                .state('pages', {
+                                    url: '/pages',
+                                    template: '<div ui-view class="fade-in-right-big smooth"></div>'
+                                })
+
+                                .state('pages.venue', {
+                                    url: '/venue/{venueId:[0-9]{1,20}}',
+                                    templateUrl: 'tpl/venues/view.html',
+                                    controller: 'VenueViewController'
+                                })
+
+                                .state('pages.space', {
+                                    url: '/space/{spaceId:[0-9]{1,20}}',
+                                    templateUrl: 'tpl/spaces/view.html',
+                                    controller: 'SpaceViewController'
+                                })
+
+
                                 // form
                                 .state('app.form', {
                                     url: '/form',
@@ -222,6 +246,8 @@ angular.module('app')
                                     templateUrl: 'tpl/user_profile/profile.html',
                                     data: {requiresLogin: true}
                                 })
+
+
 
 
                                 .state('access', {
