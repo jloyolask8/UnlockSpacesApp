@@ -11,60 +11,49 @@
 
     mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, venuesService) {
 
-        $scope.iconimg = {
-        };
-        $scope.iconimghightlight = {
-        };
-        /**
-         * flag para agregar componentes en la primera carga del mapa
-         * @type Boolean|Boolean
-         */
         var firstTime = true;
-        /**
-         * lista que contiene localmente los venues devueltos por el backend
-         * @type Array|@exp;venuesService@call;geoSearch
-         */
         var venuesList = [];
-
-        /**
-         * input busqueda de lugares en el mapa
-         * @type google.maps.places.SearchBox
-         */
         var searchBox = null;
-
-        /**
-         * Expone a nivel de scope los venues recuperados desde el backend
-         */
+        
+        $scope.iconimg = {};
+        $scope.iconimghightlight = {};
+        
         $scope.venues = [];
-
-        /**
-         * Expone a nivel de scope los markers creados a partir de los venues recuperados
-         */
         $scope.markers = [];
-
+        $scope.detailView = false;
         $scope.formattedAddress = "";
-
         $scope.mapInstance = null;
-
         $scope.optionsModel = {
             centerOnMap: true,
         };
-        /**
-         * Una vez que el api de google está cargada,
-         * se definen los parametros y suscripciones a eventos
-         */
-        uiGmapGoogleMapApi.then(function (maps) {
-            setMapValues(maps);
-        });
-
+        
         $scope.styleMapFlat = [{"featureType": "water", "elementType": "all", "stylers": [{"hue": "#7fc8ed"}, {"saturation": 55}, {"lightness": -6}, {"visibility": "on"}]}, {"featureType": "water", "elementType": "labels", "stylers": [{"hue": "#7fc8ed"}, {"saturation": 55}, {"lightness": -6}, {"visibility": "off"}]}, {"featureType": "poi.park", "elementType": "geometry", "stylers": [{"hue": "#83cead"}, {"saturation": 1}, {"lightness": -15}, {"visibility": "on"}]}, {"featureType": "landscape", "elementType": "geometry", "stylers": [{"hue": "#f3f4f4"}, {"saturation": -84}, {"lightness": 59}, {"visibility": "on"}]}, {"featureType": "landscape", "elementType": "labels", "stylers": [{"hue": "#ffffff"}, {"saturation": -100}, {"lightness": 100}, {"visibility": "off"}]}, {"featureType": "road", "elementType": "geometry", "stylers": [{"hue": "#ffffff"}, {"saturation": -100}, {"lightness": 100}, {"visibility": "on"}]}, {"featureType": "road", "elementType": "labels", "stylers": [{"hue": "#bbbbbb"}, {"saturation": -100}, {"lightness": 26}, {"visibility": "on"}]}, {"featureType": "road.arterial", "elementType": "geometry", "stylers": [{"hue": "#ffcc00"}, {"saturation": 100}, {"lightness": -35}, {"visibility": "simplified"}]}, {"featureType": "road.highway", "elementType": "geometry", "stylers": [{"hue": "#ffcc00"}, {"saturation": 100}, {"lightness": -22}, {"visibility": "on"}]}, {"featureType": "poi.school", "elementType": "all", "stylers": [{"hue": "#d7e4e4"}, {"saturation": -60}, {"lightness": 23}, {"visibility": "on"}]}];
         $scope.styleMapGreener = [{"stylers": [{"saturation": -100}]}, {"featureType": "water", "elementType": "geometry.fill", "stylers": [{"color": "#0099dd"}]}, {"elementType": "labels", "stylers": [{"visibility": "off"}]}, {"featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{"color": "#36bc51"}]}, {"featureType": "road.highway", "elementType": "labels", "stylers": [{"visibility": "on"}]}, {"featureType": "road.arterial", "elementType": "labels.text", "stylers": [{"visibility": "on"}]}, {"featureType": "road.local", "elementType": "labels.text", "stylers": [{"visibility": "on"}]}, {}];
         $scope.styleMapApple = [{"featureType": "landscape.man_made", "elementType": "geometry", "stylers": [{"color": "#f7f1df"}]}, {"featureType": "landscape.natural", "elementType": "geometry", "stylers": [{"color": "#d0e3b4"}]}, {"featureType": "landscape.natural.terrain", "elementType": "geometry", "stylers": [{"visibility": "off"}]}, {"featureType": "poi", "elementType": "labels", "stylers": [{"visibility": "off"}]}, {"featureType": "poi.business", "elementType": "all", "stylers": [{"visibility": "off"}]}, {"featureType": "poi.medical", "elementType": "geometry", "stylers": [{"color": "#fbd3da"}]}, {"featureType": "poi.park", "elementType": "geometry", "stylers": [{"color": "#bde6ab"}]}, {"featureType": "road", "elementType": "geometry.stroke", "stylers": [{"visibility": "off"}]}, {"featureType": "road", "elementType": "labels", "stylers": [{"visibility": "off"}]}, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#ffe15f"}]}, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#efd151"}]}, {"featureType": "road.highway", "elementType": "labels", "stylers": [{"visibility": "on"}]}, {"featureType": "road.arterial", "elementType": "geometry.fill", "stylers": [{"color": "#ffffff"}]}, {"featureType": "road.arterial", "elementType": "labels", "stylers": [{"visibility": "on"}]}, {"featureType": "road.local", "elementType": "geometry.fill", "stylers": [{"color": "black"}]}, {"featureType": "transit.station.airport", "elementType": "geometry.fill", "stylers": [{"color": "#cfb2db"}]}, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#a2daf2"}]}];
         $scope.blackStyle = [{"featureType": "all", "elementType": "labels.text.fill", "stylers": [{"saturation": 36}, {"color": "#000000"}, {"lightness": 40}]}, {"featureType": "all", "elementType": "labels.text.stroke", "stylers": [{"visibility": "on"}, {"color": "#000000"}, {"lightness": 16}]}, {"featureType": "all", "elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {"featureType": "administrative", "elementType": "geometry.fill", "stylers": [{"color": "#000000"}, {"lightness": 20}]}, {"featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 17}, {"weight": 1.2}]}, {"featureType": "landscape", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 20}]}, {"featureType": "poi", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 21}]}, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#000000"}, {"lightness": 17}]}, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 29}, {"weight": 0.2}]}, {"featureType": "road.arterial", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 18}]}, {"featureType": "road.local", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 16}]}, {"featureType": "transit", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 19}]}, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 17}]}];
 
+                
+        $scope.$watch('spaceSelected',function(newvalue,oldvalue){
+            $log.info(oldvalue+" ==> "+newvalue);
+        });
+        
+        uiGmapGoogleMapApi.then(function (maps) {
+            setMapValues(maps);
+        });
+
+        
+        $scope.viewDetailOfSpace = function (space){
+            $scope.detailView = true;
+            $scope.spaceSelected = angular.copy(space);
+            $log.info("$scope.spaceSelected.id: "+$scope.spaceSelected.id);
+        };
+        
+        $scope.viewResults = function (){
+            $scope.detailView = false;
+        };
+
         var setMapValues = function (map) {
-
-
+            
             $scope.iconimg = {
                 url: './img/Map-Marker-Flat-Yellow.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
                 scaledSize: new google.maps.Size(36, 36), // size
@@ -110,14 +99,10 @@
                     }
                 },
                 infoWindowWithCustomClass: {
-                    coords: {
-                        latitude: 36.270850,
-                        longitude: -44.296875
-                    },
                     options: {
                         boxClass: 'custom-info-window',
                         closeBoxDiv: '<div" class="pull-right" style="position: relative; cursor: pointer; margin: -20px -15px;">X</div>',
-                        disableAutoPan: true
+                        disableAutoPan: false
                     },
                     show: true
                 }
@@ -183,13 +168,33 @@
             return retorno;
         };
 
+        var createSpaceSlides = function (spaces) {
+            for (var index = 0; index < spaces.length; index++) {
+                var space = spaces[index];
+                space.slides = [];
+                if (space.frontPhoto) {
+                    space.slides.push({
+                        image: space.frontPhoto
+                    });
+                }
+                if (space.photos) {
+                    space.photos.forEach(function (photourl) {
+                        space.slides.push({
+                            image: photourl
+                        });
+                    });
+                }
+            }
+        };
+
         var refreshMapMarkers = function () {
             var tempmarkers = [];
-            $scope.venues = [];
+            
             venuesList.sort(compareSpace);
             for (var i = 0; i < venuesList.length; i++) {
+                //createSpaceSlides(venuesList[i].spaces);
                 tempmarkers.push(createMarker(venuesList[i]));
-                $scope.venues.push(venuesList[i]);
+                //$scope.venues.push(venuesList[i]);
             }
             var i = 0;
             while (i < $scope.markers.length) {
@@ -197,6 +202,7 @@
                 if (index < 0) {
 //                    $log.info("elimino el " + i);
                     $scope.markers.splice(i, 1);
+                    $scope.venues.splice(i,1);
                 } else {
                     i++;
                 }
@@ -207,6 +213,8 @@
                 if (index < 0) {
 //                    $log.info("agrego el " + i);
                     $scope.markers.push(tempmarkers[i]);
+                    createSpaceSlides(venuesList[i].spaces);
+                    $scope.venues.push(venuesList[i]);
                 }
                 i++;
             }

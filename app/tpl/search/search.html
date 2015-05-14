@@ -31,7 +31,7 @@
                 </td>
                 <td class="td-results-map-search">
                     <div id="container" class="result-map-container">
-                        <div id="results" class="results-map-search">
+                        <div id="results" class="results-map-search" ng-hide="detailView">
                             <div ng-show="venuesIsEmpty()">
                                 Searching for venues around the <b>{{formattedAddress}}</b> yielded no results.
                             </div>
@@ -40,16 +40,16 @@
                                     <div >
                                         <table style="width: 100%;">
                                             <tr>
-                                                <td style="width: 100%; padding: 10px;">
+                                                <td style="width: 60%; padding: 10px;" ng-click="viewDetailOfSpace(space)">
                                                     <div class="ws-content-group">
                                                         <h5 class="ws-item-title text-overflow-dot ng-binding" style="width: 200px;">
                                                             {{space.overview.title}}
                                                             <!-- end ngIf: item.workvenue.capacity -->
                                                         </h5>
-                                                        <span class="text-smoky ng-binding ng-scope" >
-                                                            <i class="fa fa-users" aria-hidden="true"></i> 1
-                                                        </span>
-                                                        <!--<small class="text-smoky"><em>at</em> <span class="text-cap">{{item.venue.name}}</span></small>-->
+                                                        <!--                                                        <span class="text-smoky ng-binding ng-scope" >
+                                                                                                                    <i class="fa fa-users" aria-hidden="true"></i> 1
+                                                                                                                </span>-->
+                                                        <small class="text-smoky"><em>at</em> <span class="text-cap">{{venue.overview.title}}</span></small>
                                                     </div>
 
                                                     <div class="ws-content-group">
@@ -70,22 +70,41 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <figure class="changeable-picture" ng-init="visible = 0">
-                                                        <div ng-show="visible === 0" style="width: 238px; height: 159px;">
-                                                            <cl-image public-id="{{space.frontPhoto}}" width="238" height="159" crop="fill">
-                                                            </cl-image>
-                                                        </div>
-                                                        <div ng-show="visible === ($index + 1)" style="width: 238px; height: 159px;" ng-repeat="photo in space.photos track by $index">
-                                                            <cl-image public-id="{{photo}}"  width="238" height="159" crop="fill">
-                                                            </cl-image>
-                                                        </div>
-                                                        <figcaption ng-show="space.photos.length > 0" ng-click="visible = (visible >= space.photos.length)?0:(visible + 1)"><p>mostrar siguiente</p></figcaption>
-
-                                                    </figure>
+                                                    <div style="width: 100%; height: 100%;" set-ng-animate="false">
+                                                        <carousel>
+                                                            <slide ng-repeat="slide in space.slides" active="slide.active">
+                                                                <cl-image public-id="{{slide.image}}" width="238" height="159" crop="fill">
+                                                                </cl-image>
+                                                            </slide>
+                                                        </carousel>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </table>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="detailView" >
+                            <div class="panel panel-default">
+                                <div class="panel-heading font-bold" ng-click="viewResults()">Details</div>
+                                <div class="panel-body" set-ng-animate="false">
+                                    {{spaceSelected.slides.length}}
+                                    <div ng-repeat="slide in spaceSelected.slides">
+                                        <span>{{slide.image}}</span>
+                                        <span>{{slide.active}}</span>
+                                    </div>
+                                    <carousel>
+                                        <slide ng-repeat="slide in spaceSelected.slides" active="slide.active">
+                                            <cl-image public-id="{{slide.image}}" width="238" height="159" crop="fill" class="img-full">
+                                            </cl-image>
+                                            <div class="carousel-caption">
+                                                <h4>Slide {{$index}}</h4>
+                                                <p>{{slide.text}}</p>
+                                            </div>
+                                        </slide>
+                                    </carousel>
+                                    {{spaceSelected.slides| json}}
                                 </div>
                             </div>
                         </div>
