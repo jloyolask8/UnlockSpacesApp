@@ -3,12 +3,9 @@
     <h1 class="m-n font-thin h3">{{selectedVenue.overview.title}}</h1>
 </div>
 
-
-<div class="wrapper-md">
-
-    <div class="row">
-
-        <div class="col-md-8 col-lg-9">
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = false;">
+      
+  <div class="col col-md-8 col-lg-9">
             <div class="row">
 
                 <tabset class="tab-container" ng-init="steps={percent:10, step1:true, step2:false, step3:false, step4:false}">
@@ -262,11 +259,7 @@
                                         </div>
                                         <div class="hbox text-center b-b b-light text-sm">          
                                             
-                                            <a ui-sref="app.bookspace({spaceId:space.id})"
-                                               class="col padder-v text-muted">
-                                                <i class="icon-edit block m-b-xs fa-2x"></i>
-                                                <span>Book Space</span>
-                                            </a>
+                                           
                                             
                                             <a ng-click="editSpace(space, $index)"
                                                class="col padder-v text-muted">
@@ -649,9 +642,13 @@
             </div>
         </div>
 
-        <div class="col-md-4 col-lg-3 bg-light lter b-l bg-auto">
 
-            help
+    <div class="col w-lg bg-light lter b-l bg-auto">
+        <div class="wrapper">
+
+             <pre><code>{{selectedVenue| json}}</code></pre>
+             
+           help
 
             <pre><code>admin: {{selectedVenueAdmin| json}}</code></pre>
 
@@ -659,25 +656,9 @@
             <h4>selection as simple array using $watch</h4>
             <pre>{{amenitySelection|json}}</pre>
 
-
-        </div>
-
-    </div>
-
-
-    <div class="row">
-        <div class="col">
-            <pre><code>{{selectedVenue| json}}</code></pre>
-
-            <pre><code>{{ autocompleteCityDetails}}</code></pre>
-
-        </div>
-        <div class="col">
-
         </div>
     </div>
-
-
 
 </div>
+
 

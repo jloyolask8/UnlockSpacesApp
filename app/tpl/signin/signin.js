@@ -79,7 +79,7 @@ app.controller('LoginCtrl', function (auth, $scope, $state, $location, store) {
 });
 
 
-app.controller('SigninFormController', ['REST_CONFIG', '$scope', '$http', '$state', '$window', 'authService', function (REST_CONFIG, $scope, $http, $state, $window, authService) {
+app.controller('SigninFormController', ['servicesUrls', '$scope', '$http', '$state', '$window', 'authService', function (servicesUrls, $scope, $http, $state, $window, authService) {
         $scope.user = {};
         $scope.message = '';
 
@@ -91,7 +91,7 @@ app.controller('SigninFormController', ['REST_CONFIG', '$scope', '$http', '$stat
 
         $scope.login = function () {
             // Try to login
-            $http.post(REST_CONFIG.baseUrl + 'AuthenticationService/login', $scope.loginParams)
+            $http.post(servicesUrls.baseUrl + 'AuthenticationService/login', $scope.loginParams)
 
                     .success(function (data, status, headers, config) {
 

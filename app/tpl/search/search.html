@@ -88,23 +88,31 @@
                                                                 <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{space.capacity}}</small>
                                                             </div>
                                                             <a ui-sref="app.venues.preview({venueId:venue.id})">
-                                                               <div class="row text-info">
+                                                                <div class="row text-info">
                                                                     <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
                                                                     <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
                                                                 </div>
                                                             </a>
-<!--                                                            <div class="row text-info">
-                                                                <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
-                                                                <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
-                                                            </div>-->
+                                                            <!--                                                            <div class="row text-info">
+                                                                                                                            <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
+                                                                                                                            <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
+                                                                                                                        </div>-->
                                                             <div class="row text-smoky">
-                                                                <span >
-                                                                    &nbsp;&nbsp;&nbsp;
+                                                                <span>
+                                                                    &nbsp;&nbsp;{{space.venue.venueType}}
                                                                 </span>
-                                                                <span >
-                                                                    &nbsp;&nbsp;Business Center
-                                                                </span>
+                                                                
                                                                 <span ng-if="space.reviews.length == 1" class="ng-scope"> • 1 review</span>
+                                                            </div>
+                                                            
+                                                            <div class="row">
+                                                                
+                                                                <span class="label bg-info">&nbsp;{{space.pricing.currency.currencyCode}}</span>
+                                                                <span class="label bg-light dk">{{space.pricing.perHour| currency:"$":0}}<small>hr</small></span>
+                                                                 <span class="label bg-light dk">{{space.pricing.perDay| currency:"$":0}}<small>day</small></span>
+                                                                  <span class="label bg-light dk">&nbsp;{{space.pricing.perMonth | currency:"$":0}}<small>mo</small></span>
+                                                                  
+                                                                  
                                                             </div>
                                                         </div>
                                                     </div>
@@ -191,6 +199,16 @@
                                                 &nbsp;
                                             </div>
                                         </div>
+                                        
+                                        
+                                        <div class="row">
+                                            <a ui-sref="app.bookspace({spaceId:spaceSelected.id})"
+                                               class="col btn btn-dark padder-v text-muted">
+                                                <i class="icon-edit block m-b-xs fa-2x"></i>
+                                                <span>Book now</span>
+                                            </a>
+                                        </div>
+                                         
                                     </div>
                                 </div>
                             </div>

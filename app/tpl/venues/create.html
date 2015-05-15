@@ -1,33 +1,50 @@
 <div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3">List your space</h1>
 </div>
-<div class="wrapper-md col-lg-6 col-md-8">
 
-    <p class="m-b">{{app.name}} helps to manage and monetize your unused meeting rooms, offices and desks. Start by telling us about your venue....</p>
-    <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
-    <form name="form" class="form-validation" >
-        <p>Venue Name</p>
-        <input name="title" class="form-control" ng-model="newVenueObj.overview.title" 
-               required ng-change="step1.email.$valid ? (steps.percent=30) : (steps.percent = 20)">
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="">
+    <div class="col col-lg-8">
 
-        <p class="m-t">Venue Type</p>
 
-        <div class="btn-group m-r" >
-              <label class="btn btn-default" ng-model="radioModel" btn-radio="'Left'" uncheckable
-                     ng-repeat="type in getVenueTypes()">{{type}}</label>
-            </div>
-        
+        <div class="wrapper-md">
 
-        <p class="m-t">Summary</p>
-        <input name="summary" placeholder="" class="form-control" ng-model="newVenueObj.overview.summary" required>
-        <div class="m-t m-b">
-             <button class="btn btn-default btn-rounded" ng-click="cancelCreate()">Cancel</button>
-            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-rounded" ng-click="createVenue()">Create</button>
+            <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+            <form name="form" class="form-validation" >
+                <p>Venue Name</p>
+                <input name="title" class="form-control" ng-model="newVenueObj.overview.title" 
+                       required ng-change="step1.email.$valid ? (steps.percent=30) : (steps.percent = 20)">
+
+                <p class="m-t">Venue Type</p>
+
+                <select class="form-control" ng-model="selectedVenue.venueType">
+                    <option ng-repeat="venueItem in venueTypeList">{{venueItem}}</option>
+                </select>
+
+                <p class="m-t">Summary</p>
+                <textarea id="description" type="text" name="description" style="height: 120px;" class="form-control" 
+                          placeholder="enter a venue description..."                    ng-model="newVenueObj.overview.summary" ></textarea>
+
+                <div class="m-t m-b">
+                    <button class="btn btn-default btn-rounded" ng-click="cancelCreate()">Cancel</button>
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary btn-rounded" ng-click="createVenue()">Create</button>
+                </div>
+            </form>
+
+
+
+
+
         </div>
-    </form>
+
+    </div>
+
+    <div class="col w-lg bg-light lter b-l bg-auto">
+        <div class="wrapper">
+
+            <p class="m-b">{{app.name}} helps to manage and monetize your unused meeting rooms, offices and desks. Start by telling us about your venue....</p>
 
 
-
-    
+        </div>
+    </div>
 
 </div>

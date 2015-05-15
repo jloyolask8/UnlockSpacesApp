@@ -64,8 +64,8 @@ app.controller('VenueViewController', ['$scope', '$http', '$state', '$log', '$st
 
     }]);
 
-app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootScope', '$http', '$state', 'Venues', '$stateParams', 'Upload', 'SpaceTypes', 'VenueTypes', 'Currencies', 'Amenities',
-    function (REST_CONFIG, $log, $scope, $rootScope, $http, $state, Venues, $stateParams, Upload, SpaceTypes, VenueTypes, Currencies, Amenities) {
+app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootScope', '$http', '$state', 'Venues', '$stateParams', 'Upload', 'SpaceTypes', 'VenueTypes', 'Currencies', 'Amenities',
+    function (servicesUrls, $log, $scope, $rootScope, $http, $state, Venues, $stateParams, Upload, SpaceTypes, VenueTypes, Currencies, Amenities) {
         var vm = this;
         //amenities
         //
@@ -241,7 +241,7 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
                 $scope.selectedVenue.spaces[$scope.spaceIndex] = $scope.space;
             }
 
-//            $http.put(REST_CONFIG.baseUrl + 'spaces' + '/' + $scope.space.id, $scope.space)
+//            $http.put(servicesUrls.baseUrl + 'spaces' + '/' + $scope.space.id, $scope.space)
 //                    .success(function (data, status, headers) {
 //
 //                        $scope.headers = headers;
@@ -271,7 +271,7 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
 
         $scope.edit = function () {
 
-            $http.put(REST_CONFIG.baseUrl + 'venues' + '/' + $scope.selectedVenue.id, $scope.selectedVenue)
+            $http.put(servicesUrls.baseUrl + 'venues' + '/' + $scope.selectedVenue.id, $scope.selectedVenue)
                     .success(function (data, status, headers) {
 
                         $scope.headers = headers;
@@ -404,18 +404,14 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
 
     }]);
 
-app.controller('VenuesCreateController', ['REST_CONFIG', '$scope', '$http', '$state', '$log', 'Venues',
-    function (REST_CONFIG, $scope, $http, $state, $log, Venues) {
+app.controller('VenuesCreateController', ['servicesUrls', '$scope', '$http', '$state', '$log', 'Venues',
+    function (servicesUrls, $scope, $http, $state, $log, Venues) {
 
         $scope.messageVenue = 'hello from venues VenuesCrateController';
         $log.log($scope.messageVenue);
 
-        $scope.venueTypeModel = '1';
-
-        //TODO change for a function to pull types from api
-        $scope.getVenueTypes = function () {
-            return ["1", "2"];
-        }
+         //TODO change for a function to pull types from api
+        $scope.venueTypeList = ['Bussiness Center', 'Corporate Office', 'Coworking spaces', 'Startup offices'];
 
         $scope.newVenueObj = {
             overview: {
@@ -431,7 +427,7 @@ app.controller('VenuesCreateController', ['REST_CONFIG', '$scope', '$http', '$st
 
         $scope.createVenue = function () {
 
-            $http.post(REST_CONFIG.baseUrl + 'venues', $scope.newVenueObj)
+            $http.post(servicesUrls.baseUrl + 'venues', $scope.newVenueObj)
                     .success(function (data, status, headers) {
 
                         $scope.headers = headers;
