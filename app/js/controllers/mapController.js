@@ -14,10 +14,22 @@
         var firstTime = true;
         var venuesList = [];
         var searchBox = null;
+
+        $scope.filterSpaceSearch = {
+            spaceType: '',
+            durationUnit: '',
+            duration: '1',
+            date: ''
+        };
         
+        $scope.datePickerOptions = {
+            position:{left:"-120px"},
+            mindate: new Date()
+        };
+
         $scope.iconimg = {};
         $scope.iconimghightlight = {};
-        
+
         $scope.venues = [];
         $scope.markers = [];
         $scope.detailView = false;
@@ -26,53 +38,61 @@
         $scope.optionsModel = {
             centerOnMap: true,
         };
-        
+
         $scope.styleMapFlat = [{"featureType": "water", "elementType": "all", "stylers": [{"hue": "#7fc8ed"}, {"saturation": 55}, {"lightness": -6}, {"visibility": "on"}]}, {"featureType": "water", "elementType": "labels", "stylers": [{"hue": "#7fc8ed"}, {"saturation": 55}, {"lightness": -6}, {"visibility": "off"}]}, {"featureType": "poi.park", "elementType": "geometry", "stylers": [{"hue": "#83cead"}, {"saturation": 1}, {"lightness": -15}, {"visibility": "on"}]}, {"featureType": "landscape", "elementType": "geometry", "stylers": [{"hue": "#f3f4f4"}, {"saturation": -84}, {"lightness": 59}, {"visibility": "on"}]}, {"featureType": "landscape", "elementType": "labels", "stylers": [{"hue": "#ffffff"}, {"saturation": -100}, {"lightness": 100}, {"visibility": "off"}]}, {"featureType": "road", "elementType": "geometry", "stylers": [{"hue": "#ffffff"}, {"saturation": -100}, {"lightness": 100}, {"visibility": "on"}]}, {"featureType": "road", "elementType": "labels", "stylers": [{"hue": "#bbbbbb"}, {"saturation": -100}, {"lightness": 26}, {"visibility": "on"}]}, {"featureType": "road.arterial", "elementType": "geometry", "stylers": [{"hue": "#ffcc00"}, {"saturation": 100}, {"lightness": -35}, {"visibility": "simplified"}]}, {"featureType": "road.highway", "elementType": "geometry", "stylers": [{"hue": "#ffcc00"}, {"saturation": 100}, {"lightness": -22}, {"visibility": "on"}]}, {"featureType": "poi.school", "elementType": "all", "stylers": [{"hue": "#d7e4e4"}, {"saturation": -60}, {"lightness": 23}, {"visibility": "on"}]}];
         $scope.styleMapGreener = [{"stylers": [{"saturation": -100}]}, {"featureType": "water", "elementType": "geometry.fill", "stylers": [{"color": "#0099dd"}]}, {"elementType": "labels", "stylers": [{"visibility": "off"}]}, {"featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{"color": "#36bc51"}]}, {"featureType": "road.highway", "elementType": "labels", "stylers": [{"visibility": "on"}]}, {"featureType": "road.arterial", "elementType": "labels.text", "stylers": [{"visibility": "on"}]}, {"featureType": "road.local", "elementType": "labels.text", "stylers": [{"visibility": "on"}]}, {}];
         $scope.styleMapApple = [{"featureType": "landscape.man_made", "elementType": "geometry", "stylers": [{"color": "#f7f1df"}]}, {"featureType": "landscape.natural", "elementType": "geometry", "stylers": [{"color": "#d0e3b4"}]}, {"featureType": "landscape.natural.terrain", "elementType": "geometry", "stylers": [{"visibility": "off"}]}, {"featureType": "poi", "elementType": "labels", "stylers": [{"visibility": "off"}]}, {"featureType": "poi.business", "elementType": "all", "stylers": [{"visibility": "off"}]}, {"featureType": "poi.medical", "elementType": "geometry", "stylers": [{"color": "#fbd3da"}]}, {"featureType": "poi.park", "elementType": "geometry", "stylers": [{"color": "#bde6ab"}]}, {"featureType": "road", "elementType": "geometry.stroke", "stylers": [{"visibility": "off"}]}, {"featureType": "road", "elementType": "labels", "stylers": [{"visibility": "off"}]}, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#ffe15f"}]}, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#efd151"}]}, {"featureType": "road.highway", "elementType": "labels", "stylers": [{"visibility": "on"}]}, {"featureType": "road.arterial", "elementType": "geometry.fill", "stylers": [{"color": "#ffffff"}]}, {"featureType": "road.arterial", "elementType": "labels", "stylers": [{"visibility": "on"}]}, {"featureType": "road.local", "elementType": "geometry.fill", "stylers": [{"color": "black"}]}, {"featureType": "transit.station.airport", "elementType": "geometry.fill", "stylers": [{"color": "#cfb2db"}]}, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#a2daf2"}]}];
-        $scope.blackStyle = [{"featureType": "all", "elementType": "labels.text.fill", "stylers": [{"saturation": 36}, {"color": "#000000"}, {"lightness": 40}]}, {"featureType": "all", "elementType": "labels.text.stroke", "stylers": [{"visibility": "on"}, {"color": "#000000"}, {"lightness": 16}]}, {"featureType": "all", "elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {"featureType": "administrative", "elementType": "geometry.fill", "stylers": [{"color": "#000000"}, {"lightness": 20}]}, {"featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 17}, {"weight": 1.2}]}, {"featureType": "landscape", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 20}]}, {"featureType": "poi", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 21}]}, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#000000"}, {"lightness": 17}]}, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 29}, {"weight": 0.2}]}, {"featureType": "road.arterial", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 18}]}, {"featureType": "road.local", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 16}]}, {"featureType": "transit", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 19}]}, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 17}]}];
+        $scope.styleMapBlack = [{"featureType": "all", "elementType": "labels.text.fill", "stylers": [{"saturation": 36}, {"color": "#000000"}, {"lightness": 40}]}, {"featureType": "all", "elementType": "labels.text.stroke", "stylers": [{"visibility": "on"}, {"color": "#000000"}, {"lightness": 16}]}, {"featureType": "all", "elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {"featureType": "administrative", "elementType": "geometry.fill", "stylers": [{"color": "#000000"}, {"lightness": 20}]}, {"featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 17}, {"weight": 1.2}]}, {"featureType": "landscape", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 20}]}, {"featureType": "poi", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 21}]}, {"featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{"color": "#000000"}, {"lightness": 17}]}, {"featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{"color": "#000000"}, {"lightness": 29}, {"weight": 0.2}]}, {"featureType": "road.arterial", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 18}]}, {"featureType": "road.local", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 16}]}, {"featureType": "transit", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 19}]}, {"featureType": "water", "elementType": "geometry", "stylers": [{"color": "#000000"}, {"lightness": 17}]}];
+        $scope.styleMapAshish = [{"featureType": "all", "elementType": "geometry.stroke", "stylers": [{"visibility": "on"}, {"hue": "#7aff00"}]}, {"featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{"color": "#444444"}]}, {"featureType": "landscape", "elementType": "all", "stylers": [{"color": "#f2f2f2"}]}, {"featureType": "poi", "elementType": "all", "stylers": [{"visibility": "off"}]}, {"featureType": "road", "elementType": "all", "stylers": [{"saturation": -100}, {"lightness": 45}]}, {"featureType": "road.highway", "elementType": "all", "stylers": [{"visibility": "simplified"}]}, {"featureType": "road.arterial", "elementType": "labels.icon", "stylers": [{"visibility": "off"}]}, {"featureType": "transit", "elementType": "all", "stylers": [{"visibility": "off"}]}, {"featureType": "water", "elementType": "all", "stylers": [{"color": "#3a5a67"}, {"visibility": "on"}]}];
 
-                
-        $scope.$watch('spaceSelected',function(newvalue,oldvalue){
-            $log.info(oldvalue+" ==> "+newvalue);
+        $scope.styleMaps = [
+            {name: 'Apple', style: $scope.styleMapApple},
+            {name: 'Ashish', style: $scope.styleMapAshish},
+            {name: 'Black', style: $scope.styleMapBlack},
+            {name: 'Flat', style: $scope.styleMapFlat},
+            {name: 'Greener', style: $scope.styleMapGreener}];
+
+        $scope.styleSelected = $scope.styleMaps[0];
+
+        $scope.$watch('styleSelected', function (newvalue, oldvalue) {
+            //$log.info(oldvalue.name + " ==> " + newvalue.name);
+            if (newvalue.style && $scope.map) {
+                $scope.map.options.styles = newvalue.style;
+            }
         });
-        
+
         uiGmapGoogleMapApi.then(function (maps) {
             setMapValues(maps);
         });
 
-        
-        $scope.viewDetailOfSpace = function (space){
-            $scope.detailView = true;
-            $scope.spaceSelected = angular.copy(space);
-            $log.info("$scope.spaceSelected.id: "+$scope.spaceSelected.id);
-        };
-        
-        $scope.viewResults = function (){
-            $scope.detailView = false;
-        };
-
         var setMapValues = function (map) {
-            
+
             $scope.iconimg = {
-                url: './img/Map-Marker-Flat-Yellow.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
-                scaledSize: new google.maps.Size(36, 36), // size
+                url: './img/Map-Marker-Flat-Yellow-Shadow.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
+                scaledSize: new google.maps.Size(42, 42), // size
             };
             $scope.iconimghightlight = {
-                url: './img/Map-Marker-Flat-Blue.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
-                scaledSize: new google.maps.Size(40, 40), // size
+                url: './img/Map-Marker-Flat-Blue-Shadow.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
+                scaledSize: new google.maps.Size(42, 42), // size
             };
+
+            $scope.iconimghightlightBig = {
+                url: './img/Map-Marker-Flat-Blue-Shadow.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
+                scaledSize: new google.maps.Size(64, 64), // size
+            };
+
             $scope.map = {
                 windowTemplate: "tpl/blocks/venue-small-window.html",
                 windowParameter: function (marker) {
                     return marker;
                 },
-                center: {latitude: -33.407550, longitude: -70.570209}, zoom: 12,
-                options: {maxZoom: 16, minZoom: 11, styles: $scope.styleMapFlat},
+                center: {latitude: -33.407550, longitude: -70.570209},
+                zoom: 12,
+                options: {maxZoom: 16, minZoom: 11, styles: $scope.styleSelected.style},
                 events: {
                     dragend: function (map) {
                         $scope.$apply(function () {
-                            loadSpaceMarkers(map);
+                            searchVenuesOnMapBound(map);
                         });
                     },
                     bounds_changed: function (map) {
@@ -83,7 +103,7 @@
                     },
                     zoom_changed: function (map) {
                         $scope.$apply(function () {
-                            loadSpaceMarkers(map);
+                            searchVenuesOnMapBound(map);
                         });
                     },
                     tilesloaded: function (map) {
@@ -91,9 +111,13 @@
                             if (firstTime) {
                                 $log.info("firstTime");
                                 loadSearchBar(map);
-                                loadSpaceMarkers(map);
+                                searchVenuesOnMapBound(map);
                                 $scope.mapInstance = map;
                                 firstTime = false;
+//                                var input = (document.getElementById('pac-input'));
+//                                input.value = "Concepcion, Chile";
+//                                $scope.centerMapOnLatLon("-36.821181", "-72.965702");
+//                                searchVenuesOnMapBound(map);
                             }
                         });
                     }
@@ -119,14 +143,14 @@
                     return;
                 }
                 map.panTo(places[0].geometry.location);
-                loadSpaceMarkers(map);
+                searchVenuesOnMapBound(map);
             });
 
             var input = (document.getElementById('opciones'));
             map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(input);
         };
 
-        var loadSpaceMarkers = function (map) {
+        var searchVenuesOnMapBound = function (map) {
 //            $log.info("loadSpaceMarkers");
             //$scope.markers = [];
             var radio = calcRadio(map);
@@ -162,6 +186,20 @@
             return 0;
         };
 
+        $scope.viewDetailOfSpace = function (space, venue) {
+            $scope.detailView = true;
+            $scope.spaceSelected = angular.copy(space);
+            $scope.venueSelected = venue;
+//            $log.info("$scope.spaceSelected.id: " + $scope.spaceSelected.id);
+            $scope.centerMapOnVenue(venue);
+            $scope.highlightMarker(venue, true);
+        };
+
+        $scope.viewResults = function () {
+            $scope.detailView = false;
+            $scope.normalizeMarker($scope.venueSelected);
+        };
+
         $scope.venuesIsEmpty = function () {
             var retorno = ($scope.venues.length === 0);
             //$log.info("venuesIsEmpty:"+retorno);
@@ -189,7 +227,7 @@
 
         var refreshMapMarkers = function () {
             var tempmarkers = [];
-            
+
             venuesList.sort(compareSpace);
             for (var i = 0; i < venuesList.length; i++) {
                 //createSpaceSlides(venuesList[i].spaces);
@@ -202,7 +240,7 @@
                 if (index < 0) {
 //                    $log.info("elimino el " + i);
                     $scope.markers.splice(i, 1);
-                    $scope.venues.splice(i,1);
+                    $scope.venues.splice(i, 1);
                 } else {
                     i++;
                 }
@@ -262,19 +300,33 @@
             return -1;
         };
 
-        $scope.highlightMarker = function (space) {
+        $scope.centerMapOnVenue = function (venue) {
+            if ($scope.optionsModel.centerOnMap) {
+                $scope.mapInstance.panTo({lat: parseFloat(venue.address.latitude), lng: parseFloat(venue.address.longitude)});
+            }
+        };
+
+        $scope.centerMapOnLatLon = function (lat, lon) {
+            $scope.mapInstance.panTo({lat: parseFloat(lat), lng: parseFloat(lon)});
+        };
+
+        $scope.highlightMarker = function (space, big) {
             var index = markerIndexOf($scope.markers, space);
             var marker = $scope.markers[index];
-            marker.icon = $scope.iconimghightlight;
-            if ($scope.optionsModel.centerOnMap) {
-                $scope.mapInstance.panTo({lat: parseFloat(space.address.latitude), lng: parseFloat(space.address.longitude)});
+            if (big) {
+                marker.icon = $scope.iconimghightlightBig;
+            } else {
+                marker.icon = $scope.iconimghightlight;
             }
         };
 
         $scope.normalizeMarker = function (space) {
-            var index = markerIndexOf($scope.markers, space);
-            var marker = $scope.markers[index];
-            marker.icon = $scope.iconimg;
+            if (!$scope.detailView) {
+                //$log.info("normalizeMarker(" + space.id + ")");
+                var index = markerIndexOf($scope.markers, space);
+                var marker = $scope.markers[index];
+                marker.icon = $scope.iconimg;
+            }
         };
 
         $scope.markerClick = function (marker) {
@@ -289,6 +341,13 @@
         };
         $scope.markerClose = function (marker) {
             marker.show = false;
+        };
+
+        $scope.openCalendar = function ($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
         };
     });
     //Controller para manejar el template de la ventanita que se muestra en un marker del mapa.

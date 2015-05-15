@@ -47,7 +47,7 @@ app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Ve
 
     }]);
 
-app.controller('VenueViewController', ['$scope', '$http', '$state', '$log', '$stateParams','Venues', function ($scope, $http, $state, $log, $stateParams, Venues) {
+app.controller('VenueViewController', ['$scope', '$http', '$state', '$log', '$stateParams', 'Venues', function ($scope, $http, $state, $log, $stateParams, Venues) {
         $scope.messageVenue = 'hello from venues VenuesViewController';
         $log.log($scope.messageVenue);
         $scope.selectedVenue = {};
@@ -81,9 +81,11 @@ app.controller('VenueEditController', ['REST_CONFIG', '$log', '$scope', '$rootSc
 
         // watch amenity for changes
         $scope.$watch('amenitiesList|filter:{selected:true}', function (nv) {
-            $scope.selectedVenue.amenitiesAvailable = nv.map(function (amenity) {
-                return amenity;
-            });
+            if (nv) {
+                $scope.selectedVenue.amenitiesAvailable = nv.map(function (amenity) {
+                    return amenity;
+                });
+            }
         }, true);
 
         //      selectedVenueAdmin

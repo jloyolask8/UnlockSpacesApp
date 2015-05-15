@@ -7,10 +7,15 @@
     <div ng-controller="MapController as mapCtrl" class="hbox hbox-auto-xs hbox-auto-sm fill-height">
         <input id="pac-input" class="controls" type="text" placeholder="Enter location" ng-cloak>
 
+
         <div id="opciones" class="controls map-opciones" ng-cloak>
             <label>centrar en el mapa al seleccionar:
                 <input type="checkbox" ng-model="optionsModel.centerOnMap">
-            </label><br/>
+            </label>
+            <label>Map style:
+                <select ng-options="item.name for item in styleMaps" ng-model="styleSelected"></select>
+            </label>
+
         </div>
         <table class="map-unlock-container" style="width: 100%; height: 100%">
             <tr>
@@ -31,7 +36,40 @@
                 </td>
                 <td class="td-results-map-search">
                     <div id="container" class="result-map-container">
-                        <div id="results" class="results-map-search" ng-hide="detailView">
+                        <div class="container-fluid filter-results-container" ng-hide="detailView">
+                            <div class="row-fluid">
+                                <div class="btn-group col-md-5 col-lg-3" style="padding-left: 0px !important;padding-right: 5px !important;">
+                                    <label class="btn btn-default btn-warning" ng-model="filterSpaceSearch.spaceType" btn-radio="'Meet'" uncheckable>Meet</label>
+                                    <label class="btn btn-default btn-warning" ng-model="filterSpaceSearch.spaceType" btn-radio="'Work'" uncheckable>Work</label>
+                                </div>
+
+                                <div class="col-md-12 col-lg-6" style="padding-left: 0px !important;padding-right: 0px !important;">
+                                    <div class="row-fluid">
+                                        <div class="col-md-5 col-lg-6" style="padding-left: 0px !important;padding-right: 5px !important;">
+                                            <input ui-jq="TouchSpin" type="text" ng-model="filterSpaceSearch.duration" value="1" class="form-control"  data-min='1' data-max="20" data-step="1" data-decimals="0">
+                                        </div>
+                                        <div class="btn-group col-md-7 col-lg-6" style="padding-left: 0px !important;padding-right: 0px !important;">
+                                            <label tooltip="Hours" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="filterSpaceSearch.durationUnit" btn-radio="'Hours'" uncheckable>H</label>
+                                            <label tooltip="Days" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="filterSpaceSearch.durationUnit" btn-radio="'Days'" uncheckable>D</label>
+                                            <label tooltip="Months" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="filterSpaceSearch.durationUnit" btn-radio="'Months'" uncheckable>M</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="input-group col-md-7 col-lg-3" style="padding-left: 0px !important;padding-right: 5px !important;">
+                                    <div class="hackyhack">
+                                        <input type="text" class="form-control" datepicker-popup="dd/MMMM/yy" ng-model="dt"
+                                               is-open="opened" min-date="datePickerOptions.mindate" max-date="'2015-06-22'" datepicker-options="datePickerOptions"
+                                               date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="padding-left: 2px !important; padding-right: 2px !important;"/>
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="results" class="results-map-search-top60" ng-hide="detailView">
                             <div ng-show="venuesIsEmpty()">
                                 Searching for venues around the <b>{{formattedAddress}}</b> yielded no results.
                             </div>
@@ -40,34 +78,32 @@
                                     <div >
                                         <table style="width: 100%;">
                                             <tr>
-                                                <td style="width: 60%; padding: 10px;" ng-click="viewDetailOfSpace(space)">
-                                                    <div class="ws-content-group">
-                                                        <h5 class="ws-item-title text-overflow-dot ng-binding" style="width: 200px;">
-                                                            {{space.overview.title}}
-                                                            <!-- end ngIf: item.workvenue.capacity -->
-                                                        </h5>
-                                                        <!--                                                        <span class="text-smoky ng-binding ng-scope" >
-                                                                                                                    <i class="fa fa-users" aria-hidden="true"></i> 1
-                                                                                                                </span>-->
-                                                        <small class="text-smoky"><em>at</em> <span class="text-cap">{{venue.overview.title}}</span></small>
-                                                    </div>
-
-                                                    <div class="ws-content-group">
-                                                        <div class="ws-item-emphasis flex-row flex-gutter-sm">
-                                                            <div class="flex-cell-auto flex-align--top">
-                                                                <i aria-hidden="true" class="icon icon-marker-thin-alt align-middle"></i>
+                                                <td style="width: 60%; padding: 10px;" ng-click="viewDetailOfSpace(space, venue)">
+                                                    <div class="ws-content-group" >
+                                                        <div class="container-fluid" >
+                                                            <div class="row">
+                                                                <h4 class="col font-bold">
+                                                                    {{space.overview.title}}&nbsp;&nbsp;
+                                                                </h4>
+                                                                <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{space.capacity}}</small>
                                                             </div>
-                                                            <div class="flex-cell flex-align--top">
-                                                                <p>
-                                                                    {{space.overview.summary}}
-                                                                </p>
-                                                                <p class="p-xs text-smoky text-overflow-dot ng-binding">
-                                                                    Business Center
-                                                                    <span ng-if="space.reviews == 1" class="ng-scope"> • 1 review</span><!-- end ngIf: item.venue.reviews == 1 -->
-                                                                </p>
+                                                            <div class="row text-info">
+                                                                <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
+                                                                <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
+                                                            </div>
+                                                            <div class="row text-smoky">
+                                                                <span >
+                                                                    &nbsp;&nbsp;&nbsp;
+                                                                </span>
+                                                                <span >
+                                                                    &nbsp;&nbsp;Business Center
+                                                                </span>
+                                                                <span ng-if="space.reviews.length == 1" class="ng-scope"> • 1 review</span>
                                                             </div>
                                                         </div>
                                                     </div>
+
+
                                                 </td>
                                                 <td>
                                                     <div style="width: 100%; height: 100%;" set-ng-animate="false">
@@ -85,26 +121,68 @@
                                 </div>
                             </div>
                         </div>
-                        <div ng-show="detailView" >
+                        <div ng-if="detailView" >
                             <div class="panel panel-default">
-                                <div class="panel-heading font-bold" ng-click="viewResults()">Details</div>
-                                <div class="panel-body" set-ng-animate="false">
-                                    {{spaceSelected.slides.length}}
-                                    <div ng-repeat="slide in spaceSelected.slides">
-                                        <span>{{slide.image}}</span>
-                                        <span>{{slide.active}}</span>
+                                <div class="panel-heading" >
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-lg-5" ng-click="viewResults()">
+                                                <a class="text-info-dk h4">
+                                                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                                    Search results
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-7 h4">
+                                                Details
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="panel-body container-fluid" set-ng-animate="false">
                                     <carousel>
                                         <slide ng-repeat="slide in spaceSelected.slides" active="slide.active">
-                                            <cl-image public-id="{{slide.image}}" width="238" height="159" crop="fill" class="img-full">
+                                            <cl-image public-id="{{slide.image}}" width="513" height="300" crop="fill" class="img-full">
                                             </cl-image>
-                                            <div class="carousel-caption">
-                                                <h4>Slide {{$index}}</h4>
-                                                <p>{{slide.text}}</p>
-                                            </div>
                                         </slide>
                                     </carousel>
-                                    {{spaceSelected.slides| json}}
+                                    <div class="container-fluid" >
+                                        <div class="row">
+                                            <h4 class="col font-bold">
+                                                {{spaceSelected.overview.title}}&nbsp;&nbsp;
+                                            </h4>
+                                            <small class="text-smoky col v-middle">
+                                                -
+                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                                &nbsp;
+                                                <ng-pluralize count="spaceSelected.capacity"
+                                                              when="{'0': 'not defined yet',
+                                                              'one': '1 person',
+                                                              'other': '{} persons'}">
+                                                </ng-pluralize>
+                                            </small>
+                                        </div>
+                                        &nbsp;
+                                        <div class="row">
+                                            <div class="bg-light text-info col-lg-12 text-left h4">
+                                                <br/>
+                                                <span>{{venueSelected.overview.title}}</span>
+                                                <br/>
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                        <div class="row container-fluid">
+                                            <span >{{venueSelected.overview.summary}}</span>
+                                        </div>
+                                        &nbsp;
+                                        <div class="row">
+                                            <div class="bg-light col-lg-12 text-left h4">
+                                                <br/>
+                                                <span>Princing options</span>
+                                                <br/>
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
