@@ -15,7 +15,7 @@
                     <tab heading="Venue" active="steps.step1" select="steps.percent=10">
 
                         <div class="panel-body">
-                            <form name="step1" class="form-horizontal">
+                            <form name="step1" class="form-horizontal" role="form">
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Venue Location</label>
@@ -62,7 +62,8 @@
                                     <label class="col-sm-2 control-label">Contact Email</label>
                                     <div class="col-sm-6">
                                         <input type="email" name="email" class="form-control" ng-model="selectedVenue.contactInfo.email" 
-                                               required ng-change="step1.email.$valid ? (steps.percent=50) : (steps.percent = 20)"/>
+                                               required ng-change="step1.email.$valid ? (steps.percent=50) : (steps.percent = 20)"
+                                               tooltip="See? to this email people can contact you..."  tooltip-trigger="focus" tooltip-placement="top" />
                                     </div>
 
                                 </div>
@@ -194,7 +195,12 @@
                                             <!--<p>You can also drag and drop an image file into the dashed area.</p>-->
                                             <div class="row">
 
-                                                <div class="col-md-4 col-sm-4 col-xs-6">
+                                                <div class="col-md-4 col-sm-4 col-xs-6" ng-repeat="photo in selectedVenue.photos track by $index">
+                                                    <cl-image class="img-responsive venue-img-gallery" public-id="{{photo}}" width="300" height="200" crop="fill">
+                                                    </cl-image>
+                                                </div>
+
+                                                 <div class="col-md-4 col-sm-4 col-xs-6">
                                                     <a ngf-select="uploadImages($files,true,false)" ng-multiple="false" resetOnClick="true">
                                                         <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
                                                             <i class="glyphicon glyphicon-camera icon text-info-dker"></i>
@@ -202,12 +208,6 @@
                                                         </div>
                                                     </a>
                                                 </div>
-
-                                                <div class="col-md-4 col-sm-4 col-xs-6" ng-repeat="photo in selectedVenue.photos track by $index">
-                                                    <cl-image class="img-responsive venue-img-gallery" public-id="{{photo}}" width="300" height="200" crop="fill">
-                                                    </cl-image>
-                                                </div>
-
 
 
                                             </div>
@@ -237,15 +237,7 @@
 
                         <div ng-hide="editSpaceMode" >
                             <div class="row">
-                                <div class="col-md-4 col-lg-4">
-                                    <a ng-click="addNewSpace()">
-                                        <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
-                                            <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
-                                            <span class="font-bold">Add Space</span>
-
-                                        </div>
-                                    </a>
-                                </div>
+                               
                                 <div class="col-md-4 col-lg-4" ng-repeat="space in selectedVenue.spaces track by $index" >
                                     <div class="panel b-a">
                                         <div class="panel-heading no-border bg-dark">          
@@ -269,14 +261,13 @@
 
                                         </div>
                                         <div class="hbox text-center b-b b-light text-sm">          
-                                            <a href class="col padder-v text-muted b-r b-light">
-                                                <i class="icon-call-end block m-b-xs fa-2x"></i>
-                                                <span>{{space.pricing.perWeek}}</span>
+                                            
+                                            <a ui-sref="app.bookspace({spaceId:space.id})"
+                                               class="col padder-v text-muted">
+                                                <i class="icon-edit block m-b-xs fa-2x"></i>
+                                                <span>Book Space</span>
                                             </a>
-                                            <a href class="col padder-v text-muted b-r b-light">
-                                                <i class="icon-anchor block m-b-xs fa-2x"></i>
-                                                <span>{{space.pricing.perMonth}}</span>
-                                            </a>
+                                            
                                             <a ng-click="editSpace(space, $index)"
                                                class="col padder-v text-muted">
                                                 <i class="icon-edit block m-b-xs fa-2x"></i>
@@ -285,6 +276,16 @@
                                         </div>
 
                                     </div>
+                                </div>
+                                
+                                 <div class="col-md-4 col-lg-4">
+                                    <a ng-click="addNewSpace()">
+                                        <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
+                                            <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
+                                            <span class="font-bold">Add Space</span>
+
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -541,17 +542,8 @@
                         <div class="row">
                             <div class="m-t m-b">
                                 <div ng-if="!editAdminMode" class="wrapper-md">
-                                    <div class="col-md-4 col-lg-4">
-                                        <a ng-click="addNewAdmin()">
-                                            <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
-                                                <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
-                                                <span class="font-bold">Add Admin</span>
-
-                                            </div>
-                                        </a>
-                                    </div>
+                                    
                                     <div class="col-md-4 col-lg-4" ng-repeat="admin in selectedVenue.admins track by $index" >
-
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                                 <div class="clearfix">
@@ -577,6 +569,16 @@
                                             </div>
                                         </div>
 
+                                    </div>
+                                    
+                                    <div class="col-md-4 col-lg-4">
+                                        <a ng-click="addNewAdmin()">
+                                            <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
+                                                <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
+                                                <span class="font-bold">Add Admin</span>
+
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
 

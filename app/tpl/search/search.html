@@ -87,10 +87,16 @@
                                                                 </h4>
                                                                 <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{space.capacity}}</small>
                                                             </div>
-                                                            <div class="row text-info">
+                                                            <a ui-sref="app.venues.preview({venueId:venue.id})">
+                                                               <div class="row text-info">
+                                                                    <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
+                                                                    <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
+                                                                </div>
+                                                            </a>
+<!--                                                            <div class="row text-info">
                                                                 <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
                                                                 <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
-                                                            </div>
+                                                            </div>-->
                                                             <div class="row text-smoky">
                                                                 <span >
                                                                     &nbsp;&nbsp;&nbsp;
@@ -165,7 +171,10 @@
                                         <div class="row">
                                             <div class="bg-light text-info col-lg-12 text-left h4">
                                                 <br/>
-                                                <span>{{venueSelected.overview.title}}</span>
+                                                <a ui-sref="app.venues.preview({venueId:venueSelected.id})"
+                                                   <span>{{venueSelected.overview.title}}</span>
+                                                </a>
+                                                <!--<span>{{venueSelected.overview.title}}</span>-->
                                                 <br/>
                                                 &nbsp;
                                             </div>

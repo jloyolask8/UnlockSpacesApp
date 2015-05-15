@@ -9,7 +9,15 @@
         });
     });
 
-    mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, venuesService) {
+    mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, venuesService, $stateParams) {
+
+        $scope.venuesSearchText = '';
+
+//        loadParams();
+//        
+//        function loadParams(){
+//            
+//        }
 
         var firstTime = true;
         var venuesList = [];
@@ -21,9 +29,9 @@
             duration: '1',
             date: ''
         };
-        
+
         $scope.datePickerOptions = {
-            position:{left:"-120px"},
+            position: {left: "-120px"},
             mindate: new Date()
         };
 
@@ -77,16 +85,19 @@
             };
 
             $scope.iconimghightlightBig = {
-                url: './img/Map-Marker-Flat-Blue-Shadow.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
+                url: 'img/logoUnlockSpaces.png', //'./img/Map-Marker-Flat-Blue-Shadow.png', //'https://www.sharedesk.net/images/map/cluster_on.svg', // url
                 scaledSize: new google.maps.Size(64, 64), // size
             };
+
+            var latIni = ($stateParams.lat) ? parseFloat($stateParams.lat) : -33.407550;
+            var lonIni = ($stateParams.lon) ? parseFloat($stateParams.lon) : -70.570209;
 
             $scope.map = {
                 windowTemplate: "tpl/blocks/venue-small-window.html",
                 windowParameter: function (marker) {
                     return marker;
                 },
-                center: {latitude: -33.407550, longitude: -70.570209},
+                center: {latitude: latIni, longitude: lonIni},
                 zoom: 12,
                 options: {maxZoom: 16, minZoom: 11, styles: $scope.styleSelected.style},
                 events: {
@@ -114,10 +125,10 @@
                                 searchVenuesOnMapBound(map);
                                 $scope.mapInstance = map;
                                 firstTime = false;
-//                                var input = (document.getElementById('pac-input'));
-//                                input.value = "Concepcion, Chile";
-//                                $scope.centerMapOnLatLon("-36.821181", "-72.965702");
-//                                searchVenuesOnMapBound(map);
+                                if ($stateParams.venuesSearchText) {
+                                    var input = (document.getElementById('pac-input'));
+                                    input.value = $stateParams.venuesSearchText;
+                                }
                             }
                         });
                     }
@@ -148,6 +159,11 @@
 
             var input = (document.getElementById('opciones'));
             map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(input);
+
+            var bounds = map.getBounds();
+            if (searchBox !== null) {
+                searchBox.setBounds(bounds);
+            }
         };
 
         var searchVenuesOnMapBound = function (map) {

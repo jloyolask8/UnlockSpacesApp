@@ -1,61 +1,176 @@
+<a href class="off-screen-toggle hide" ui-toggle-class="off-screen" 
+   data-target=".app-aside" ></a>
 <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = false;">
-  <div class="col">
-    <div style="">
-      <div class="wrapper-lg bg-white-opacity">
-        <div class="row m-t">
-          <div class="col-sm-7">
-            <a href class="thumb-lg pull-left m-r">
-                <img ng-src=""  class="img-circle"/>
-            </a>
-            <div class="clear m-b">
-              <div class="m-b m-t-sm">
-                <span class="h3 text-black">{{selectedVenue.overview.title}}</span>
-                <small class="m-l">{{selectedVenue.overview.details}}</small>
-              </div>
-                
-                Verified by
-                <p class="m-b">
-                    <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon" ng-if="auth.profile.email_verified === true"><i class="fa fa-envelope"></i></a>
-                <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-google-plus"></i></a>
-              </p>
-              
+    <div class="col">
+        <div style="">
+            <div class="wrapper-lg bg-white-opacity">
+                <div class="row m-t">
+                    <div class="col-sm-7">
+                        <a href class="thumb-lg pull-left m-r">
+                            <img ng-src=""  class="img-circle"/>
+                        </a>
+                        <div class="clear m-b">
+                            <div class="m-b m-t-sm">
+                                <span class="h3 text-black">{{selectedVenue.overview.title}}</span>
+                                <small class="m-l">{{selectedVenue.overview.details}}</small>
+                            </div>
+
+                            Verified by
+                            <p class="m-b">
+                                <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon" ng-if="auth.profile.email_verified === true"><i class="fa fa-envelope"></i></a>
+                                <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-google-plus"></i></a>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="pull-right pull-none-xs text-center">
+                            <a href class="m-b-md inline m">
+                                <span class="h3 block font-bold">2</span>
+                                <small>Venues</small>
+                            </a>
+                            <a href class="m-b-md inline m">
+                                <span class="h3 block font-bold">250</span>
+                                <small>Spaces</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-sm-5">
-            <div class="pull-right pull-none-xs text-center">
-              <a href class="m-b-md inline m">
-                <span class="h3 block font-bold">2</span>
-                <small>Venues</small>
-              </a>
-              <a href class="m-b-md inline m">
-                <span class="h3 block font-bold">250</span>
-                <small>Spaces</small>
-              </a>
-            </div>
-          </div>
         </div>
-      </div>
+        <div class="wrapper bg-white b-b">
+            <ul class="nav nav-pills nav-sm">
+                <li class="active"><a href>Profile</a></li>
+                <li><a href>Messages</a></li>
+            </ul>
+        </div>
+
+
+        <div class="wrapper-md">
+            <!--content here-->
+            <div class="row">
+                               
+                <div class="col-lg-6">
+
+
+                    <!-- carousel -->
+                    <div class="panel b-a" set-ng-animate="false">
+                        <div class="panel-heading">
+                            Details
+                        </div>
+                       
+                        <div class="panel-footer">
+                            <button type="button" class="btn btn-default m-r" ng-click=")">button</button>
+                        </div>
+                    </div>
+                    <!-- / carousel -->
+
+                </div>
+                
+                <div class="col-lg-6">
+
+
+                    <!-- carousel -->
+                    <div class="panel b-a" set-ng-animate="false">
+                        <div class="panel-heading">
+                            Venue Photos
+                        </div>
+                       
+                        <div class="panel-footer">
+                            <button type="button" class="btn btn-default m-r" ng-click=")">button</button>
+                        </div>
+                    </div>
+                    <!-- / carousel -->
+
+                </div>
+                
+                <div class="col-lg-6">
+
+
+                    <!-- carousel -->
+                    <div class="panel b-a" set-ng-animate="false">
+                        <div class="panel-heading">
+                            Spaces
+                        </div>
+                        
+                        <div class="panel-body">
+                            <div class="card" ng-repeat="space in selectedVenue.spaces">
+                                    <div >
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td style="width: 60%; padding: 10px;" ng-click="viewDetailOfSpace(space)">
+                                                    <div class="ws-content-group">
+                                                        <h5 class="ws-item-title text-overflow-dot ng-binding" style="width: 200px;">
+                                                            {{space.overview.title}}
+                                                            <!-- end ngIf: item.workvenue.capacity -->
+                                                        </h5>
+                                                        <!--                                                        <span class="text-smoky ng-binding ng-scope" >
+                                                                                                                    <i class="fa fa-users" aria-hidden="true"></i> 1
+                                                                                                                </span>-->
+                                                        <small class="text-smoky"><em>at</em> <span class="text-cap">{{venue.overview.title}}</span></small>
+                                                    </div>
+
+                                                    <div class="ws-content-group">
+                                                        <div class="ws-item-emphasis flex-row flex-gutter-sm">
+                                                            <div class="flex-cell-auto flex-align--top">
+                                                                <i aria-hidden="true" class="icon icon-marker-thin-alt align-middle"></i>
+                                                            </div>
+                                                            <div class="flex-cell flex-align--top">
+                                                                <p>
+                                                                    {{space.overview.summary}}
+                                                                </p>
+                                                                <p class="p-xs text-smoky text-overflow-dot ng-binding">
+                                                                    Business Center
+                                                                    <span ng-if="space.reviews == 1" class="ng-scope"> • 1 review</span><!-- end ngIf: item.venue.reviews == 1 -->
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div style="width: 100%; height: 100%;" set-ng-animate="false">
+                                                        <carousel>
+                                                            <slide ng-repeat="slide in space.slides" active="slide.active">
+                                                                <cl-image public-id="{{slide.image}}" width="238" height="159" crop="fill">
+                                                                </cl-image>
+                                                            </slide>
+                                                        </carousel>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                        </div>
+                       
+                        <div class="panel-footer">
+                            <button type="button" class="btn btn-default m-r" ng-click=")">button</button>
+                        </div>
+                    </div>
+                    <!-- / carousel -->
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="padder">      
+
+            <div>
+                <br />
+                <div style="margin-top: 10px">venue json</div>
+                <pre><code>{{selectedVenue| json}}</code></pre>
+            </div>       
+
+        </div>
+
+
+
+
     </div>
-    <div class="wrapper bg-white b-b">
-      <ul class="nav nav-pills nav-sm">
-        <li class="active"><a href>Profile</a></li>
-        <li><a href>Messages</a></li>
-      </ul>
-    </div>
-    <div class="padder">      
-        
- <div>
-  <br />
-  <div style="margin-top: 10px">User Profile</div>
-  <pre><code>{{selectedVenue | json}}</code></pre>
-</div>       
-        
-    </div>
-  </div>
-  <div class="col w-lg bg-light lter b-l bg-auto">
-    <div class="wrapper">
-      
-      
-    </div>
-  </div>
+
 </div>

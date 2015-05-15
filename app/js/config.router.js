@@ -18,9 +18,12 @@ angular.module('app')
                     function ($stateProvider, $urlRouterProvider, JQ_CONFIG) {
 
                         $urlRouterProvider
-                                .otherwise('/app/ui/search');
+                                .otherwise('/app/home');
 
                         $stateProvider
+
+
+
                                 .state('app', {
                                     abstract: true,
                                     url: '/app',
@@ -32,12 +35,21 @@ angular.module('app')
                                     template: '<div ui-view class="fade-in-up"></div>'
                                 })
 
-                                .state('app.ui.portlet', {
-                                    url: '/portlet',
-                                    templateUrl: 'tpl/ui_portlet.html'
+                                //booking page
+                                .state('app.bookspace', {
+                                    url: '/spaces/{spaceId:[0-9]{1,20}}/book',
+                                    templateUrl: 'tpl/spaces/book_space.html',
+                                    controller: 'BookingController',
+                                    controllerAs: 'bookingCtrl',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load(['tpl/spaces/booking-controller.js']);
+                                            }]
+                                    }
                                 })
 
-                                // form
+                                // admin - venues page
                                 .state('app.venues', {
                                     url: '/venues',
                                     template: '<div ui-view class="fade-in"></div>',
@@ -73,21 +85,33 @@ angular.module('app')
                                     data: {requiresLogin: true}
                                 })
 
-                                .state('app.venues.view', {
-                                    url: '/{venueId:[0-9]{1,20}}/view',
+                                .state('app.venues.preview', {
+                                    url: '/{venueId:[0-9]{1,20}}/preview',
                                     templateUrl: 'tpl/venues/view.html',
-                                    controller: 'VenueViewController'
+                                    controller: 'VenueViewController',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load('tpl/venues/venue-view.js');
+                                            }]
+                                    }
                                 })
 
-                                .state('pages', {
+                                .state('app.pages', {
                                     url: '/pages',
                                     template: '<div ui-view class="fade-in-right-big smooth"></div>'
                                 })
 
-                                .state('pages.venue', {
+                                .state('app.pages.venue', {
                                     url: '/venue/{venueId:[0-9]{1,20}}',
                                     templateUrl: 'tpl/venues/view.html',
-                                    controller: 'VenueViewController'
+                                    controller: 'VenueViewController',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load('tpl/venues/venue-view.js');
+                                            }]
+                                    }
                                 })
 
                                 .state('pages.space', {
@@ -133,8 +157,21 @@ angular.module('app')
 //                                })
 
                                 .state('app.ui.search', {
-                                    url: '/search',
+                                    url: '/search/:venuesSearchText/:lat/:lon',
                                     templateUrl: 'tpl/search/search.html',
+                                })
+
+                                // home state
+                                .state('app.home', {
+                                    url: '/home',
+                                    templateUrl: 'tpl/home/home.html',
+                                    controller: 'HomeController',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load('tpl/home/home-controller.js');
+                                            }]
+                                    }
                                 })
 
 //                                .state('app.ui.googlemap', {

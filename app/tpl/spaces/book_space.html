@@ -1,0 +1,326 @@
+
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = false;">
+    <div class="col col-lg-8">
+        <div class="wrapper-md">
+            <!--content here-->
+            <div class="row">
+<div class="panel">
+                    <div class="wrapper-lg">
+                        <h2 class="m-t-none">You are booking...</h2>
+                        <div>
+
+
+                            <div class="brdr bgc-fff pad-10 btm-mrg-20 property-listing">
+                                <div class="media">
+
+                                    <div class="pull-left">
+                                        <figure class="changeable-picture">
+                                            <!--TODO put the null photo id in a config file-->
+                                            <cl-image ng-show="selectedSpace.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
+                                            </cl-image>
+
+                                            <cl-image ng-hide="selectedSpace.frontPhoto == null" public-id="{{selectedSpace.frontPhoto}}" width="373" height="209" crop="fill">
+                                            </cl-image>
+                                        </figure>
+                                    </div>
+
+                                    <div class="clearfix visible-sm"></div>
+
+                                    <div class="media-body fnt-smaller">
+                                        <h4 class="media-heading">
+                                            {{selectedSpace.overview.title}} <small class="pull-right">{{selectedSpace.venue.address.line1}}</small></h4>
+
+
+                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                            <li>
+                                                <div class="bg-white text-center m-b">
+                                                    <i class="glyphicon glyphicon-user icon text-info-dker"></i>
+                                                    Max Capacity:<span class="font-bold">{{selectedSpace.capacity}}</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <p class="hidden-xs">{{selectedSpace.overview.summary}}</p>
+
+                                        <i class="glyphicon glyphicon-user icon text-info-dker"></i>
+                                        Included:
+
+                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                            <li ng-repeat="amenit in selectedSpace.venue.amenitiesAvailable">
+                                                <div class="bg-white text-center m-b">
+                                                    {{amenit.name}}
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <span class="fnt-smaller fnt-lighter fnt-arial">
+                                            <div>phone: {{selectedSpace.venue.contactInfo.phone}}</div><div> email: {{selectedSpace.venue.contactInfo.email}}</div><div> website: {{selectedSpace.venue.contactInfo.website}}</div>
+                                        </span>
+
+                                       
+
+                                    </div>
+                                </div>
+
+                            </div><!-- End Listing-->
+
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <div class="wrapper-lg">
+                        <h2 class="m-t-none">Booking details</h2>
+                        <div>
+
+                                        <!--input data here-->     
+                                        <div class="panel-body">
+                                            <div class="form-horizontal">
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Duration</label>
+                                                    <div class="col-sm-6">
+                                                        <input ui-jq="TouchSpin" type="number" ng-model="duration" 
+                                                               value="0" class="form-control" data-min='0' data-max="10000000" 
+                                                               data-step="1">
+                                                    </div>
+
+                                                </div>
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Check in</label>
+
+                                                    <div class="col-sm-10">
+                                                        <div class="input-group w-md">
+                                                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                                            <span class="input-group-btn">
+                                                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                            </span>
+                                                        </div>
+
+                                                        <timepicker ng-model="mytime" ng-change="changedTime()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+
+                                                        <pre class="alert alert-info">Selected date is: <em>{{dt| date:'fullDate' }}</em> </pre> 
+
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Your email</label>
+                                                    <div class="col-sm-6">
+
+                                                        <input name="email" class="form-control" ng-model="email" required />
+                                                        <span class="help-block">We will send an email to this address with the confirmation</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">reservation title</label>
+                                                    <div class="col-sm-6">
+
+                                                        <input name="reservationTitle" class="form-control" ng-model="reservationTitle" required />
+                                                        <span class="help-block">bla</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                 <div class="form-group">
+                                                    <label class="col-sm-2 control-label">attendees Emails</label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Amenities Request</label>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                
+                
+                
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Cost details</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Duration</label>
+                                <div class="col-sm-6">
+                                    1 hour @ 100/hr
+                                </div>
+
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Venue fee</label>
+                                <div class="col-sm-6">
+                                    field value
+                                </div>
+
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Unlock spaces fee</label>
+                                <div class="col-sm-6">
+                                    FREE
+                                </div>
+
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Promo code</label>
+                                <div class="col-sm-6">
+                                    field value
+                                </div>
+
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Tax</label>
+                                <div class="col-sm-6">
+                                    field value
+                                </div>
+
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Total</label>
+                                <div class="col-sm-6">
+                                    xxx
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <span class="help-block">Your card will be charged 24 hours before each reservation. Changes and cancellations are free of charge with a 24 hours notice. Cancellation Policy.</span>
+
+                    </div>
+                </div>
+
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><img class="pull-right" src="http://i76.imgup.net/accepted_c22e0.png">Payment Details</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" id="payment-form">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="cardNumber">CARD NUMBER</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
+                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                        </div>
+                                    </div>                            
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-7 col-md-7">
+                                    <div class="form-group">
+                                        <label for="expMonth">EXPIRATION DATE</label>
+                                        <div class="col-xs-6 col-lg-6 pl-ziro">
+                                            <input type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
+                                        </div>
+                                        <div class="col-xs-6 col-lg-6 pl-ziro">
+                                            <input type="text" class="form-control" name="expYear" placeholder="YY" required data-stripe="exp_year" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5 col-md-5 pull-right">
+                                    <div class="form-group">
+                                        <label for="cvCode">CV CODE</label>
+                                        <input type="password" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="couponCode">COUPON CODE</label>
+                                        <input type="text" class="form-control" name="couponCode" />
+                                    </div>
+                                </div>                        
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-success btn-lg btn-block" type="submit">Start Subscription</button>
+                                </div>
+                            </div>
+                            <div class="row" style="display:none;">
+                                <div class="col-xs-12">
+                                    <p class="payment-errors"></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="line line-lg b-b b-light"></div>
+                    <div class="text-muted">
+                        <i class="fa fa-user text-muted"></i> I agree to the <a href="" class="m-r-sm">terms of service</a> and 
+                        <a href="" class="m-r-sm">cancellation policy</a>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-large" ng-click="">Book Now</button>
+                </div>
+
+
+
+                <pre>{{selectedSpace|json}}</pre>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col w-lg bg-light lter b-l bg-auto">
+        <div class="wrapper">
+
+            <div class="mq-desktop section-guarantee-block">
+                <p class="mb0"><strong>Why book on UnlockSpaces?</strong></p>
+                <ul class="list-bullet text-smoky">
+                    <li class="list-bullet-item"><p class="p-sm mb0">No booking fees</p></li>
+                    <li class="list-bullet-item"><p class="p-sm mb0">100% safe and trusted</p></li>
+                    <li class="list-bullet-item"><p class="p-sm mb0">Secure payments and confirmation</p></li>
+                    <li class="list-bullet-item"><p class="p-sm mb0">24/7 customer support</p></li>
+                    <li class="list-bullet-item"><p class="p-sm mb0">Verified venues</p></li>
+                    <li class="list-bullet-item"><p class="p-sm mb0">Flexible cancellation policy</p></li>
+                </ul>
+                <ul class="list-linear">
+                    <li class="list-linear-item"><img src="https://www.sharedesk.net/images/booking/trustwave.png" alt="Trustwave" height="35"></li>
+                    <li class="list-linear-item"><img src="https://www.sharedesk.net/images/booking/secure.png" alt="Secure" height="35"></li>
+                </ul>
+
+                <p><strong>Accepted payments</strong></p>
+                <ul class="list-ccards">
+                    <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/paypal.png" data-no-retina="" alt="PayPal" height="35"></li>
+                    <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/visa.png" data-no-retina="" alt="Visa" height="35"></li>
+                    <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/mastercard.png" data-no-retina="" alt="Mastercard" height="35"></li>
+                </ul>
+                <ul class="list-ccards mb0">
+                    <!-- li class="list-ccards-item"><img src="/images/booking/amex.png" data-no-retina alt="American Express" height="35" /></li -->
+                    <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/jcb.png" data-no-retina="" alt="JCB" height="35"></li>
+                    <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/discover.png" data-no-retina="" alt="Discover" height="35"></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
