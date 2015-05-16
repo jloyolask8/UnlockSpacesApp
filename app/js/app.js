@@ -39,6 +39,10 @@ angular.module('app', [
          .factory('SpacesRS', function (unlockRestResource) {
             return unlockRestResource('spaces');
         })
+        
+        .factory('ReservationsRS', function (unlockRestResource) {
+            return unlockRestResource('reservations');
+        })
 
         .factory('SpaceTypes', function (unlockRestResource) {
             return unlockRestResource('spacetypes');

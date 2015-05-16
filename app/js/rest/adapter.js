@@ -26,14 +26,14 @@
  understanding this implementation:
  */
 angular.module('app')
-        .factory('unlockRestResource', ['REST_CONFIG', '$http', '$q', '$log', function (REST_CONFIG, $http, $q, $log) {
+        .factory('unlockRestResource', ['servicesUrls', '$http', '$q', '$log', function (servicesUrls, $http, $q, $log) {
 
         function UnlockRestResourceFactory(collectionName) {
 
-            var url = REST_CONFIG.baseUrl + collectionName;
+            var url = servicesUrls.baseUrl + collectionName;
             var defaultParams = {};
-//            if (REST_CONFIG.apiKey) {
-//                defaultParams.apiKey = REST_CONFIG.apiKey;
+//            if (servicesUrls.apiKey) {
+//                defaultParams.apiKey = servicesUrls.apiKey;
 //            }
 
             var thenFactoryMethod = function (httpPromise, successcb, errorcb, isArray) {

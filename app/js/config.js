@@ -12,15 +12,7 @@ $.cloudinary.config().upload_preset = 'xq7agj5x';
 var app =
         angular.module('app')
 
-        .constant('REST_CONFIG', {
-            baseUrl: 'http://localhost:8090/unlockServices/api/',
-//            baseUrl: 'http://localhost:8080/UnlockServices/api/',
-            apiKey: 'f80ebc87-ad5c-4b29-9366-5359768df5a1'
-        })
-        .constant('IMAGES_CLOUD_CONFIG', {
-            cloudinaryBaseUrl: '',
-            apiKey: ''
-        })
+       
 
         .config(function AppConfig($routeProvider, authProvider, $httpProvider, $locationProvider,
                 jwtInterceptorProvider) {

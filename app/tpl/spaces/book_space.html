@@ -4,7 +4,7 @@
         <div class="wrapper-md">
             <!--content here-->
             <div class="row">
-<div class="panel">
+                <div class="panel">
                     <div class="wrapper-lg">
                         <h2 class="m-t-none">You are booking...</h2>
                         <div>
@@ -16,10 +16,10 @@
                                     <div class="pull-left">
                                         <figure class="changeable-picture">
                                             <!--TODO put the null photo id in a config file-->
-                                            <cl-image ng-show="selectedSpace.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
+                                            <cl-image ng-show="newReservationObj.space.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
                                             </cl-image>
 
-                                            <cl-image ng-hide="selectedSpace.frontPhoto == null" public-id="{{selectedSpace.frontPhoto}}" width="373" height="209" crop="fill">
+                                            <cl-image ng-hide="newReservationObj.space.frontPhoto == null" public-id="{{newReservationObj.space.frontPhoto}}" width="373" height="209" crop="fill">
                                             </cl-image>
                                         </figure>
                                     </div>
@@ -28,25 +28,25 @@
 
                                     <div class="media-body fnt-smaller">
                                         <h4 class="media-heading">
-                                            {{selectedSpace.overview.title}} <small class="pull-right">{{selectedSpace.venue.address.line1}}</small></h4>
+                                            {{newReservationObj.space.overview.title}} <small class="pull-right">{{newReservationObj.space.venue.address.line1}}</small></h4>
 
 
                                         <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
                                             <li>
                                                 <div class="bg-white text-center m-b">
                                                     <i class="glyphicon glyphicon-user icon text-info-dker"></i>
-                                                    Max Capacity:<span class="font-bold">{{selectedSpace.capacity}}</span>
+                                                    Max Capacity:<span class="font-bold">{{newReservationObj.space.capacity}}</span>
                                                 </div>
                                             </li>
                                         </ul>
 
-                                        <p class="hidden-xs">{{selectedSpace.overview.summary}}</p>
+                                        <p class="hidden-xs">{{newReservationObj.space.overview.summary}}</p>
 
                                         <i class="glyphicon glyphicon-user icon text-info-dker"></i>
                                         Included:
 
                                         <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                            <li ng-repeat="amenit in selectedSpace.venue.amenitiesAvailable">
+                                            <li ng-repeat="amenit in newReservationObj.space.venue.amenitiesAvailable">
                                                 <div class="bg-white text-center m-b">
                                                     {{amenit.name}}
                                                 </div>
@@ -54,10 +54,10 @@
                                         </ul>
 
                                         <span class="fnt-smaller fnt-lighter fnt-arial">
-                                            <div>phone: {{selectedSpace.venue.contactInfo.phone}}</div><div> email: {{selectedSpace.venue.contactInfo.email}}</div><div> website: {{selectedSpace.venue.contactInfo.website}}</div>
+                                            <div>phone: {{newReservationObj.space.venue.contactInfo.phone}}</div><div> email: {{newReservationObj.space.venue.contactInfo.email}}</div><div> website: {{newReservationObj.space.venue.contactInfo.website}}</div>
                                         </span>
 
-                                       
+
 
                                     </div>
                                 </div>
@@ -68,84 +68,95 @@
 
                     </div>
                 </div>
-                
+
                 <div class="panel">
                     <div class="wrapper-lg">
                         <h2 class="m-t-none">Booking details</h2>
                         <div>
 
-                                        <!--input data here-->     
-                                        <div class="panel-body">
-                                            <div class="form-horizontal">
+                            <!--input data here-->     
+                            <div class="panel-body">
+                                <div class="form-horizontal">
 
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Duration</label>
-                                                    <div class="col-sm-6">
-                                                        <input ui-jq="TouchSpin" type="number" ng-model="duration" 
-                                                               value="0" class="form-control" data-min='0' data-max="10000000" 
-                                                               data-step="1">
-                                                    </div>
-
-                                                </div>
-                                                <div class="line line-dashed b-b line-lg pull-in"></div>
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Check in</label>
-
-                                                    <div class="col-sm-10">
-                                                        <div class="input-group w-md">
-                                                            <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-                                                            <span class="input-group-btn">
-                                                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                                            </span>
-                                                        </div>
-
-                                                        <timepicker ng-model="mytime" ng-change="changedTime()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
-
-                                                        <pre class="alert alert-info">Selected date is: <em>{{dt| date:'fullDate' }}</em> </pre> 
-
-                                                    </div>
-
-
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Your email</label>
-                                                    <div class="col-sm-6">
-
-                                                        <input name="email" class="form-control" ng-model="email" required />
-                                                        <span class="help-block">We will send an email to this address with the confirmation</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">reservation title</label>
-                                                    <div class="col-sm-6">
-
-                                                        <input name="reservationTitle" class="form-control" ng-model="reservationTitle" required />
-                                                        <span class="help-block">bla</span>
-                                                    </div>
-                                                </div>
-                                                
-                                                 <div class="form-group">
-                                                    <label class="col-sm-2 control-label">attendees Emails</label>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Amenities Request</label>
-                                                </div>
-
-
-                                            </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Duration</label>
+                                        <div class="col-sm-6">
+                                            <input ui-jq="TouchSpin" type="number" ng-model="duration" 
+                                                   value="0" class="form-control" data-min='0' data-max="10000000" 
+                                                   data-step="1">
                                         </div>
+
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Check in</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="input-group w-md">
+                                                <input type="text" class="form-control" datepicker-popup="{{format}}" 
+                                                       ng-model="newReservationObj.startDateTime" is-open="opened" 
+                                                       datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                </span>
+                                            </div>
+
+                                            <timepicker ng-model="mytime" ng-change="changedTime()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+
+                                            <pre class="alert alert-info">Selected date is: <em>{{newReservationObj.startDateTime| date:'fullDate' }}</em> </pre> 
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Your email</label>
+                                        <div class="col-sm-6">
+
+                                            <input name="email" class="form-control" ng-model="email" required />
+                                            <span class="help-block">We will send an email to this address with the confirmation</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">reservation title</label>
+                                        <div class="col-sm-6">
+
+                                            <input name="reservationTitle" class="form-control" ng-model="reservationTitle" required />
+                                            <span class="help-block">bla</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">attendees Emails</label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Amenities Request</label>
+                                    </div>
+                                    
+                                     <div class="form-group">
+                                        <label class="col-sm-2 control-label">JUST FOR TEST SECURITY ISSUES</label>
+                                        <div class="col-sm-6">
+
+                                            <input name="TEST" class="form-control" ng-model="newReservationObj.space.overview.summary" required />
+                                            <span class="help-block">We dont want to let anyone else edit critical information about the space</span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
                         </div>
 
                     </div>
                 </div>
-                
-                
-                
-                
+
+
+
+
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -215,7 +226,8 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><img class="pull-right" src="http://i76.imgup.net/accepted_c22e0.png">Payment Details</h3>
+                        <h3 class="panel-title">
+                            <img class="pull-right" src="http://i76.imgup.net/accepted_c22e0.png">Payment Details</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" id="payment-form">
@@ -233,7 +245,7 @@
                             <div class="row">
                                 <div class="col-xs-7 col-md-7">
                                     <div class="form-group">
-                                        <label for="expMonth">EXPIRATION DATE</label>
+                                        <label for="expMonth" class="pull-left">EXPIRATION DATE</label>
                                         <div class="col-xs-6 col-lg-6 pl-ziro">
                                             <input type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
                                         </div>
@@ -249,19 +261,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <label for="couponCode">COUPON CODE</label>
-                                        <input type="text" class="form-control" name="couponCode" />
-                                    </div>
-                                </div>                        
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <button class="btn btn-success btn-lg btn-block" type="submit">Start Subscription</button>
-                                </div>
-                            </div>
+                           
                             <div class="row" style="display:none;">
                                 <div class="col-xs-12">
                                     <p class="payment-errors"></p>
@@ -276,12 +276,12 @@
                         <a href="" class="m-r-sm">cancellation policy</a>
                     </div>
 
-                    <button type="button" class="btn btn-primary btn-large" ng-click="">Book Now</button>
+                    <button class="btn btn-success btn-lg btn-block" ng-click="createReservation()" type="submit">Book Now</button>
                 </div>
 
 
 
-                <pre>{{selectedSpace|json}}</pre>
+                
 
             </div>
         </div>

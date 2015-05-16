@@ -3,81 +3,129 @@
 /* Controllers */
 // signin controller
 
-app.controller('BookingController', function (auth, $scope, $state, $location, $stateParams, SpacesRS) {
-    $scope.test = '';
+app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'headers', 'data', 'status', function ($scope, $modalInstance, headers, data, status) {
+        $scope.headers = headers;
+        $scope.status = status;
+        $scope.data = data;
+
+        $scope.ok = function () {
+            $modalInstance.close($scope.selected.item);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    }])
+        ;
+
+app.controller('BookingController', function (servicesUrls, $http, $modal, $scope, $state, $location, $stateParams, SpacesRS) {
+
+    $scope.initDate = new Date();
+    $scope.format = 'yyyy/MM/dd HH:mm';
+
     $scope.selectedSpace = {};
     //space/venue type
-    
-    $scope.today = function() {
-      $scope.dt = new Date();
-    };
-    $scope.today();
-    
-    $scope.clear = function () {
-      $scope.dt = null;
-    };
-    
-    $scope.open = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
 
-      $scope.opened = true;
+    $scope.createReservation = createReservation;
+
+    $scope.newReservationObj = {};
+
+    $scope.cancelBooking = function () {
+        $state.go("app.venues.list");
+    };
+
+    loadParams();
+
+
+
+
+    $scope.clear = function () {
+        $scope.newReservationObj.startDateTime = null;
+    };
+
+    $scope.open = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
     };
 
     $scope.dateOptions = {
-      formatYear: 'yy',
-      startingDay: 1,
-      class: 'datepicker'
+        formatYear: 'yyyy',
+        startingDay: 1,
+        class: 'datepicker'
     };
 
-    $scope.initDate = new Date('2016-15-20');
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd HH:mm', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[1];
-    
-     $scope.mytime = new Date();
 
-    $scope.hstep = 1;
-    $scope.mstep = 15;
+    $scope.showResponseModal = function (size) {
+        var modalInstance = $modal.open({
+            templateUrl: 'tpl/blocks/helpers/httpResponse.html',
+            controller: 'ModalInstanceCtrl',
+            size: size,
+            resolve: {
+                headers: function () {
+                    return $scope.headers;
+                },
+                data: function () {
+                    return $scope.data;
+                },
+                status: function () {
+                    return $scope.status;
+                }
+            }
+        });
 
-    $scope.optionsTime = {
-      hstep: [1, 2, 3],
-      mstep: [1, 5, 10, 15, 25, 30]
-    };
-
-    $scope.ismeridian = true;
-    $scope.toggleModeTime = function() {
-      $scope.ismeridian = ! $scope.ismeridian;
-    };
-
-    $scope.updateTime = function() {
-      var d = new Date();
-      d.setHours( 14 );
-      d.setMinutes( 0 );
-      $scope.mytime = d;
-    };
-
-    $scope.changedTime = function () {
-      //console.log('Time changed to: ' + $scope.mytime);
-    };
-
-    $scope.clearTime = function() {
-      $scope.mytime = null;
+        modalInstance.result.then(function (selectedItem) {
+            console.info(selectedItem);
+        }, function () {
+            console.info('Modal dismissed at: ' + new Date());
+        });
     };
 
     console.log('hello from BookingController');
 
-    SpacesRS.getById($stateParams.spaceId).then(
-            function (v) {
-                $scope.selectedSpace = v;
-            },
-            function (err) {
-                alert('error:' + err);
-            }
-    );
+    function createReservation() {
 
-    $scope.submit = function () {
-//        window.location.href = e.href("app.page.search", {venuesSearchText: $scope.venuesSearchInputText}, {reload: !0})
-    };
+        $http.post(servicesUrls.baseUrl + 'reservations', $scope.newReservationObj)
+                .success(function (data, status, headers) {
+
+                    $scope.headers = headers;
+                    $scope.data = data;
+                    $scope.status = status;
+
+                    $scope.showResponseModal();
+
+                })
+                .error(function (data, status) {
+                    $scope.data = data || "Request failed";
+                    $scope.status = status;
+                    if (status === 0) {
+                        alert("Sorry we are not able to complete the operation. Connection to the server is lost.");
+                        return;
+                    }
+
+                });
+
+    }
+
+    function loadParams() {
+        if ($stateParams.dateSelected) {
+            $scope.newReservationObj.startDateTime = $stateParams.dateSelected;
+        } else {
+            $scope.newReservationObj.startDateTime = new Date();
+        }
+
+        if ($stateParams.spaceId) {
+            SpacesRS.getById($stateParams.spaceId).then(
+                    function (v) {
+                        $scope.newReservationObj.space = v;
+                    },
+                    function (err) {
+                        alert('error:' + err);
+                    }
+            );
+        }
+    }
 
 });
 
