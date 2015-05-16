@@ -18,12 +18,12 @@ angular.module('app')
                     function ($stateProvider, $urlRouterProvider, JQ_CONFIG) {
 
                         $urlRouterProvider
-                                .otherwise('/home');
+                                .otherwise('/apphome/home');
 
                         $stateProvider
 
                                 // home state
-                                .state('home', {
+                                .state('apphome.home', {
                                     url: '/home',
                                     templateUrl: 'tpl/home/home.html',
                                     controller: 'HomeController',
@@ -39,6 +39,11 @@ angular.module('app')
                                     abstract: true,
                                     url: '/app',
                                     templateUrl: 'tpl/app.html'
+                                })
+                                .state('apphome', {
+                                    abstract: true,
+                                    url: '/apphome',
+                                    templateUrl: 'tpl/app_home.html'
                                 })
 
                                 .state('app.ui', {
