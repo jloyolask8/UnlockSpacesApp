@@ -14,6 +14,12 @@
                     id: '@id'
                 });
     });
+    
+    clientModule.factory('VenuesSearch', function($resource, servicesUrls) {
+        return $resource(servicesUrls.onlyViewVenuesUrl, {
+            id: '@id'
+        })
+    });
 
     clientModule.factory('VenuesGeoSearch', function ($resource, servicesUrls) {
         return $resource(servicesUrls.findVenuesUrl,
@@ -40,11 +46,15 @@
         return spacesService;
     });
     
-    clientModule.service('venuesService', function (VenuesGeoSearch) {
+    clientModule.service('venuesService', function (VenuesGeoSearch, VenuesSearch) {
         var venuesService = {};
 
         venuesService.geoSearch = function (lat, lon, radio) {
             return VenuesGeoSearch.query({latitude: lat, longitude: lon, radiometers: radio});
+        };
+        
+        venuesService.find = function (id){
+            return VenuesSearch.get({id: id});
         };
 
         return venuesService;

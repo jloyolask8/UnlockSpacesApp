@@ -93,6 +93,14 @@ img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
     z-index: 2; 
 }
 
+.results-map-search-top50{
+    overflow-y: scroll; position: absolute; top: 50px; right:0; bottom: 0; left: 0;
+    background: rgba(245, 245, 245, 1);
+    //box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
+    padding: 0px 0px 0px 0px;
+    z-index: 2; 
+}
+
 .card{
     //padding: 0px 11px 20px 13px;
     //border: 0px 11px 20px 13px;

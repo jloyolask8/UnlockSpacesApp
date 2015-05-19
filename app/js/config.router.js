@@ -34,16 +34,16 @@ angular.module('app')
                                             }]
                                     }
                                 })
+                                .state('apphome', {
+                                    abstract: true,
+                                    url: '/apphome',
+                                    templateUrl: 'tpl/app_home.html'
+                                })
 
                                 .state('app', {
                                     abstract: true,
                                     url: '/app',
                                     templateUrl: 'tpl/app.html'
-                                })
-                                .state('apphome', {
-                                    abstract: true,
-                                    url: '/apphome',
-                                    templateUrl: 'tpl/app_home.html'
                                 })
 
                                 .state('app.ui', {
@@ -154,48 +154,11 @@ angular.module('app')
                                     templateUrl: 'tpl/form_wizard.html'
                                 })
 
-//                                .state('app.ui.search', {
-//                                    url: '/search',
-//                                    templateUrl: 'tpl/search/searchMapList.html',
-//                                    resolve: {
-//                                        deps: ['uiLoad',
-//                                            function (uiLoad) {
-//                                                return uiLoad.load([
-//                                                    'js/app/map/load-google-maps.js',
-//                                                    'js/app/map/ui-map.js',
-//                                                    'js/app/map/map.js']).then(
-//                                                        function () {
-//                                                            return loadGoogleMaps();
-//                                                        }
-//                                                );
-//                                            }]
-//                                    }
-//                                })
-
                                 .state('app.ui.search', {
                                     url: '/search/:venuesSearchText/:lat/:lon',
                                     templateUrl: 'tpl/search/search.html',
                                 })
 
-
-
-//                                .state('app.ui.googlemap', {
-//                                    url: '/googlemap',
-//                                    templateUrl: 'tpl/ui_googlemap.html',
-//                                    resolve: {
-//                                        deps: ['uiLoad',
-//                                            function (uiLoad) {
-//                                                return uiLoad.load([
-//                                                    'js/app/map/load-google-maps.js',
-//                                                    'js/app/map/ui-map.js',
-//                                                    'js/app/map/map.js']).then(
-//                                                        function () {
-//                                                            return loadGoogleMaps();
-//                                                        }
-//                                                );
-//                                            }]
-//                                    }
-//                                })
                                 // mail
                                 .state('app.mail', {
                                     abstract: true,
@@ -289,9 +252,6 @@ angular.module('app')
                                     data: {requiresLogin: true}
                                 })
 
-
-
-
                                 .state('access', {
                                     url: '/access',
                                     template: '<div ui-view class="fade-in-right-big smooth"></div>'
@@ -324,10 +284,7 @@ angular.module('app')
                                 .state('access.404', {
                                     url: '/404',
                                     templateUrl: 'tpl/page_404.html'
-                                })
-
-                                ;
-
+                                });
 
                     }
                 ]

@@ -135,8 +135,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div ng-if="detailView" >
-                            <div class="panel panel-default">
+                        <div ng-if="detailView">
+                            <div>
                                 <div class="panel-heading" >
                                     <div class="container-fluid">
                                         <div class="row">
@@ -152,6 +152,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="panel panel-default results-map-search-top50">
                                 <div class="panel-body container-fluid" set-ng-animate="false">
                                     <carousel>
                                         <slide ng-repeat="slide in spaceSelected.slides" active="slide.active">
