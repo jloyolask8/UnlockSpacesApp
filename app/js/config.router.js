@@ -155,7 +155,7 @@ angular.module('app')
                                 })
 
                                 .state('app.ui.search', {
-                                    url: '/search/:venuesSearchText/:lat/:lon',
+                                    url: '/search/:venuesSearchText/:lat/:lon/:details/:venueid/:spaceid',
                                     templateUrl: 'tpl/search/search.html',
                                 })
 

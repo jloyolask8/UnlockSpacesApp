@@ -40,7 +40,8 @@
 
         $scope.venues = [];
         $scope.markers = [];
-        $scope.detailView = false;
+        $scope.detailView = ($stateParams.details) ? ($stateParams.details === 'true') : false;
+
         $scope.formattedAddress = "";
         $scope.mapInstance = null;
         $scope.optionsModel = {
@@ -124,7 +125,6 @@
                                 loadSearchBar(map);
                                 searchVenuesOnMapBound(map);
                                 $scope.mapInstance = map;
-                                firstTime = false;
                                 if ($stateParams.venuesSearchText) {
                                     var input = (document.getElementById('pac-input'));
                                     input.value = $stateParams.venuesSearchText;
@@ -179,6 +179,9 @@
                     findFormattedAddress(center);
                 }
 //                $log.info("markers length:" + $scope.markers.length);
+                if(firstTime){
+                    firstTime = false;
+                }
             });
         };
 
@@ -201,6 +204,10 @@
                 return 1;
             return 0;
         };
+        
+        $scope.$watch('spaceSelected', function (a,b){
+            $log.info("spaceSelected has changed from "+b+" to "+a)
+        });
 
         $scope.viewDetailOfSpace = function (space, venue) {
             $scope.detailView = true;
@@ -243,11 +250,22 @@
 
         var refreshMapMarkers = function () {
             var tempmarkers = [];
-
+            var detailsVenue = null;
+            var detailsSpace = null;
             venuesList.sort(compareSpace);
             for (var i = 0; i < venuesList.length; i++) {
                 //createSpaceSlides(venuesList[i].spaces);
                 tempmarkers.push(createMarker(venuesList[i]));
+                if (firstTime && $scope.detailView && (detailsVenue === null)) {
+                    if (venuesList[i].id === parseInt($stateParams.venueid)) {
+                        venuesList[i].spaces.forEach(function (space) {
+                            if(space.id === parseInt($stateParams.spaceid)){
+                                detailsVenue = venuesList[i];
+                                detailsSpace = space;
+                            }
+                        });
+                    }
+                }
                 //$scope.venues.push(venuesList[i]);
             }
             var i = 0;
@@ -272,7 +290,11 @@
                 }
                 i++;
             }
+            if(firstTime && $scope.detailView){
+                $scope.viewDetailOfSpace(detailsSpace,detailsVenue);
+            }
         };
+        
         var calcRadio = function (map) {
             var bounds = map.getBounds();
             var NE = bounds.getNorthEast();
@@ -285,6 +307,7 @@
             var vertical = google.maps.geometry.spherical.computeDistanceBetween(verticalLatLng1, verticalLatLng2);
             return Math.round(((horizontal > vertical) ? horizontal : vertical) / 2);
         };
+        
         var createMarker = function (space) {
 
 
@@ -306,6 +329,7 @@
             };
             return markerProps;
         };
+        
         var markerIndexOf = function (arr, value) {
             var a;
             for (var i = 0, iLen = arr.length; i < iLen; i++) {
