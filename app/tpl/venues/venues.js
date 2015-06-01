@@ -32,10 +32,19 @@ app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Ve
             $log.log(venue);
 
             // Remove this user
-            Venues.remove(venue, function () {
+            Venues.remove(venue, function (response) {
                 // It is gone from the DB so we can remove it from the local list too
-                $scope.data.splice($index, 1);
-                $state.go("app.venues.list");
+                var results = "";
+                var i = 0;
+                while (response[i]) {
+                    results += response[i++];
+                }
+                if (results === "") {
+                    $scope.data.splice($index, 1);
+                    $state.go("app.venues.list");
+                } else {
+                    alert(results);
+                }
 //                i18nNotifications.pushForCurrentRoute('crud.user.remove.success', 'success', {id: user.$id()});
             }, function () {
                 alert("Sorry we are not able to complete the operation.");
@@ -87,6 +96,14 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
                 });
             }
         }, true);
+
+        $scope.removeVenuePhoto = function (index) {
+            $scope.selectedVenue.photos.splice(index, 1);
+        };
+
+        $scope.removeSpacePhoto = function (index) {
+            $scope.space.photos.splice(index, 1);
+        }
 
         //      selectedVenueAdmin
         $scope.selectedVenueAdmin = {};//new and selected selectedVenueAdmin for edit
@@ -410,7 +427,7 @@ app.controller('VenuesCreateController', ['servicesUrls', '$scope', '$http', '$s
         $scope.messageVenue = 'hello from venues VenuesCrateController';
         $log.log($scope.messageVenue);
 
-         //TODO change for a function to pull types from api
+        //TODO change for a function to pull types from api
         $scope.venueTypeList = ['Bussiness Center', 'Corporate Office', 'Coworking spaces', 'Startup offices'];
 
         $scope.newVenueObj = {

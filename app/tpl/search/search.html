@@ -144,7 +144,8 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-lg-5" ng-click="viewResults()">
-                                                <a class="text-info-dk h4" ui-sref="app.ui.search({details:'false'})">
+                                                <!--<a class="text-info-dk h4">-->
+                                                    <a class="text-info-dk h4" ui-sref="app.ui.search({details:'false',lat:'',lon:''})">
                                                     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                                                     Search results
                                                 </a>
@@ -207,12 +208,13 @@
 
 
                                         <div class="row">
-                                            <a ui-sref="app.bookspace({spaceId:spaceSelected.id})"
+                                            <a ui-sref="app.bookspace({spaceId:spaceSelected.id,dateSelected:dt.formatMMDDYYYY()})"
                                                class="col btn btn-dark padder-v text-muted">
                                                 <i class="icon-edit block m-b-xs fa-2x"></i>
                                                 <span>Book now</span>
                                             </a>
                                         </div>
+                                        <pre>{{dt | json}}</pre>
 
                                     </div>
                                 </div>

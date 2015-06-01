@@ -192,6 +192,7 @@ img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
 
 .changeable-picture{
     //height: 163px;
+    margin: 0px;
     overflow: hidden;
     position: relative;
     -webkit-filter: none; /* Google Chrome, Safari 6+ & Opera 15+ */

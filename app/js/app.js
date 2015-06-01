@@ -28,6 +28,7 @@ angular.module('app', [
     'photoAlbumServices',
     'spacesRestClient',
     'uiGmapgoogle-maps',
+    'wu.staticGmap',
     'mapControllers',
     //'HomeController',
     , 'http-auth-interceptor'

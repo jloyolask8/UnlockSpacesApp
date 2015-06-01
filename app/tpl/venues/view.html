@@ -4,7 +4,7 @@
     <div class="col">
         <div class="wrapper bg-white b-b">
             <div class="fb-profile">
-                <cl-image align="left" class="fb-image-lg" public-id="{{selectedVenue.frontPhoto}}" width="850" height="280" crop="fill">
+                <cl-image align="left" class="fb-image-lg" public-id="{{selectedVenue.frontPhoto}}" width="1000" height="240" crop="fill">
                 </cl-image>
                 <!--                <div align="left" class="fb-image-profile thumbnail" set-ng-animate="false">
                                     <carousel>
@@ -25,10 +25,10 @@
                                 <div class="clear m-b">
                                     <div class="m-b m-t-sm">
                                         <span class="h3 text-black">{{selectedVenue.overview.title}}</span>
-                                        <small class="m-l">{{selectedVenue.overview.details}}</small>
+                                        <span class="h5 m-l">{{selectedVenue.address.line1}}</span>
                                     </div>
+                                    <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"> </span> Verified by
 
-                                    Verified by
                                     <p class="m-b">
                                         <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon" ng-if="auth.profile.email_verified === true"><i class="fa fa-envelope"></i></a>
                                         <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-google-plus"></i></a>
@@ -38,12 +38,12 @@
                             </div>
                             <div class="col-sm-5">
                                 <div class="pull-right pull-none-xs text-center">
+                                    <!--                                    <a href class="m-b-md inline m">
+                                                                            <span class="h3 block font-bold">{{selectedVenue.spaces.length}}</span>
+                                                                            <small>Venues</small>
+                                                                        </a>-->
                                     <a href class="m-b-md inline m">
-                                        <span class="h3 block font-bold">2</span>
-                                        <small>Venues</small>
-                                    </a>
-                                    <a href class="m-b-md inline m">
-                                        <span class="h3 block font-bold">250</span>
+                                        <span class="h3 block font-bold">{{selectedVenue.spaces.length}}</span>
                                         <small>Spaces</small>
                                     </a>
                                 </div>
@@ -53,12 +53,12 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper bg-white b-b">
-            <ul class="nav nav-pills nav-sm">
-                <li class="active"><a href>Profile</a></li>
-                <li><a href>Messages</a></li>
-            </ul>
-        </div>
+        <!--        <div class="wrapper bg-white b-b">
+                    <ul class="nav nav-pills nav-sm">
+                        <li class="active"><a href>Profile</a></li>
+                        <li><a href>Messages</a></li>
+                    </ul>
+                </div>-->
 
 
         <div class="wrapper-md">
@@ -69,23 +69,43 @@
 
 
                     <!-- carousel -->
-                    <div class="panel b-a" set-ng-animate="false">
+                    <div class="panel panel-default" set-ng-animate="false">
                         <div class="panel-heading">
-                            Details
+                            <span class="h4">Details</span>
                         </div>
-
-                        <div class="panel-footer">
-                            <button type="button" class="btn btn-default m-r" ng-click="">button</button>
+                        <div class="panel-body">
+                            {{selectedVenue.overview.summary}}
+<!--                            <pre><code>{{selectedVenue.address| json}}</code></pre>
+                            <pre><code>{{markers| json}}</code></pre>-->
                         </div>
+                        <!--                        <div class="panel-footer">
+                                                    <button type="button" class="btn btn-default m-r" ng-click="">button</button>
+                                                </div>-->
                     </div>
                     <!-- / carousel -->
 
                 </div>
-
+                
                 <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="h4">Location</span>
+                        </div>
+                        <div class="panel-body">
+                            <static-gmap class="fb-profile"
+                                    size="640x200"
+                                    markers="markers"
+                                    sensor="false"
+                                    zoom="14" ng-cloak>
+                                </static-gmap>
+                        </div>
+                    </div>
+                </div>
+
+<!--                <div class="col-lg-6">
 
 
-                    <!-- carousel -->
+                     carousel 
                     <div class="panel b-a" set-ng-animate="false">
                         <div class="panel-heading">
                             Venue Photos
@@ -95,9 +115,9 @@
                             <button type="button" class="btn btn-default m-r" ng-click="">button</button>
                         </div>
                     </div>
-                    <!-- / carousel -->
+                     / carousel 
 
-                </div>
+                </div>-->
 
                 <div class="col-lg-6">
 
@@ -173,7 +193,7 @@
 
 
 
-        <div class="padder">      
+<!--        <div class="padder">      
 
             <div>
                 <br />
@@ -181,7 +201,7 @@
                 <pre><code>{{selectedVenue| json}}</code></pre>
             </div>       
 
-        </div>
+        </div>-->
 
 
 

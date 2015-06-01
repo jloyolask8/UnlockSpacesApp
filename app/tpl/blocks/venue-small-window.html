@@ -1,15 +1,70 @@
-<div ng-controller="winTemplateCtrl" style="white-space:nowrap">
-    <div class="map-bubble-header" ng-cloak>
-        <div class="flex-row flex-gutter" ng-cloak>
-            <!-- ngIf: windowList[0].venue.category --><div class="flex-cell-auto flex-align--middle ng-scope" ng-cloak>
-                <span class="pill pill--stroke pill--light pill--sm text-upper ng-binding" ng-cloak>HUB</span>
-            </div><!-- end ngIf: windowList[0].venue.category -->
-            <div class="flex-cell text-overflow-dot flex-align--middle" ng-cloak>
-                <p class="text-link text-light text-cap ng-binding" ng-cloak>{{parameter.title}}</p>
+<div ng-controller="winTemplateCtrl" >
+<!--    <div  ng-cloak>
+        <div class="flex-row flex-gutter" ng-cloak>-->
+            <div class="card" style="width: 280px;" ng-repeat="space in parameter.venue.spaces">
+                <div >
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 60%; padding: 10px;">
+                                <div class="ws-content-group" >
+                                    <div class="container-fluid" >
+                                        <div class="row">
+                                            <!--<a ng-click="viewDetailOfSpace(space, venue); resizeScrollPanel()">-->
+                                            <a ui-sref="app.ui.search({details:'true',venueid:parameter.venue.id,spaceid:space.id})">
+                                                <h4 class="col font-bold">
+                                                    {{space.overview.title}}&nbsp;&nbsp;
+                                                </h4>
+                                            </a>
+                                            <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{space.capacity}}</small>
+                                        </div>
+                                        <a ui-sref="app.venues.preview({venueId:parameter.venue.id})">
+                                            <div class="row text-info">
+                                                <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
+                                                <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
+                                            </div>
+                                        </a>
+                                        <!--                                                            <div class="row text-info">
+                                                                                                        <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
+                                                                                                        <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
+                                                                                                    </div>-->
+                                        <div class="row text-smoky">
+                                            <span>
+                                                &nbsp;&nbsp;{{space.venue.venueType}}
+                                            </span>
+
+                                            <span ng-if="space.reviews.length == 1" class="ng-scope"> • 1 review</span>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <span class="label bg-info">&nbsp;{{space.pricing.currency.currencyCode}}</span>
+                                            <span class="label bg-light dk">{{space.pricing.perHour| currency:"$":0}}<small>hr</small></span>
+                                            <span class="label bg-light dk">{{space.pricing.perDay| currency:"$":0}}<small>day</small></span>
+                                            <span class="label bg-light dk">&nbsp;{{space.pricing.perMonth| currency:"$":0}}<small>mo</small></span>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </td>
+                            <td>
+                                <div style="width: 100%; height: 100%;" set-ng-animate="false">
+                                    <cl-image public-id="{{space.frontPhoto}}" width="238" height="159" crop="fill">
+                                            </cl-image>
+<!--                                <carousel>
+                                    <slide ng-repeat="slide in space.slides" active="slide.active">
+                                        <cl-image public-id="{{slide.image}}" width="238" height="159" crop="fill">
+                                        </cl-image>
+                                    </slide>
+                                </carousel>-->
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <div class="flex-cell-auto flex-align--middle text-right ng-binding" ng-cloak>
-                <i aria-hidden="true" class="glyphicon glyphicon-glass" ng-cloak></i>
-            </div>
-        </div>
-    </div>
+<!--        </div>
+    </div>-->
 </div>

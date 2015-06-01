@@ -53,7 +53,7 @@ angular.module('app')
 
                                 //booking page
                                 .state('app.bookspace', {
-                                    url: '/spaces/{spaceId:[0-9]{1,20}}/book',
+                                    url: '/spaces/{spaceId:[0-9]{1,20}}/book/:dateSelected',
                                     templateUrl: 'tpl/spaces/book_space.html',
                                     controller: 'BookingController',
                                     controllerAs: 'bookingCtrl',

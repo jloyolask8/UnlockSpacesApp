@@ -18,7 +18,13 @@
     clientModule.factory('VenuesSearch', function($resource, servicesUrls) {
         return $resource(servicesUrls.onlyViewVenuesUrl, {
             id: '@id'
-        })
+        });
+    });
+    
+    clientModule.factory('VenuesEdit', function($resource, servicesUrls) {
+        return $resource(servicesUrls.venuesCrudUrl, {
+            id: '@id'
+        });
     });
 
     clientModule.factory('VenuesGeoSearch', function ($resource, servicesUrls) {

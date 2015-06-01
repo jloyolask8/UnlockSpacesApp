@@ -20,24 +20,59 @@ app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'headers', 'dat
 
 app.controller('BookingController', function (servicesUrls, $http, $modal, $scope, $state, $location, $stateParams, SpacesRS) {
 
-    $scope.initDate = new Date();
-    $scope.format = 'yyyy/MM/dd HH:mm';
+    $scope.newReservationObj = {};
+    loadParams();
+    //$scope.initDate = $scope.newReservationObj.startDateTime;
+    //$scope.mytime = new Date();
+
+    var hours = $scope.newReservationObj.startDateTime.getHours();
+    var minutes = $scope.newReservationObj.startDateTime.getMinutes();
+    if (minutes > 30) {
+        minutes = 0;
+        hours += 1;
+        if (hours > 23) {
+            hours = 0;
+            $scope.newReservationObj.startDateTime.setDate($scope.newReservationObj.startDateTime.getDate() + 1);
+        }
+    } else {
+        minutes = 30;
+    }
+    if(hours < 8){
+        hours = 8;
+    }
+    $scope.newReservationObj.startDateTime.setHours(hours);
+    $scope.newReservationObj.startDateTime.setMinutes(minutes);
+
+    $scope.hstep = 1;
+    $scope.mstep = 30;
+
+    $scope.ismeridian = (hours > 12);
+    $scope.toggleMode = function () {
+        $scope.ismeridian = !$scope.ismeridian;
+    };
+
+    $scope.changedTime = function () {
+        console.log('Time changed to: ' + $scope.newReservationObj.startDateTime);
+    };
 
     $scope.selectedSpace = {};
     //space/venue type
 
     $scope.createReservation = createReservation;
 
-    $scope.newReservationObj = {};
 
     $scope.cancelBooking = function () {
         $state.go("app.venues.list");
     };
 
-    loadParams();
+// Disable weekend selection
+    $scope.disabled = function (date, mode) {
+        return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+    };
 
-
-
+    $scope.$watch('newReservationObj.startDateTime', function (newvar, oldvar) {
+        console.log("oldvar:" + oldvar + " newvar:" + newvar);
+    });
 
     $scope.clear = function () {
         $scope.newReservationObj.startDateTime = null;
@@ -51,7 +86,9 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
     };
 
     $scope.dateOptions = {
-        formatYear: 'yyyy',
+        //formatYear: 'dd-MMMM-yyyy',
+        mindate: new Date(),
+        formatYear: 'yy',
         startingDay: 1,
         class: 'datepicker'
     };
@@ -85,6 +122,8 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
     console.log('hello from BookingController');
 
     function createReservation() {
+        
+        var endTime = $scope.$scope.newReservationObj
 
         $http.post(servicesUrls.baseUrl + 'reservations', $scope.newReservationObj)
                 .success(function (data, status, headers) {
@@ -110,9 +149,26 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
 
     function loadParams() {
         if ($stateParams.dateSelected) {
-            $scope.newReservationObj.startDateTime = $stateParams.dateSelected;
+            $scope.newReservationObj.startDateTime = new Date($stateParams.dateSelected);
         } else {
             $scope.newReservationObj.startDateTime = new Date();
+        }
+        if ($stateParams.duration) {
+            $scope.newReservationObj.duration = $stateParams.duration;
+        } else {
+            $scope.newReservationObj.duration = 1;
+        }
+        
+        if ($stateParams.duration) {
+            $scope.newReservationObj.duration = $stateParams.duration;
+        } else {
+            $scope.newReservationObj.duration = 1;
+        }
+        
+        if ($stateParams.durationUnit) {
+            $scope.newReservationObj.durationUnit = $stateParams.duration;
+        } else {
+            $scope.newReservationObj.durationUnit = 'Days';
         }
 
         if ($stateParams.spaceId) {
