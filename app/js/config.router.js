@@ -85,6 +85,18 @@ angular.module('app')
                                     controllerAs: 'venuesListCtrl',
                                     data: {requiresLogin: true}
                                 })
+                                .state('app.yourlistings', {
+                                    url: '/yourlisting',
+                                    templateUrl: 'tpl/yourlistings/list.html',
+                                    controller: 'YourListingsController',
+                                    data: {requiresLogin: true},
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load('tpl/yourlistings/yourlistings.js');
+                                            }]
+                                    }
+                                })
 
                                 .state('app.venues.edit', {
                                     url: '/{venueId:[0-9]{1,20}}/edit',
@@ -192,7 +204,7 @@ angular.module('app')
                                     resolve: {
                                         deps: ['$ocLazyLoad',
                                             function ($ocLazyLoad) {
-                                                return $ocLazyLoad.load(['js/controllers/chart.js', 'js/app/todo/todo.js',
+                                                return $ocLazyLoad.load(['tpl/dashboard/dashboard.js',
                                                     JQ_CONFIG.moment]);
                                             }]
                                     }

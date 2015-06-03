@@ -12,6 +12,7 @@
     mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, venuesService, $stateParams) {
 
         $scope.venuesSearchText = '';
+        $scope.days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
 //        loadParams();
 //        
@@ -34,6 +35,16 @@
             $scope.dt = new Date();
         };
         $scope.today();
+        
+        $scope.evalShowVenue = function (venue,from){
+//            var ret = false;
+//            if(venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]]){
+//                ret = true;
+//            }
+////            console.log(from+"-> "+venue.overview.title+" return: "+ret);
+            return (venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]]);
+        };
+        
         Date.prototype.formatMMDDYYYY = function () {
             return (this.getMonth() + 1) +
                     "-" + this.getDate() +

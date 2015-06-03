@@ -174,15 +174,89 @@
                             </div>
 
 
-
+                            <!--<pre>{{selectedVenue.hoursOfOperation| json}}</pre>-->
                             <div class="line line-dashed b-b line-lg pull-in"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">hours Of Operation</label>
-                                <div class="col-sm-6">
-                                    hh
+                                <label class="col-sm-2 control-label">Opening Hours</label>
+
+                                <div class="col-sm-6" ng-hide="differentHoursOfOperation.state">
+                                    <!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+                                    <div class="row m-b" >
+                                        <label class="col-sm-4 control-label" style="text-align: left;">Monday - Friday</label>
+
+                                        <div class="col-sm-3" >
+                                            <select class="form-control" ng-model="defaultHour.start">
+                                                <option ng-show="$index < operationHours.indexOf(defaultHour.end)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3" >
+                                            <select class="form-control" ng-model="defaultHour.end">
+                                                <option ng-show="$index > operationHours.indexOf(defaultHour.start)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row m-b" ng-repeat="key in weekend">
+                                        <label class="col-sm-2 control-label" style="text-align: left;">{{key| limitTo:3 | titleCase}}</label>
+                                        <label class="checkbox i-checks col-sm-2">
+                                            <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="selectedVenue.hoursOfOperation[key].availabilityOption"><i></i>
+                                            Open
+                                        </label>
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                            <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].startTime">
+                                                <option ng-show="$index < operationHours.indexOf(selectedVenue.hoursOfOperation[key].endTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                            <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].endTime">
+                                                <option ng-show="$index > operationHours.indexOf(selectedVenue.hoursOfOperation[key].startTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="col-sm-6" ng-show="differentHoursOfOperation.state">
+                                    <!--<div class="line line-dashed b-b line-lg pull-in"></div>-->
+                                    <div class="row m-b" ng-repeat="key in mondayToFriday">
+                                        <label class="col-sm-2 control-label" style="text-align: left;">{{key| limitTo:3 | titleCase}}</label>
+                                        <label class="checkbox i-checks col-sm-2">
+                                            <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="selectedVenue.hoursOfOperation[key].availabilityOption"><i></i>
+                                            Open
+                                        </label>
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                            <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].startTime">
+                                                <option ng-show="$index < operationHours.indexOf(selectedVenue.hoursOfOperation[key].endTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                            <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].endTime">
+                                                <option ng-show="$index > operationHours.indexOf(selectedVenue.hoursOfOperation[key].startTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row m-b" ng-repeat="key in weekend">
+                                        <label class="col-sm-2 control-label" style="text-align: left;">{{key| limitTo:3 | titleCase}}</label>
+                                        <label class="checkbox i-checks col-sm-2">
+                                            <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="selectedVenue.hoursOfOperation[key].availabilityOption"><i></i>
+                                            Open
+                                        </label>
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                            <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].startTime">
+                                                <option ng-show="$index < operationHours.indexOf(selectedVenue.hoursOfOperation[key].endTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                            <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].endTime">
+                                                <option ng-show="$index > operationHours.indexOf(selectedVenue.hoursOfOperation[key].startTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="checkbox i-checks col-sm-3">
+                                    <input type="checkbox" ng-model="differentHoursOfOperation.state"><i></i>
+                                    Different?
+                                </label>
 
                             </div>
+                            <!--<pre>{{differentHoursOfOperation | json}}</pre>-->
 
                             <div class="line line-dashed b-b line-lg pull-in"></div>
                             <div class="form-group">
@@ -410,10 +484,10 @@
                                                     </figure>
                                                 </div>
 
-<!--                                                <div class="col-md-4 col-sm-4 col-xs-6" ng-repeat="photo in space.photos track by $index">
-                                                    <cl-image class="img-responsive venue-img-gallery" public-id="{{photo}}" width="300" height="200" crop="fill">
-                                                    </cl-image>
-                                                </div>-->
+                                                <!--                                                <div class="col-md-4 col-sm-4 col-xs-6" ng-repeat="photo in space.photos track by $index">
+                                                                                                    <cl-image class="img-responsive venue-img-gallery" public-id="{{photo}}" width="300" height="200" crop="fill">
+                                                                                                    </cl-image>
+                                                                                                </div>-->
 
 
 

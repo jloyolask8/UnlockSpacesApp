@@ -67,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="panel">
+                <div class="panel" >
                     <div class="wrapper-lg">
                         <h2 class="m-t-none">Booking details</h2>
                         <div>
@@ -82,32 +82,33 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Check in</label>
 
-                                        <div class="col-sm-10">
-                                            <div class="input-group w-md">
+                                        <div class="col-sm-10" >
+                                            <div class="input-group w-md" ng-if="newReservationObj.space">
                                                 <input type="text" class="form-control" datepicker-popup="dd-MMMM-yy" ng-model="newReservationObj.startDateTime"
                                                        is-open="opened" min-date="dateOptions.mindate" datepicker-options="dateOptions"
-                                                       date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                                                       date-disabled="disabled.method(date, mode)" ng-required="true" close-text="Close" ng-cloak/>
                                                 <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                    <button type="button" class="btn btn-default" ng-click="open($event); alert('click')"><i class="glyphicon glyphicon-calendar"></i></button>
                                                 </span>
                                             </div>
 
-                                            <timepicker ng-model="newReservationObj.startDateTime" ng-change="changedTime()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                                            <timepicker ng-model="newReservationObj.startDateTime" ng-change="changedTime()" hour-step="hstep" minute-step="mstep" show-meridian="true"></timepicker>
                                             <!--                                            <pre class="alert alert-info">Selected date is: <em>{{newReservationObj.startDateTime| date:'fullDate' }}</em> </pre> -->
                                         </div>
                                     </div>
+                                    <pre>{{newReservationObj.space | json}}</pre>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Duration</label>
                                         <div class="col-sm-10">
                                             <div class="col-md-12 col-lg-6" style="padding-left: 0px !important;padding-right: 0px !important;">
                                                 <div class="row-fluid">
                                                     <div class="col-md-5 col-lg-4" style="padding-left: 0px !important;padding-right: 5px !important;">
-                                                        <input ui-jq="TouchSpin" type="text" ng-model="newReservationObj.duration" value="1" class="form-control"  data-min='1' data-max="20" data-step="1" data-decimals="0">
+                                                        <input ui-jq="TouchSpin" type="text" ng-model="durationObj.duration" value="1" class="form-control"  data-min='1' data-max="20" data-step="1" data-decimals="0">
                                                     </div>
                                                     <div class="btn-group col-md-7 col-lg-8" style="padding-left: 0px !important;padding-right: 0px !important;">
-                                                        <label tooltip="Hours" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="newReservationObj.durationUnit" btn-radio="'Hours'" >Hours</label>
-                                                        <label tooltip="Days" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="newReservationObj.durationUnit" btn-radio="'Days'" >Days</label>
-                                                        <label tooltip="Months" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="newReservationObj.durationUnit" btn-radio="'Months'" >Months</label>
+                                                        <label tooltip="Hours" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Hours'" >Hours</label>
+                                                        <label tooltip="Days" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Days'" >Days</label>
+                                                        <label tooltip="Months" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Months'" >Months</label>
                                                     </div>
 
                                                 </div>
