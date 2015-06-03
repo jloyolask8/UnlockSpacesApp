@@ -22,14 +22,15 @@
 },
 "aside" : {
   "nav" : {
+    "HOWITWORKS": "How It works",
     "LOGINMSG": "Log in/Sign up",
     "SEARCH" : "Search for a space",
     "EDITSPACES" : "Your Listings",
     "HEADER" : "Navigation",
     "DASHBOARD" : "Dashboard",
-    "TODO": "To-Do",
+    "TODO": "My TODOs",
     "CALENDAR" : "Calendar",
-    "EMAIL" : "Inbox",
+    "EMAIL" : "Messages",
     "WIDGETS" : "Widgets",
     "components" : {
       "COMPONENTS" : "Components",

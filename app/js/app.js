@@ -68,9 +68,10 @@ angular.module('app', [
                     if (token) {
                         if (!jwtHelper.isTokenExpired(token)) {
                             auth.authenticate(store.get('profile'), token);
-                        } else {
-                            $location.path('/access/signin');
                         }
+//                        else {
+//                            $location.path('/home');
+//                        }
                     }
                 }
 
