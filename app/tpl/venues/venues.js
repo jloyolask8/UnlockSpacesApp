@@ -20,7 +20,7 @@ app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Ve
 
             Venues.query().then(function (venues) {
                 $scope.data = venues;
-                $state.go("app.venues.list");
+                $state.go("app.yourlistings");
             }, function (errResponse) {
                 if (errResponse.status === 0) {
                     alert("Connection Lost!");
@@ -48,7 +48,7 @@ app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Ve
                 }
                 if (results === "") {
                     $scope.data.splice($index, 1);
-                    $state.go("app.venues.list");
+                    $state.go("app.yourlistings");
                 } else {
                     alert(results);
                 }
@@ -396,7 +396,7 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
                         $scope.data = data;
                         $scope.status = status;
 
-                        $state.go("app.venues.list");
+                        $state.go("app.yourlistings");
 
                     })
                     .error(function (data, status) {
@@ -417,7 +417,7 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
         };
 
         $scope.cancel = function () {
-            $state.go("app.venues.list");
+            $state.go("app.yourlistings");
         };
 
         //selectedVenueAdmin crud logic, please refactor some day
@@ -540,7 +540,7 @@ app.controller('VenuesCreateController', ['servicesUrls', '$scope', '$http', '$s
         };
 
         $scope.cancelCreate = function () {
-            $state.go("app.venues.list");
+            $state.go("app.yourlistings");
         };
 
         $scope.createVenue = function () {
@@ -552,7 +552,7 @@ app.controller('VenuesCreateController', ['servicesUrls', '$scope', '$http', '$s
                         $scope.data = data;
                         $scope.status = status;
 
-                        $state.go("app.venues.list");
+                        $state.go("app.yourlistings");
 
 //                        var newTaskUri = headers()["location"];
 

@@ -78,13 +78,13 @@ angular.module('app')
                                             }]
                                     }
                                 })
-                                .state('app.venues.list', {
-                                    url: '/list',
-                                    templateUrl: 'tpl/venues/list.html',
-                                    controller: 'VenuesListController',
-                                    controllerAs: 'venuesListCtrl',
-                                    data: {requiresLogin: true}
-                                })
+//                                .state('app.venues.list', {
+//                                    url: '/list',
+//                                    templateUrl: 'tpl/venues/list.html',
+//                                    controller: 'VenuesListController',
+//                                    controllerAs: 'venuesListCtrl',
+//                                    data: {requiresLogin: true}
+//                                })
                                 .state('app.yourlistings', {
                                     url: '/yourlisting',
                                     templateUrl: 'tpl/yourlistings/list.html',
@@ -93,7 +93,9 @@ angular.module('app')
                                     resolve: {
                                         deps: ['uiLoad',
                                             function (uiLoad) {
-                                                return uiLoad.load('tpl/yourlistings/yourlistings.js');
+                                                return uiLoad.load(['tpl/yourlistings/yourlistings.js',
+                                                'tpl/venues/venues.js',
+                                                'tpl/venues/faq.js']);
                                             }]
                                     }
                                 })

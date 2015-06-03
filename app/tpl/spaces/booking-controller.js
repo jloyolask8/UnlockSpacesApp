@@ -75,7 +75,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
 
 
     $scope.cancelBooking = function () {
-        $state.go("app.venues.list");
+        $state.go("app.yourlistings");
     };
 
 // Disable weekend selection

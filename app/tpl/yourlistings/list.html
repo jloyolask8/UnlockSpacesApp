@@ -4,68 +4,21 @@
 
 <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="">
     <div class="col col-lg-8">
-
-
         <div class="wrapper-md">
-
-            <div class="row">
-                <div class="col-md-4 col-lg-4" ng-repeat="venue in data track by $index" >
-                    <div class="panel b-a">
-                        <div class="panel-heading no-border bg-primary">          
-                            <span class="text-lt">{{venue.overview.title}}</span>
-                        </div>
-                        <div class="item m-l-n-xxs m-r-n-xxs">
-                            <div ng-init="x = 3" class="top text-right padder m-t-xs w-full">
-                                <rating ng-model="x" max="5" state-on="'fa fa-star text-white'" state-off="'fa fa-star-o text-white'"></rating>
-                            </div>
-
-                            <div class="bottom wrapper bg-gd-dk text-white">            
-                                <div>{{venue.overview.title}} {{venue.venueType}}</div>
-                                <div>9:00 am - 12:00 pm</div>
-                            </div>
-                            <cl-image ng-show="venue.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" class="img-full" width="373" height="209" crop="fill">
-                            </cl-image>
-
-                            <cl-image ng-hide="venue.frontPhoto == null" public-id="{{venue.frontPhoto}}" class="img-full" width="373" height="209" crop="fill">
-                            </cl-image>
-
-                        </div>
-                        <div class="hbox text-center b-b b-light text-sm">          
-                            <a href ng-click="remove(venue.id, $index, $event)" class="col padder-v text-muted b-r b-light">
-                                <i class="fa fa-trash block m-b-xs fa-2x"></i>
-                                <span>Remove</span>
-                            </a>
-                            <a ui-sref="app.venues.preview({venueId:venue.id})"
-                               class="col padder-v text-muted">
-                                <i class="fa fa-edit block m-b-xs fa-2x"></i>
-                                <span>Preview</span>
-                            </a>
-                            <a ui-sref="app.venues.edit({venueId:venue.id})"
-                               class="col padder-v text-muted">
-                                <i class="fa fa-edit block m-b-xs fa-2x"></i>
-                                <span>Edit</span>
-                            </a>
-                        </div>
-
+            <tabset class="tab-container">
+                <tab heading="Venue Manager">
+                    <div data-ng-include="'tpl/venues/list.html'" ng-controller="VenuesListController">
                     </div>
-                </div>
+                </tab>
+                <tab heading="Booking Requests">
+                    <div data-ng-include="'tpl/reservations/list.html'">
+                    </div>
+                </tab>
+                <tab heading="Spaces statistics">
 
-                <div class="col-md-4 col-lg-4">
-                    <a ui-sref="app.venues.create" href="#/app/venues/create" class="flex-align--middle">
-
-                        <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">
-                            <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
-                            <span class="font-bold">Add Venue</span>
-
-                        </div>
-
-                    </a>
-                </div>
-
-            </div>
-
+                </tab>
+            </tabset>
         </div>
-
     </div>
 
     <div class="col w-lg bg-light lter b-l bg-auto">
