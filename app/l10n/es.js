@@ -22,6 +22,7 @@
 },
 "aside" : {
   "nav" : {
+      "HOWITWORKS": "Como funciona",
       "LOGINMSG": "Log in/Sign up",
       "SEARCH" : "Buscar espacios",
       "EDITSPACES" : "Mis espacios",
@@ -29,7 +30,7 @@
     "DASHBOARD" : "Dashboard",
     "TODO": "Tareas por hacer",
     "CALENDAR" : "Calendario",
-    "EMAIL" : "Inbox",
+    "EMAIL" : "Mensajes",
     "WIDGETS" : "Widgets",
     "components" : {
       "COMPONENTS" : "Componentes",

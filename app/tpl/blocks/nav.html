@@ -1,55 +1,81 @@
 <!-- list -->
 <ul class="nav">
-  <li ui-sref-active="active" ng-if="!isUserAuthenticated()">
-    <a ui-sref="access.signin">
-      <i class="glyphicon glyphicon-user icon text-info-lter"></i>
-      <span class="font-bold" translate="aside.nav.LOGINMSG">Signin</span>
-    </a>
-  </li>
-  
-  <li ui-sref-active="active" ng-if="isUserAuthenticated()">
-    <a ui-sref="app.dashboard">
-        <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
-          <span>Dashboard</span>
+    <li ui-sref-active="active" ng-if="!isUserAuthenticated()">
+        <a ui-sref="access.signin">
+            <i class="glyphicon glyphicon-user icon text-info-lter"></i>
+            <span class="font-bold" translate="aside.nav.LOGINMSG">Signin</span>
         </a>
-  </li>
-  
-  <li ui-sref-active="active" ng-if="isUserAuthenticated()">
-    <a ui-sref="app.mail.list">
-      <b class="badge bg-info pull-right">9</b>
-      <i class="glyphicon glyphicon-envelope icon text-info-lter"></i>
-      <span class="font-bold" translate="aside.nav.EMAIL">Inbox</span>
-    </a>
-  </li>
-  
-  <li ui-sref-active="active">
-    <a ui-sref="app.ui.search">
-      <i class="glyphicon glyphicon-search icon text-info-dker"></i>
-      <span class="font-bold" translate="aside.nav.SEARCH">Search for a space</span>
-    </a>
-  </li>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="app.ui.search">
+            <i class="glyphicon glyphicon-search icon text-info-dker"></i>
+            <span class="font-bold" translate="aside.nav.SEARCH">Search for a space</span>
+        </a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a ui-sref="app.venues.list" href="#/app/venues/list">
+            <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
+            <span class="font-bold" translate="aside.nav.EDITSPACES">Your Listings</span>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="isUserAuthenticated()">
+        <a ui-sref="app.dashboard">
+            <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+            <span>User Dashboard</span>
+        </a>
+    </li>
+
+    <li ui-sref-active="active" ng-if="isUserAuthenticated()">
+        <a ui-sref="app.mail.list">
+            <b class="badge bg-info pull-right">9</b>
+            <i class="glyphicon glyphicon-envelope icon text-info-lter"></i>
+            <span class="font-bold" translate="aside.nav.EMAIL">Messages</span>
+        </a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a href="#">
+            <i class="glyphicon glyphicon glyphicon-blackboard icon text-info-dker"></i>
+            <span class="font-bold" translate="aside.nav.HOWITWORKS">How It Works</span>
+        </a>
+    </li>
+
+
+    <li ui-sref-active="active" ng-if="isUserAuthenticated()">
+        <a ui-sref="app.todo">
+            <i class="glyphicon glyphicon glyphicon-tasks icon text-success"></i>
+            <span class="font-bold" translate="aside.nav.TODO">ToDo</span>
+        </a>
+    </li>
+
+
+
+    <li ui-sref-active="active">
+        <a href="#">
+            <i class="glyphicon glyphicon glyphicon-object-align-top icon text-info-dker"></i>
+            <span class="font-bold">Blog</span>
+        </a>
+    </li>
+
+    <li ui-sref-active="active">
+        <a href="#">
+            <i class="glyphicon glyphicon glyphicon-question-sign icon text-info-dker"></i>
+            <span class="font-bold">Help</span>
+        </a>
+    </li>
     
-  <li ui-sref-active="active" ng-if="isUserAuthenticated()">
-    <a ui-sref="app.venues.list" href="#/app/venues/list">
-      <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
-      <span class="font-bold" translate="aside.nav.EDITSPACES">Your Listings</span>
-    </a>
-  </li>
-  
-  
-  <li ui-sref-active="active" ng-if="isUserAuthenticated()">
-    <a ui-sref="app.todo">
-      <i class="glyphicon glyphicon-th-large icon text-success"></i>
-      <span class="font-bold" translate="aside.nav.TODO">ToDo</span>
-    </a>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
+     <li ui-sref-active="active">
+        <a href="#">
+            <i class="glyphicon glyphicon glyphicon-info-sign icon text-info-dker"></i>
+            <span class="font-bold">About us</span>
+        </a>
+    </li>
+
+
+
+
 </ul>
 <!-- / list -->
