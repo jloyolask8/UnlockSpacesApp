@@ -1,0 +1,19 @@
+<div ng-init="app.settings.asideFolded = false;">
+    <div class="modal-center animated fadeInUp text-center" style="width:400px;margin:-100px 0 0 -100px;">
+
+        <div class="input-group" style="left:50px !important;">
+            <img src="img/logoUnlockSpaces.png">
+        </div>
+        <br/>
+        <div class="input-group" style="left:-100px !important;">
+            <input id="usersSearch" type="text" ng-model="venuesSearchInputText" options="autocompleteAddressOptions" details="addressDetails" ng-autocomplete
+                   class="form-control text-sm btn-rounded no-border" placeholder="Enter address" required/>
+            <span class="input-group-btn">
+                <a id="searchButton" class="btn btn-success btn-rounded no-border"
+                   ui-sref="app.ui.search({venuesSearchText:addressDetails.result.formatted_address, lat:addressDetails.result.geometry.location.lat(), lon:addressDetails.result.geometry.location.lng()})">
+                    <i class="fa fa-arrow-right"></i>
+                </a>
+            </span>
+        </div>
+    </div>
+</div>

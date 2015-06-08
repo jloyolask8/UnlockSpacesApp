@@ -1,25 +1,27 @@
-<!--   navbar 
-  <div data-ng-include=" 'tpl/blocks/header.html' " class="app-header navbar">
-  </div>-->
+<!--   navbar -->
+  <div data-ng-include=" 'tpl/blocks/header_home.html' " class="container_header" >
+  </div>
+   
   <!-- / navbar -->
 
   <!-- menu -->
-  <div data-ng-include=" 'tpl/blocks/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
-  </div>
+<!--  <div data-ng-include=" 'tpl/blocks/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
+  </div>-->
   <!-- / menu -->
 
   <!-- content -->
-  <div class="app-content">
-    <!--butter bar - loading bar-->
-    <div ui-butterbar></div>
-    <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" 
-       data-target=".app-aside" ></a>
-    <div class="app-content-body fade-in-up" ui-view></div>
+  <div class="highlight">
+            <div class="h-title osLight">Find your new place with Reales</div>
+            <div class="h-text osLight">Fusce risus metus, placerat in consectetur eu, porttitor a est sed sed dolor lorem cras adipiscing</div>
   </div>
+  <div data-ng-include=" 'tpl/home/home_content.html' " class="container_header" >
+  </div>
+  
   <!-- /content -->
 
   <!-- footer -->
- 
+    <div data-ng-include=" 'tpl/blocks/footer_home.html' " >
+  </div>
   <!-- / footer -->
 
  

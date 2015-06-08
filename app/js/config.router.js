@@ -25,7 +25,7 @@ angular.module('app')
                                 // home state
                                 .state('apphome.home', {
                                     url: '/home',
-                                    templateUrl: 'tpl/home/home.html',
+                                    templateUrl: 'tpl/home/home_new.html',
                                     controller: 'HomeController',
                                     resolve: {
                                         deps: ['uiLoad',

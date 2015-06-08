@@ -679,7 +679,6 @@ body {
     z-index: -1;
     display: block;
     width: inherit;
-    background-color: #f0f3f4;
     border: inherit;
     content: "";
 }
@@ -689,7 +688,7 @@ body {
 }
 
 .app-header-fixed .app-header {
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100%;
 }
