@@ -22,18 +22,7 @@ angular.module('app')
 
                         $stateProvider
 
-                                // home state
-                                .state('home', {
-                                    url: '/home',
-                                    templateUrl: 'tpl/home/home.html',
-                                    controller: 'HomeController',
-                                    resolve: {
-                                        deps: ['uiLoad',
-                                            function (uiLoad) {
-                                                return uiLoad.load('tpl/home/home-controller.js');
-                                            }]
-                                    }
-                                })
+                               
 
                                 .state('app', {
                                     abstract: true,
@@ -44,6 +33,19 @@ angular.module('app')
                                 .state('app.ui', {
                                     url: '/ui',
                                     template: '<div ui-view class="fade-in-up"></div>'
+                                })
+                                
+                                 // home state
+                                .state('home', {
+                                    url: '/home',
+                                    templateUrl: 'tpl/home/home.html',
+                                    controller: 'HomeController',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load('tpl/home/home-controller.js');
+                                            }]
+                                    }
                                 })
 
                                 //booking page
