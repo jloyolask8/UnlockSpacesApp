@@ -12,6 +12,7 @@
     mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, venuesService, $stateParams) {
 
         $scope.venuesSearchText = '';
+        $scope.days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
 //        loadParams();
 //        
@@ -30,6 +31,26 @@
             date: ''
         };
 
+        $scope.today = function () {
+            $scope.dt = new Date();
+        };
+        $scope.today();
+        
+        $scope.evalShowVenue = function (venue,from){
+//            var ret = false;
+//            if(venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]]){
+//                ret = true;
+//            }
+////            console.log(from+"-> "+venue.overview.title+" return: "+ret);
+            return (venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]]);
+        };
+        
+        Date.prototype.formatMMDDYYYY = function () {
+            return (this.getMonth() + 1) +
+                    "-" + this.getDate() +
+                    "-" + this.getFullYear();
+        }
+
         $scope.datePickerOptions = {
             position: {left: "-120px"},
             mindate: new Date()
@@ -40,7 +61,8 @@
 
         $scope.venues = [];
         $scope.markers = [];
-        $scope.detailView = false;
+        $scope.detailView = ($stateParams.details) ? ($stateParams.details === 'true') : false;
+
         $scope.formattedAddress = "";
         $scope.mapInstance = null;
         $scope.optionsModel = {
@@ -97,6 +119,14 @@
                 windowParameter: function (marker) {
                     return marker;
                 },
+                infoWindowWithCustomClass: {
+                    options: {
+                        //boxClass: 'custom-info-window',
+                        //closeBoxDiv: '<div" class="pull-right" style="position: relative; cursor: pointer; margin: -20px -15px;">X</div>',
+                        disableAutoPan: false
+                    },
+                    show: true
+                },
                 center: {latitude: latIni, longitude: lonIni},
                 zoom: 12,
                 options: {maxZoom: 16, minZoom: 11, styles: $scope.styleSelected.style},
@@ -124,7 +154,6 @@
                                 loadSearchBar(map);
                                 searchVenuesOnMapBound(map);
                                 $scope.mapInstance = map;
-                                firstTime = false;
                                 if ($stateParams.venuesSearchText) {
                                     var input = (document.getElementById('pac-input'));
                                     input.value = $stateParams.venuesSearchText;
@@ -132,15 +161,8 @@
                             }
                         });
                     }
-                },
-                infoWindowWithCustomClass: {
-                    options: {
-                        boxClass: 'custom-info-window',
-                        closeBoxDiv: '<div" class="pull-right" style="position: relative; cursor: pointer; margin: -20px -15px;">X</div>',
-                        disableAutoPan: false
-                    },
-                    show: true
                 }
+
             };
         };
 
@@ -179,6 +201,9 @@
                     findFormattedAddress(center);
                 }
 //                $log.info("markers length:" + $scope.markers.length);
+                if (firstTime) {
+                    firstTime = false;
+                }
             });
         };
 
@@ -201,6 +226,10 @@
                 return 1;
             return 0;
         };
+
+        $scope.$watch('spaceSelected', function (a, b) {
+            $log.info("spaceSelected has changed from " + b + " to " + a)
+        });
 
         $scope.viewDetailOfSpace = function (space, venue) {
             $scope.detailView = true;
@@ -243,11 +272,22 @@
 
         var refreshMapMarkers = function () {
             var tempmarkers = [];
-
+            var detailsVenue = null;
+            var detailsSpace = null;
             venuesList.sort(compareSpace);
             for (var i = 0; i < venuesList.length; i++) {
                 //createSpaceSlides(venuesList[i].spaces);
                 tempmarkers.push(createMarker(venuesList[i]));
+                if (firstTime && $scope.detailView && (detailsVenue === null)) {
+                    if (venuesList[i].id === parseInt($stateParams.venueid)) {
+                        venuesList[i].spaces.forEach(function (space) {
+                            if (space.id === parseInt($stateParams.spaceid)) {
+                                detailsVenue = venuesList[i];
+                                detailsSpace = space;
+                            }
+                        });
+                    }
+                }
                 //$scope.venues.push(venuesList[i]);
             }
             var i = 0;
@@ -272,7 +312,11 @@
                 }
                 i++;
             }
+            if (firstTime && $scope.detailView) {
+                $scope.viewDetailOfSpace(detailsSpace, detailsVenue);
+            }
         };
+
         var calcRadio = function (map) {
             var bounds = map.getBounds();
             var NE = bounds.getNorthEast();
@@ -285,27 +329,29 @@
             var vertical = google.maps.geometry.spherical.computeDistanceBetween(verticalLatLng1, verticalLatLng2);
             return Math.round(((horizontal > vertical) ? horizontal : vertical) / 2);
         };
-        var createMarker = function (space) {
 
+        var createMarker = function (venue) {
 
             var markerProps = {
+                venue: venue,
                 coordinates: {
-                    latitude: space.address.latitude,
-                    longitude: space.address.longitude
+                    latitude: venue.address.latitude,
+                    longitude: venue.address.longitude
                 },
-                title: space.overview.title,
-                id: space.id,
+                title: venue.overview.title,
+                id: venue.id,
                 show: false,
                 //distance: ((space.distance > 1000) ? (Number((space.distance / 1000).toFixed(1)) + " Kms") : (Number((space.distance).toFixed(1)) + " Mts")),
                 icon: $scope.iconimg,
                 opciones: {
-                    labelAnchor: (('' + space.id).length * 4) + " 32",
+                    labelAnchor: (('' + venue.id).length * 4) + " 32",
                     labelClass: "labelClass",
                     labelInBackground: true
                 }
             };
             return markerProps;
         };
+
         var markerIndexOf = function (arr, value) {
             var a;
             for (var i = 0, iLen = arr.length; i < iLen; i++) {

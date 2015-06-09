@@ -8,8 +8,6 @@
                     <div class="wrapper-lg">
                         <h2 class="m-t-none">You are booking...</h2>
                         <div>
-
-
                             <div class="brdr bgc-fff pad-10 btm-mrg-20 property-listing">
                                 <div class="media">
 
@@ -69,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="panel">
+                <div class="panel" >
                     <div class="wrapper-lg">
                         <h2 class="m-t-none">Booking details</h2>
                         <div>
@@ -78,39 +76,47 @@
                             <div class="panel-body">
                                 <div class="form-horizontal">
 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Duration</label>
-                                        <div class="col-sm-6">
-                                            <input ui-jq="TouchSpin" type="number" ng-model="duration" 
-                                                   value="0" class="form-control" data-min='0' data-max="10000000" 
-                                                   data-step="1">
-                                        </div>
 
-                                    </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Check in</label>
 
-                                        <div class="col-sm-10">
-                                            <div class="input-group w-md">
-                                                <input type="text" class="form-control" datepicker-popup="{{format}}" 
-                                                       ng-model="newReservationObj.startDateTime" is-open="opened" 
-                                                       datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                                        <div class="col-sm-10" >
+                                            <div class="input-group w-md" ng-if="newReservationObj.space">
+                                                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yy" ng-model="newReservationObj.startDateTime"
+                                                       is-open="opened" min-date="dateOptions.mindate" datepicker-options="dateOptions"
+                                                       date-disabled="disabled.method(date, mode)" ng-required="true" close-text="Close" ng-cloak/>
                                                 <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                    <button type="button" class="btn btn-default" ng-click="open($event); alert('click')"><i class="glyphicon glyphicon-calendar"></i></button>
                                                 </span>
                                             </div>
 
-                                            <timepicker ng-model="mytime" ng-change="changedTime()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
-
-                                            <pre class="alert alert-info">Selected date is: <em>{{newReservationObj.startDateTime| date:'fullDate' }}</em> </pre> 
-
+                                            <timepicker ng-model="newReservationObj.startDateTime" ng-change="changedTime()" hour-step="hstep" minute-step="mstep" show-meridian="true"></timepicker>
+                                            <!--                                            <pre class="alert alert-info">Selected date is: <em>{{newReservationObj.startDateTime| date:'fullDate' }}</em> </pre> -->
                                         </div>
-
-
                                     </div>
+                                    <pre>{{newReservationObj.space | json}}</pre>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Duration</label>
+                                        <div class="col-sm-10">
+                                            <div class="col-md-12 col-lg-6" style="padding-left: 0px !important;padding-right: 0px !important;">
+                                                <div class="row-fluid">
+                                                    <div class="col-md-5 col-lg-4" style="padding-left: 0px !important;padding-right: 5px !important;">
+                                                        <input ui-jq="TouchSpin" type="text" ng-model="durationObj.duration" value="1" class="form-control"  data-min='1' data-max="20" data-step="1" data-decimals="0">
+                                                    </div>
+                                                    <div class="btn-group col-md-7 col-lg-8" style="padding-left: 0px !important;padding-right: 0px !important;">
+                                                        <label tooltip="Hours" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Hours'" >Hours</label>
+                                                        <label tooltip="Days" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Days'" >Days</label>
+                                                        <label tooltip="Months" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Months'" >Months</label>
+                                                    </div>
 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<pre>Selected date is: <em>{{newReservationObj | json }}</em></pre>-->
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Your email</label>
                                         <div class="col-sm-6">
@@ -136,8 +142,8 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Amenities Request</label>
                                     </div>
-                                    
-                                     <div class="form-group">
+
+                                    <div class="form-group">
                                         <label class="col-sm-2 control-label">JUST FOR TEST SECURITY ISSUES</label>
                                         <div class="col-sm-6">
 
@@ -261,7 +267,7 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                             <div class="row" style="display:none;">
                                 <div class="col-xs-12">
                                     <p class="payment-errors"></p>
@@ -278,11 +284,6 @@
 
                     <button class="btn btn-success btn-lg btn-block" ng-click="createReservation()" type="submit">Book Now</button>
                 </div>
-
-
-
-                
-
             </div>
         </div>
 

@@ -1,0 +1,35 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Your Listings</h1>
+</div>
+
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="">
+    <div class="col col-lg-8">
+        <div class="wrapper-md">
+            <tabset class="tab-container">
+                <tab heading="Venue Manager">
+                    <div data-ng-include="'tpl/venues/list.html'" ng-controller="VenuesListController">
+                    </div>
+                </tab>
+                <tab heading="Booking Requests">
+                    <div data-ng-include="'tpl/reservations/list.html'">
+                    </div>
+                </tab>
+                <tab heading="Spaces statistics">
+
+                </tab>
+            </tabset>
+        </div>
+    </div>
+
+    <div class="col w-lg bg-light lter b-l bg-auto">
+        <div class="wrapper">
+
+            <div data-ng-include="'tpl/blocks/venuesHelpAside.html'">
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+

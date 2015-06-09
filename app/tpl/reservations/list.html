@@ -1,0 +1,79 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Booking Requests</h1>
+</div>
+
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="">
+
+    <div class="col w-lg bg-light lter b-l bg-auto">
+        <div class="wrapper">
+
+            <div >
+                <div class="card" style="padding: 0px;">
+                    <div >
+                        <table style="width: 100%;">
+                            <tr>
+                                
+                                <td style="width: 60%; padding: 10px;">
+                                    <div class="ws-content-group" >
+                                        <div class="container-fluid" >
+                                            <div class="row">
+                                                <a >
+                                                    <!--<a ui-sref="app.ui.search({details:'true',venueid:venue.id,spaceid:space.id})">-->
+                                                    <h4 class="col font-bold">
+                                                        Jane Smith
+                                                    </h4>
+                                                </a>
+                                                <!--<small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{space.capacity}}</small>-->
+                                            </div>
+                                            
+                                                <div class="row text-info">
+                                                    <!--<span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>-->
+                                                    <span class="text-cap">is waiting for your approval!</span>
+                                                </div>
+                                            
+                                            <!--                                                            <div class="row text-info">
+                                                                                                            <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
+                                                                                                            <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
+                                                                                                        </div>-->
+                                            <div class="row text-smoky">
+                                                <span>
+                                                    &nbsp;&nbsp;{{space.venue.venueType}}
+                                                </span>
+
+                                                <span ng-if="space.reviews.length == 1" class="ng-scope"> • 1 review</span>
+                                            </div>
+
+                                            <div class="row">
+
+                                                <span class="label bg-warning">new from May 28 2015 - CLP 119.000</span>
+<!--                                                <span class="label bg-light dk">{{space.pricing.perHour| currency:"$":0}}<small>hr</small></span>
+                                                <span class="label bg-light dk">{{space.pricing.perDay| currency:"$":0}}<small>day</small></span>
+                                                <span class="label bg-light dk">&nbsp;{{space.pricing.perMonth| currency:"$":0}}<small>mo</small></span>-->
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </td>
+                                
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col col-lg-8">
+        <div class="wrapper-md">
+            <div data-ng-include="'tpl/reservations/page_invoice.html'">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

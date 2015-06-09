@@ -17,165 +17,105 @@
 
 
 
-        <div class="wrapper-md" ng-controller="FlotChartDemoCtrl">
-
-            <!-- tasks -->
-            <div class="panel wrapper">
-                <div class="row">
-                    <div class="col-md-6 b-r b-light no-border-xs">
-
-                        <h4 class="font-thin m-t-none m-b-md text-muted">Active Bookings</h4>
-                        <div class=" m-b">
-                            <div class="m-b">
-                                <span class="label text-base bg-warning pos-rlt m-r"><i class="arrow right arrow-warning"></i> 19:30</span>
-                                <a href>Space 1</a>
-                            </div>
-                            <div class="m-b">
-                                <span class="label text-base bg-info pos-rlt m-r"><i class="arrow right arrow-info"></i> 12:30</span>
-                                <a href>Space 2 link</a>
-                            </div>
-                            <div class="m-b">
-                                <span class="label text-base bg-primary pos-rlt m-r"><i class="arrow right arrow-primary"></i> 10:30</span>
-                                <a href>Space 3</a>
-                            </div>
-                            <div class="m-b">
-                                <span class="label text-base bg-light pos-rlt m-r"><i class="arrow right arrow-light"></i> 07:30</span>
-                                <a href>Space 4</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">            
-                        <div class="row row-sm">
-                            <div class="col-xs-6 text-center">
-                                <div ui-jq="easyPieChart" ui-options="{
-                                     percent: 75,
-                                     lineWidth: 4,
-                                     trackColor: '{{app.color.light}}',
-                                     barColor: '{{app.color.primary}}',
-                                     scaleColor: false,
-                                     size: 115,
-                                     rotate: 90,
-                                     lineCap: 'butt'
-                                     }" class="inline m-t">
-                                    <div>
-                                        <span class="text-primary h4">75%</span>
+        <div class="wrapper-md" ng-controller="DashboardController">
+            <tabset class="tab-container">
+                <tab heading="Spaces statistics">
+                    <!-- tasks -->
+                    <div class="panel wrapper">
+                        <div class="row">
+                            <div class="col-md-6 b-r b-light no-border-xs">
+                                <h4 class="font-thin m-t-none m-b-md text-muted">Active Bookings</h4>
+                                <div class=" m-b">
+                                    <div class="m-b">
+                                        <span class="label text-base bg-warning pos-rlt m-r"><i class="arrow right arrow-warning"></i> 19:30</span>
+                                        <a href>Space 1</a>
+                                    </div>
+                                    <div class="m-b">
+                                        <span class="label text-base bg-info pos-rlt m-r"><i class="arrow right arrow-info"></i> 12:30</span>
+                                        <a href>Space 2 link</a>
+                                    </div>
+                                    <div class="m-b">
+                                        <span class="label text-base bg-primary pos-rlt m-r"><i class="arrow right arrow-primary"></i> 10:30</span>
+                                        <a href>Space 3</a>
+                                    </div>
+                                    <div class="m-b">
+                                        <span class="label text-base bg-light pos-rlt m-r"><i class="arrow right arrow-light"></i> 07:30</span>
+                                        <a href>Space 4</a>
                                     </div>
                                 </div>
-
-                                <div class="text-muted font-bold text-xs m-t m-b"
-                                     popover="Respond to inquiries and reservation requests within 24 hours" 
-                                     >Response Rate</div>
                             </div>
-                            <div class="col-xs-6 text-center">
-                                <div ui-jq="easyPieChart" ui-options="{
-                                     percent: 50,
-                                     lineWidth: 4,
-                                     trackColor: '{{app.color.light}}',
-                                     barColor: '{{app.color.info}}',
-                                     scaleColor: false,
-                                     size: 115,
-                                     rotate: 180,
-                                     lineCap: 'butt'
-                                     }" class="inline m-t">
-                                    <div>
-                                        <span class="text-info h4">50%</span>
+                            <div class="col-md-6">            
+                                <div class="row row-sm">
+                                    <div class="col-xs-6 text-center">
+                                        <div ui-jq="easyPieChart" ui-options="{
+                                             percent: 75,
+                                             lineWidth: 4,
+                                             trackColor: '{{app.color.light}}',
+                                             barColor: '{{app.color.primary}}',
+                                             scaleColor: false,
+                                             size: 115,
+                                             rotate: 90,
+                                             lineCap: 'butt'
+                                             }" class="inline m-t">
+                                            <div>
+                                                <span class="text-primary h4">75%</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-muted font-bold text-xs m-t m-b"
+                                             popover="Respond to inquiries and reservation requests within 24 hours" 
+                                             >Response Rate</div>
                                     </div>
-                                </div>
-                                <div class="text-muted font-bold text-xs m-t m-b" 
-                                     popover="Don't cancel confirmed reservations at your listings" 
-                                     >Commitment Rate</div>
+                                    <div class="col-xs-6 text-center">
+                                        <div ui-jq="easyPieChart" ui-options="{
+                                             percent: 50,
+                                             lineWidth: 4,
+                                             trackColor: '{{app.color.light}}',
+                                             barColor: '{{app.color.info}}',
+                                             scaleColor: false,
+                                             size: 115,
+                                             rotate: 180,
+                                             lineCap: 'butt'
+                                             }" class="inline m-t">
+                                            <div>
+                                                <span class="text-info h4">50%</span>
+                                            </div>
+                                        </div>
+                                        <div class="text-muted font-bold text-xs m-t m-b" 
+                                             popover="Don't cancel confirmed reservations at your listings" 
+                                             >Commitment Rate</div>
+                                    </div>
+                                </div>            
                             </div>
-                        </div>            
-                    </div>
-                </div>
-            </div>
-            <!-- / tasks -->
-
-            <!-- service -->
-            <div class="panel hbox hbox-auto-xs no-border">
-                <div class="col wrapper">
-                    <ul class="nav nav-pills nav-xxs nav-rounded m-b-lg pull-right" ng-init="period = 'Week'">
-                        <li ng-class="{active: period === 'Week'}"><a href ng-click="refreshData();
-                                    period = 'Week'">Week</a></li>
-                        <li ng-class="{active: period === 'Month'}"><a href ng-click="refreshData();
-                                    period = 'Month'">Month</a></li>
-                        <li ng-class="{active: period === 'Year'}"><a href ng-click="refreshData();
-                                    period = 'Year'">Year</a></li>
-                    </ul>
-
-                    <h4 class="font-thin m-t-none m-b-none text-primary-lt">$$ Revenue</h4>
-                    <span class="m-b block text-sm text-muted">Revenue report of this {{period}} (updated 1 hour ago)</span>
-                    <div ui-jq="plot" ui-options="
-                         [
-                         { data: {{d4}}, lines: { show: true, lineWidth: 1, fill:true, fillColor: { colors: [{opacity: 0.2}, {opacity: 0.8}] } } }
-                         ], 
-                         {
-                         colors: ['{{app.color.light}}'],
-                         series: { shadowSize: 3 },
-                         xaxis:{ show:false },
-                         yaxis:{ font: { color: '#a1a7ac' } },
-                         grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
-                         tooltip: true,
-                         tooltipOpts: { content: '%s of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 10, y: -25 } }
-                         }
-                         " style="height:240px" >
-                    </div>
-                </div>
-
-            </div>
-            <!-- / service -->
-
-            <div class="row row-sm text-center">
-                <div class="col-xs-3">
-                    <div class="panel padder-v item">
-                        <div class="h1 text-info font-thin h1">521</div>
-                        <span class="text-muted text-xs"><span class="font-bold" translate="dashboard.customersQty">Customers</span></span>
-                        <div class="top text-right w-full">
-                            <i class="fa fa-caret-down text-warning m-r-sm"></i>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="panel padder-v item">
-                        <div class="h1 text-info font-thin h1">434k</div>
-                        <span class="text-muted text-xs"><span class="font-bold" translate="dashboard.reservationsQty">Reservations</span></span>
-                        <div class="top text-right w-full">
-                            <i class="fa fa-caret-down text-warning m-r-sm"></i>
-                        </div>
+                    <!-- / tasks -->
+
+                    <!-- service -->
+                    <div class="panel hbox hbox-auto-xs no-border">
+
+
                     </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="panel padder-v item">
-                        <div class="h1 text-info font-thin h1">12</div>
-                        <span class="text-muted text-xs"><span class="font-bold" translate="dashboard.spacesQty">Spaces</span></span>
-                        <div class="top text-right w-full">
-                            <i class="fa fa-caret-down text-warning m-r-sm"></i>
-                        </div>
+                    <!-- / service -->
+
+                    <div class="row row-sm text-center">
+
+
                     </div>
-                </div>
-                <div class="col-xs-3">
-                    <div class="panel padder-v item">
-                        <div class="h1 text-info font-thin h1">2</div>
-                        <span class="text-muted text-xs"><span class="font-bold" translate="dashboard.venuesQty">Venues</span></span>
-                        <div class="top text-right w-full">
-                            <i class="fa fa-caret-down text-warning m-r-sm"></i>
+
+
+
+                    <!-- tips -->
+                    <div class="panel hbox hbox-auto-xs no-border">
+                        <div class="col wrapper">
+
+                            <h4 class="font-thin m-t-none m-b-none text-primary-lt">Tips to get guest's Attention</h4>
+
                         </div>
+
                     </div>
-                </div>
-
-            </div>
-
-
-
-            <!-- tips -->
-            <div class="panel hbox hbox-auto-xs no-border">
-                <div class="col wrapper">
-
-                    <h4 class="font-thin m-t-none m-b-none text-primary-lt">Tips to get guest's Attention</h4>
-
-                </div>
-
-            </div>
+                </tab>
+            </tabset>
             <!-- / tips -->
 
         </div>

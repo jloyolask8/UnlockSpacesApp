@@ -15,7 +15,7 @@
     </li>
 
     <li ui-sref-active="active">
-        <a ui-sref="app.venues.list" href="#/app/venues/list">
+        <a ui-sref="app.yourlistings" href="#/app/yourlistings">
             <i class="glyphicon glyphicon-map-marker icon text-info-dker"></i>
             <span class="font-bold" translate="aside.nav.EDITSPACES">Your Listings</span>
         </a>
@@ -67,15 +67,23 @@
         </a>
     </li>
     
+
+  
+  
+<!--  <li ui-sref-active="active" ng-if="isUserAuthenticated()">
+    <a ui-sref="app.todo">
+      <i class="glyphicon glyphicon-th-large icon text-success"></i>
+      <span class="font-bold" translate="aside.nav.TODO">ToDo</span>
+    </a>
+  </li>-->
+  
+
      <li ui-sref-active="active">
         <a href="#">
             <i class="glyphicon glyphicon glyphicon-info-sign icon text-info-dker"></i>
             <span class="font-bold">About us</span>
         </a>
     </li>
-
-
-
 
 </ul>
 <!-- / list -->

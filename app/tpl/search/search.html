@@ -22,7 +22,7 @@
                 <td style="width: 100%;">
                     <div class="div-wrapper">
                         <ui-gmap-google-map center='map.center' options='map.options' zoom='map.zoom' events="map.events" >
-                            <ui-gmap-marker ng-repeat="marker in markers" idKey="marker.id" icon="marker.icon" options="marker.opciones" coords="marker.coordinates" click="markerClick(marker)">
+                            <ui-gmap-marker ng-repeat="marker in markers" ng-if="evalShowVenue(marker.venue,'markers')" idKey="marker.id" icon="marker.icon" options="marker.opciones" coords="marker.coordinates" click="markerClick(marker)">
                                 <ui-gmap-window show="marker.show"
                                                 options="map.infoWindowWithCustomClass.options"
                                                 templateUrl="map.windowTemplate"
@@ -60,8 +60,8 @@
                                 <div class="input-group col-md-7 col-lg-3" style="padding-left: 0px !important;padding-right: 5px !important;">
                                     <div class="hackyhack">
                                         <input type="text" class="form-control" datepicker-popup="dd/MMMM/yy" ng-model="dt"
-                                               is-open="opened" min-date="datePickerOptions.mindate" max-date="'2015-06-22'" datepicker-options="datePickerOptions"
-                                               date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" style="padding-left: 2px !important; padding-right: 2px !important;"/>
+                                               is-open="opened" min-date="datePickerOptions.mindate" datepicker-options="datePickerOptions"
+                                               close-text="Close" style="padding-left: 2px !important; padding-right: 2px !important;"/>
                                     </div>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -74,17 +74,20 @@
                                 Searching for venues around the <b>{{formattedAddress}}</b> yielded no results.
                             </div>
                             <div ng-repeat="venue in venues">
-                                <div class="card" ng-mouseenter="highlightMarker(venue)" ng-mouseleave="normalizeMarker(venue)" ng-repeat="space in venue.spaces">
+                                <div class="card" ng-mouseenter="highlightMarker(venue)" ng-mouseleave="normalizeMarker(venue)" ng-show="evalShowVenue(venue,'results')" ng-repeat="space in venue.spaces">
                                     <div >
                                         <table style="width: 100%;">
                                             <tr>
-                                                <td style="width: 60%; padding: 10px;" ng-click="viewDetailOfSpace(space, venue)">
+                                                <td style="width: 60%; padding: 10px;">
                                                     <div class="ws-content-group" >
                                                         <div class="container-fluid" >
                                                             <div class="row">
-                                                                <h4 class="col font-bold">
-                                                                    {{space.overview.title}}&nbsp;&nbsp;
-                                                                </h4>
+                                                                <a ng-click="viewDetailOfSpace(space, venue); resizeScrollPanel()">
+                                                                <!--<a ui-sref="app.ui.search({details:'true',venueid:venue.id,spaceid:space.id})">-->
+                                                                    <h4 class="col font-bold">
+                                                                        {{space.overview.title}}&nbsp;&nbsp;
+                                                                    </h4>
+                                                                </a>
                                                                 <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{space.capacity}}</small>
                                                             </div>
                                                             <a ui-sref="app.venues.preview({venueId:venue.id})">
@@ -101,18 +104,18 @@
                                                                 <span>
                                                                     &nbsp;&nbsp;{{space.venue.venueType}}
                                                                 </span>
-                                                                
+
                                                                 <span ng-if="space.reviews.length == 1" class="ng-scope"> • 1 review</span>
                                                             </div>
-                                                            
+
                                                             <div class="row">
-                                                                
+
                                                                 <span class="label bg-info">&nbsp;{{space.pricing.currency.currencyCode}}</span>
                                                                 <span class="label bg-light dk">{{space.pricing.perHour| currency:"$":0}}<small>hr</small></span>
-                                                                 <span class="label bg-light dk">{{space.pricing.perDay| currency:"$":0}}<small>day</small></span>
-                                                                  <span class="label bg-light dk">&nbsp;{{space.pricing.perMonth | currency:"$":0}}<small>mo</small></span>
-                                                                  
-                                                                  
+                                                                <span class="label bg-light dk">{{space.pricing.perDay| currency:"$":0}}<small>day</small></span>
+                                                                <span class="label bg-light dk">&nbsp;{{space.pricing.perMonth| currency:"$":0}}<small>mo</small></span>
+
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -135,13 +138,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div ng-if="detailView" >
-                            <div class="panel panel-default">
+                        <div ng-if="detailView">
+                            <div>
                                 <div class="panel-heading" >
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-lg-5" ng-click="viewResults()">
-                                                <a class="text-info-dk h4">
+                                                <!--<a class="text-info-dk h4">-->
+                                                    <a class="text-info-dk h4" ui-sref="app.ui.search({details:'false',lat:'',lon:''})">
                                                     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                                                     Search results
                                                 </a>
@@ -152,6 +156,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="panel panel-default results-map-search-top50">
                                 <div class="panel-body container-fluid" set-ng-animate="false">
                                     <carousel>
                                         <slide ng-repeat="slide in spaceSelected.slides" active="slide.active">
@@ -199,16 +205,17 @@
                                                 &nbsp;
                                             </div>
                                         </div>
-                                        
-                                        
+
+
                                         <div class="row">
-                                            <a ui-sref="app.bookspace({spaceId:spaceSelected.id})"
+                                            <a ui-sref="app.bookspace({spaceId:spaceSelected.id,dateSelected:dt.formatMMDDYYYY()})"
                                                class="col btn btn-dark padder-v text-muted">
                                                 <i class="icon-edit block m-b-xs fa-2x"></i>
                                                 <span>Book now</span>
                                             </a>
                                         </div>
-                                         
+                                        <pre>{{dt | json}}</pre>
+
                                     </div>
                                 </div>
                             </div>
@@ -222,19 +229,24 @@
 </div>
 
 <script>
-            //<![CDATA[
-                    function resizeScrollPanel() {
-                    var fullHeight = $(window).height() - 50;
-                            $("#main-mapsearch-container").css('height', fullHeight + 'px');
-                    }
-            $(document).ready(function () {
-            resizeScrollPanel();
-            });
-                    var id;
-                    $(window).resize(function () {
-            id = setTimeout(resizeScrollPanel, 500);
-            });
-                    //]]>
+//<![CDATA[
+    function resizeScrollPanel() {
+        console.log("resizeScrollPanel");
+        var fullHeight = $(window).height() - 50;
+        $("#main-mapsearch-container").css('height', fullHeight + 'px');
+        $(".results-map-search-top50").css('height', (fullHeight - 50) + 'px');
+        $(".results-map-search-top60").css('height', (fullHeight - 100) + 'px');
+        $(".angular-google-map").css('height', (fullHeight) + 'px');
+        $(".div-wrapper").css('height', (fullHeight) + 'px');
+    }
+    $(document).ready(function () {
+        resizeScrollPanel();
+    });
+    var id;
+    $(window).resize(function () {
+        id = setTimeout(resizeScrollPanel, 500);
+    });
+        //]]>
 </script>
 <!--</div>-->
 

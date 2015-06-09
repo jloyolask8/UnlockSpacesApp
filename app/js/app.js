@@ -28,12 +28,17 @@ angular.module('app', [
     'photoAlbumServices',
     'spacesRestClient',
     'uiGmapgoogle-maps',
+    'wu.staticGmap',
     'mapControllers',
     //'HomeController',
     , 'http-auth-interceptor'
 ])
         .factory('Venues', function (unlockRestResource) {
             return unlockRestResource('venues');
+        })
+        
+        .factory('Users', function (unlockRestResource) {
+            return unlockRestResource('users');
         })
         
          .factory('SpacesRS', function (unlockRestResource) {
