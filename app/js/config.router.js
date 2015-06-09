@@ -18,27 +18,11 @@ angular.module('app')
                     function ($stateProvider, $urlRouterProvider, JQ_CONFIG) {
 
                         $urlRouterProvider
-                                .otherwise('/apphome/home');
+                                .otherwise('/home');
 
                         $stateProvider
 
-                                // home state
-                                .state('apphome.home', {
-                                    url: '/home',
-                                    templateUrl: 'tpl/home/home_new.html',
-                                    controller: 'HomeController',
-                                    resolve: {
-                                        deps: ['uiLoad',
-                                            function (uiLoad) {
-                                                return uiLoad.load('tpl/home/home-controller.js');
-                                            }]
-                                    }
-                                })
-                                .state('apphome', {
-                                    abstract: true,
-                                    url: '/apphome',
-                                    templateUrl: 'tpl/app_home.html'
-                                })
+                               
 
                                 .state('app', {
                                     abstract: true,
@@ -49,6 +33,19 @@ angular.module('app')
                                 .state('app.ui', {
                                     url: '/ui',
                                     template: '<div ui-view class="fade-in-up"></div>'
+                                })
+                                
+                                 // home state
+                                .state('home', {
+                                    url: '/home',
+                                    templateUrl: 'tpl/home/home.html',
+                                    controller: 'HomeController',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load('tpl/home/home-controller.js');
+                                            }]
+                                    }
                                 })
 
                                 //booking page

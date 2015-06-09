@@ -3,7 +3,7 @@
 /* Controllers */
 // signin controller
 
-app.controller('LoginCtrl', function (auth, $scope, $state, $location, store) {
+app.controller('LoginCtrl', function (auth, $scope, $state, $http, $location, store, Users, servicesUrls) {
 //    $scope.user = '';
 //    $scope.pass = '';
 
@@ -11,9 +11,33 @@ app.controller('LoginCtrl', function (auth, $scope, $state, $location, store) {
 
     var onLoginSuccess = function (profile, token) {
 //        $scope.$parent.userloggedin = true;
+        console.log('onLoginSuccess');
+        
         store.set('profile', profile);
         store.set('token', token);
-        $state.go('app.dashboard');
+
+
+        $http.post(servicesUrls.baseUrl + 'users', profile)
+                .success(function (data, status, headers) {
+
+                    
+
+                    $state.go('app.dashboard');
+
+                })
+                .error(function (data, status) {
+                    $scope.data = data || "Request failed";
+                    $scope.status = status;
+                    if (status === 0) {
+                        alert("Sorry we are not able to complete the operation. Connection to the server is lost.");
+                        return;
+                    }
+
+                    $state.go('home');
+
+                });
+
+//        $state.go('app.dashboard');
 //        $scope.loading = false;
     }
     ;
@@ -26,11 +50,10 @@ app.controller('LoginCtrl', function (auth, $scope, $state, $location, store) {
         if (err) {
             // There was an error logging the user in
 //            return alert(err.message);
+        } else {
+            console.log(profile);
+            onLoginSuccess(profile, id_token);
         }
-
-        console.log(profile);
-        onLoginSuccess(profile, id_token);
-
         // User is logged in
     };
 

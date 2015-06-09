@@ -1,8 +1,31 @@
-<div class="modal-over bg-black" ng-init="app.settings.asideFolded = false;">
+<div class="modal-over bg-black" ng-init="app.settings.asideFolded = true;">
+    
+    <!-- menu -->
+    
+    <div class="collapse pos-rlt navbar-collapse {{app.settings.asideColor}}">
+    <!-- buttons -->
+        <div class="nav navbar-nav">
+          <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+            <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
+          </a>
+      
+        </div>
+        <!-- / buttons -->
+    </div>
+  <div data-ng-include=" 'tpl/blocks/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">
+  </div>
+  <!-- / menu -->
+  
     <div class="modal-center animated fadeInUp text-center" style="width:400px;margin:-100px 0 0 -100px;">
 
         <div class="input-group" style="left:50px !important;">
-            <img src="img/logoUnlockSpaces.png">
+            
+            <div class="examples1">
+		<a href="#" class="slvj-link-lightbox 1" data-videoid="128145228" data-videosite="vimeo">
+			<img src="img/logoUnlockSpaces.png">
+		</a><br>
+		
+	</div>
         </div>
         <br/>
         <div class="input-group" style="left:-100px !important;">
@@ -15,6 +38,11 @@
                 </a>
             </span>
         </div>
+        
+        
+        <script type="text/javascript">
+		$('.examples1 a').simpleLightboxVideo();
+	</script>
     </div>
 </div>
 
