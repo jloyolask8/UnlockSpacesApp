@@ -23,7 +23,7 @@
                                 </div>
 
                             </div>
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
+<!--                            <div class="line line-dashed b-b line-lg pull-in"></div>
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">City</label>
@@ -32,8 +32,9 @@
                                            ng-autocomplete options="autocompleteCityOptions" details="autocompleteCityDetails"
                                            />
                                 </div>
+                                <pre>{{selectedVenue.address.city | json}}</pre>
 
-                            </div>
+                            </div>-->
                             <div class="line line-dashed b-b line-lg pull-in"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Postal code</label>
@@ -158,7 +159,6 @@
                                     <select class="form-control" ng-model="selectedVenue.venueType">
                                         <option ng-repeat="venueItem in venueTypeList">{{venueItem}}</option>
                                     </select>
-
                                 </div>
 
                             </div>

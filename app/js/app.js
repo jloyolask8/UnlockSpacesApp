@@ -3,6 +3,7 @@
 
 
 angular.module('app', [
+    'datetimepicker',
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -120,5 +121,13 @@ angular.module('app', [
         .config(function ($httpProvider) {
             $httpProvider.interceptors.push('httpInterceptor');
         })
+//                .config([
+//                'datetimepickerProvider',
+//                function (datetimepickerProvider) {
+//                    datetimepickerProvider.setOptions({
+//                        locale: 'es'
+//                    });
+//                }
+//            ])
 ;
 
