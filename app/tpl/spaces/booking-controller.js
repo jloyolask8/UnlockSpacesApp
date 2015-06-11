@@ -19,6 +19,18 @@ app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'headers', 'dat
         ;
 
 app.controller('BookingController', function (servicesUrls, $http, $modal, $scope, $state, $location, $stateParams, SpacesRS) {
+//    $scope.datetimepicker_options = {
+//                                        icons: {
+//                                            next: 'glyphicon glyphicon-arrow-right',
+//                                            previous: 'glyphicon glyphicon-arrow-left',
+//                                            up: 'glyphicon glyphicon-arrow-up',
+//                                            down: 'glyphicon glyphicon-arrow-down'},
+//                                        calendarWeeks: false,
+//                                        sideBySide: true,
+//                                    };
+    $scope.newReservationObj = {startDateTime: new Date()};
+    $scope.durationObj = {};
+    loadParams();
 
     Date.prototype.addHours = function (h) {
         this.setHours(this.getHours() + h);
@@ -35,9 +47,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
 
     $scope.days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
-    $scope.newReservationObj = {};
-    $scope.durationObj = {};
-    loadParams();
+
     //$scope.initDate = $scope.newReservationObj.startDateTime;
     //$scope.mytime = new Date();
 
@@ -65,7 +75,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
     $scope.changedTime = function () {
         console.log('Time changed to: ' + $scope.newReservationObj.startDateTime);
     };
-    
+
     $scope.disabled = {};
 
     $scope.selectedSpace = {};
@@ -100,6 +110,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
         mindate: new Date(),
         formatYear: 'yy',
         startingDay: 1,
+        locale: 'es',
         class: 'datepicker'
     };
 
@@ -197,7 +208,9 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
                         $scope.newReservationObj.space = v;
                         $scope.disabled.method = function (date, mode) {
                             if ($scope.newReservationObj.space) {
-                                console.log("day:" + $scope.days[date.getDay()] + ": " + ($scope.newReservationObj.space.venue.hoursOfOperation[$scope.days[date.getDay()]]));
+                                //console.log("day:" + $scope.days[date.getDay()] + ": " + ($scope.newReservationObj.space.venue.hoursOfOperation[$scope.days[date.getDay()]]));
+                                if (!$scope.newReservationObj.space.venue.hoursOfOperation)
+                                    return false;
                                 return (mode === 'day' && !($scope.newReservationObj.space.venue.hoursOfOperation[$scope.days[date.getDay()]]));
                             }
                             return true;

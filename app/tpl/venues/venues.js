@@ -11,10 +11,44 @@ app.filter('titleCase', function () {
     };
 });
 
-app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Venues', function ($scope, $http, $state, $log, Venues) {
+app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'items', function ($scope, $modalInstance, items) {
+        $scope.items = items;
+        $scope.selected = {
+            item: $scope.items[0]
+        };
+
+        $scope.ok = function () {
+            $modalInstance.close($scope.selected.item);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    }]);
+
+app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Venues', '$modal', function ($scope, $http, $state, $log, Venues, $modal) {
         $scope.messageVenue = 'hello from venues VenuesListController';
-        $log.log($scope.messageVenue);
+        //$log.info($scope.messageVenue);
         $scope.data = [];
+
+        $scope.open = function (size) {
+            var modalInstance = $modal.open({
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return $scope.items;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
 
         $scope.fetchAll = function () {
 
@@ -89,7 +123,7 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
         $scope.amenitiesList = [];
         $scope.spaceTypeList = [];
         $scope.venueTypeList = ['Bussiness Center', 'Corporate Office', 'Coworking spaces', 'Startup offices'];
-        $scope.differentHoursOfOperation = {"state":false};
+        $scope.differentHoursOfOperation = {"state": false};
         $scope.mondayToFriday = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
         $scope.weekend = ['saturday', 'sunday'];
         $scope.operationHours = ['12:00 AM', '12:30 AM', '01:00 AM', '01:30 AM', '02:00 AM', '02:30 AM',
@@ -184,6 +218,7 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
         $scope.editSpaceMode = false;
         $scope.selectedVenue = {};
         $scope.addressDetails = {};
+        $scope.autocompleteCityDetails = {};
 
 
 
@@ -241,6 +276,13 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
             if ($scope.addressDetails.result) {
                 $scope.selectedVenue.address.latitude = $scope.addressDetails.result.geometry.location.lat();
                 $scope.selectedVenue.address.longitude = $scope.addressDetails.result.geometry.location.lng();
+            }
+        });
+
+        $scope.$watch('autocompleteCityDetails.result', function (newv, old) {
+            if ($scope.autocompleteCityDetails.result) {
+                //$scope.selectedVenue.address.city = $scope.addressDetails.result.;
+                //$scope.selectedVenue.address.longitude = $scope.addressDetails.result.geometry.location.lng();
             }
         });
 
@@ -384,9 +426,9 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
         };
 
         $scope.edit = function () {
-            
-            if(!$scope.differentHoursOfOperation.state){
-                $scope.setMondayToFridayAvailability($scope.defaultHour,null,true);
+
+            if (!$scope.differentHoursOfOperation.state) {
+                $scope.setMondayToFridayAvailability($scope.defaultHour, null, true);
             }
 
             $http.put(servicesUrls.baseUrl + 'venues' + '/' + $scope.selectedVenue.id, $scope.selectedVenue)
@@ -536,7 +578,7 @@ app.controller('VenuesCreateController', ['servicesUrls', '$scope', '$http', '$s
                 summary: '',
                 title: ''
             },
-            venueType: $scope.venueTypeModel
+            venueType: ''
         };
 
         $scope.cancelCreate = function () {

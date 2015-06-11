@@ -35,16 +35,20 @@
             $scope.dt = new Date();
         };
         $scope.today();
-        
-        $scope.evalShowVenue = function (venue,from){
+
+        $scope.evalShowVenue = function (venue, from) {
 //            var ret = false;
 //            if(venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]]){
 //                ret = true;
 //            }
 ////            console.log(from+"-> "+venue.overview.title+" return: "+ret);
-            return (venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]]);
+            if (venue.hoursOfOperation) {
+                return (venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]]);
+            }else{
+                return true;
+            }
         };
-        
+
         Date.prototype.formatMMDDYYYY = function () {
             return (this.getMonth() + 1) +
                     "-" + this.getDate() +
@@ -482,7 +486,10 @@
                             if (result.address_components !== undefined) {
 
                                 scope.$apply(function () {
-
+                                    console.info("result:" + result);
+//                                    if(!scope.details){
+//                                        scope.details = {};
+//                                    }
                                     scope.details.result = result;
 
                                     controller.$setViewValue(element.val());

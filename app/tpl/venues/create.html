@@ -16,13 +16,13 @@
 
                 <p class="m-t">Venue Type</p>
 
-                <select class="form-control" ng-model="selectedVenue.venueType">
+                <select class="form-control" ng-model="newVenueObj.venueType">
                     <option ng-repeat="venueItem in venueTypeList">{{venueItem}}</option>
                 </select>
 
                 <p class="m-t">Summary</p>
                 <textarea id="description" type="text" name="description" style="height: 120px;" class="form-control" 
-                          placeholder="enter a venue description..."                    ng-model="newVenueObj.overview.summary" ></textarea>
+                          placeholder="enter a venue description..." ng-model="newVenueObj.overview.summary" ></textarea>
 
                 <div class="m-t m-b">
                     <button class="btn btn-default btn-rounded" ng-click="cancelCreate()">Cancel</button>

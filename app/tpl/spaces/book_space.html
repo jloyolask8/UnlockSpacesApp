@@ -83,12 +83,24 @@
                                         <label class="col-sm-2 control-label">Check in</label>
 
                                         <div class="col-sm-10" >
-                                            <div class="input-group w-md" ng-if="newReservationObj.space">
-                                                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yy" ng-model="newReservationObj.startDateTime"
+<!--                                            <input type="text" class="form-control input-sm"
+
+                                                       datetimepicker
+                                                       datetimepicker-options="{{datetimepicker_options}}"
+
+                                                       
+                                                       name="time"
+                                                       ng-model="newReservationObj.startDateTime"/>
+                                                <pre>{{newReservationObj.startDateTime | json}}</pre>-->
+                                            <div class="input-group w-md" >
+                                                
+                                                <input id="datetimepicker3" type="text" class="form-control" datepicker-popup="dd-MMMM-yy" ng-model="newReservationObj.startDateTime"
                                                        is-open="opened" min-date="dateOptions.mindate" datepicker-options="dateOptions"
                                                        date-disabled="disabled.method(date, mode)" ng-required="true" close-text="Close" ng-cloak/>
+
                                                 <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-default" ng-click="open($event); alert('click')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                    <button type="button" class="btn btn-default" ng-click="open($event);
+                                                        alert('click')"><i class="glyphicon glyphicon-calendar"></i></button>
                                                 </span>
                                             </div>
 
@@ -116,41 +128,40 @@
                                         </div>
                                     </div>
                                     <!--<pre>Selected date is: <em>{{newReservationObj | json }}</em></pre>-->
-                                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Your email</label>
-                                        <div class="col-sm-6">
+                                    <!--                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-2 control-label">Your email</label>
+                                                                            <div class="col-sm-6">
+                                    
+                                                                                <input name="email" class="form-control" ng-model="email" required />
+                                                                                <span class="help-block">We will send an email to this address with the confirmation</span>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-2 control-label">reservation title</label>
+                                                                            <div class="col-sm-6">
+                                                                                <input name="reservationTitle" class="form-control" ng-model="reservationTitle" required />
+                                                                                <span class="help-block">bla</span>
+                                                                            </div>
+                                                                        </div>
+                                    
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-2 control-label">attendees Emails</label>
+                                                                        </div>
+                                    
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-2 control-label">Amenities Request</label>
+                                                                        </div>-->
 
-                                            <input name="email" class="form-control" ng-model="email" required />
-                                            <span class="help-block">We will send an email to this address with the confirmation</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">reservation title</label>
-                                        <div class="col-sm-6">
-
-                                            <input name="reservationTitle" class="form-control" ng-model="reservationTitle" required />
-                                            <span class="help-block">bla</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">attendees Emails</label>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Amenities Request</label>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">JUST FOR TEST SECURITY ISSUES</label>
-                                        <div class="col-sm-6">
-
-                                            <input name="TEST" class="form-control" ng-model="newReservationObj.space.overview.summary" required />
-                                            <span class="help-block">We dont want to let anyone else edit critical information about the space</span>
-                                        </div>
-                                    </div>
+                                    <!--                                    <div class="form-group">
+                                                                            <label class="col-sm-2 control-label">JUST FOR TEST SECURITY ISSUES</label>
+                                                                            <div class="col-sm-6">
+                                    
+                                                                                <input name="TEST" class="form-control" ng-model="newReservationObj.space.overview.summary" required />
+                                                                                <span class="help-block">We dont want to let anyone else edit critical information about the space</span>
+                                                                            </div>
+                                                                        </div>-->
 
 
                                 </div>
@@ -325,3 +336,4 @@
     </div>
 
 </div>
+
