@@ -19,9 +19,7 @@ app.controller('LoginCtrl', function (auth, $scope, $state, $http, $location, st
 
         $http.post(servicesUrls.baseUrl + 'users', profile)
                 .success(function (data, status, headers) {
-
-                    
-
+                    //succesfull login
                     $state.go('app.dashboard');
 
                 })
@@ -33,7 +31,7 @@ app.controller('LoginCtrl', function (auth, $scope, $state, $http, $location, st
                         return;
                     }
 
-                    $state.go('home');
+//                    $state.go('home');
 
                 });
 
