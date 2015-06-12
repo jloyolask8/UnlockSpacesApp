@@ -19,17 +19,11 @@ app.controller('ModalInstanceCtrl', ['$scope', '$modalInstance', 'headers', 'dat
         ;
 
 app.controller('BookingController', function (servicesUrls, $http, $modal, $scope, $state, $location, $stateParams, SpacesRS) {
-//    $scope.datetimepicker_options = {
-//                                        icons: {
-//                                            next: 'glyphicon glyphicon-arrow-right',
-//                                            previous: 'glyphicon glyphicon-arrow-left',
-//                                            up: 'glyphicon glyphicon-arrow-up',
-//                                            down: 'glyphicon glyphicon-arrow-down'},
-//                                        calendarWeeks: false,
-//                                        sideBySide: true,
-//                                    };
-    $scope.newReservationObj = {startDateTime: new Date()};
+    //$scope.newReservationObj = {startDateTime: new Date()};
     $scope.durationObj = {};
+    $scope.venueFee = {value: 0,
+        tax: 0,
+        total: 0};
     loadParams();
 
     Date.prototype.addHours = function (h) {
@@ -51,23 +45,22 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
     //$scope.initDate = $scope.newReservationObj.startDateTime;
     //$scope.mytime = new Date();
 
-    var hours = $scope.newReservationObj.startDateTime.getHours();
-    var minutes = $scope.newReservationObj.startDateTime.getMinutes();
-    if (minutes > 30) {
-        minutes = 0;
-        hours += 1;
-        if (hours > 23) {
-            hours = 0;
-            $scope.newReservationObj.startDateTime.setDate($scope.newReservationObj.startDateTime.getDate() + 1);
+    var calculateStartTime = function () {
+        var availability = ($scope.newReservationObj.space.venue.hoursOfOperation[$scope.days[$scope.newReservationObj.startDateTime.getDay()]]);
+        if (availability) {
+            if (availability.availabilityOption === 'true') {
+                var startTimeParts = availability.startTime.split(':');
+                var ampm = startTimeParts[1].split(' ');
+                var hour = parseInt(startTimeParts[0]) + ((ampm[1] === "PM") ? 12 : 0);
+                $scope.newReservationObj.startDateTime.setHours(hour);
+                $scope.newReservationObj.startDateTime.setMinutes(parseInt(ampm[0]));
+                if (!$scope.$$phase) {
+                    $scope.$apply();
+                }
+            }
         }
-    } else {
-        minutes = 30;
-    }
-    if (hours < 8) {
-        hours = 8;
-    }
-    $scope.newReservationObj.startDateTime.setHours(hours);
-    $scope.newReservationObj.startDateTime.setMinutes(minutes);
+
+    };
 
     $scope.hstep = 1;
     $scope.mstep = 30;
@@ -90,9 +83,30 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
 
 // Disable weekend selection
 
+    $scope.$watch('durationObj', function (newvar, oldvar) {
+        console.log("durationObj oldvar:" + oldvar + " newvar:" + newvar);
+        calculatePrice();
+    }, true);
+
+    var calculatePrice = function () {
+        if ($scope.newReservationObj.space) {
+            var tarifaBase = 0;
+            if ($scope.durationObj.durationUnit === 'Hours') {
+                tarifaBase = parseFloat($scope.newReservationObj.space.pricing.perHour);
+            } else if ($scope.durationObj.durationUnit === 'Months') {
+                tarifaBase = parseFloat($scope.newReservationObj.space.pricing.perMonth);
+            } else {
+                tarifaBase = parseFloat($scope.newReservationObj.space.pricing.perDay);
+            }
+            $scope.venueFee.value = tarifaBase * $scope.durationObj.duration;
+            $scope.venueFee.tax = $scope.venueFee.value * ($scope.newReservationObj.space.pricing.tax / 100);
+            $scope.venueFee.total = $scope.venueFee.tax + $scope.venueFee.value;
+        }
+    };
+
     $scope.$watch('newReservationObj.startDateTime', function (newvar, oldvar) {
-        console.log("oldvar:" + oldvar + " newvar:" + newvar);
-    });
+        console.log("startDateTime oldvar:" + oldvar + " startDateTime newvar:" + newvar);
+    }, true);
 
     $scope.clear = function () {
         $scope.newReservationObj.startDateTime = null;
@@ -133,11 +147,11 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
             }
         });
 
-        modalInstance.result.then(function (selectedItem) {
-            console.info(selectedItem);
-        }, function () {
-            console.info('Modal dismissed at: ' + new Date());
-        });
+//        modalInstance.result.then(function (selectedItem) {
+//            console.info(selectedItem);
+//        }, function () {
+//            console.info('Modal dismissed at: ' + new Date());
+//        });
     };
 
     console.log('hello from BookingController');
@@ -153,7 +167,12 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
         } else {
             $scope.newReservationObj.endDateTime.setDate($scope.newReservationObj.startDateTime.getDate() + $scope.durationObj.duration);
         }
-
+        
+        $scope.newReservationObj.reservationStatus = {
+            name: "PENDING",
+            details: "is waiting for your approval",
+            id: "1"
+        };
 
 
         $http.post(servicesUrls.baseUrl + 'reservations', $scope.newReservationObj)
@@ -163,7 +182,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
                     $scope.data = data;
                     $scope.status = status;
 
-                    $scope.showResponseModal();
+                    $scope.showResponseModal(data);
 
                 })
                 .error(function (data, status) {
@@ -179,6 +198,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
     }
 
     function loadParams() {
+        $scope.newReservationObj = {};
         if ($stateParams.dateSelected) {
             $scope.newReservationObj.startDateTime = new Date($stateParams.dateSelected);
         } else {
@@ -206,6 +226,8 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
             SpacesRS.getById($stateParams.spaceId).then(
                     function (v) {
                         $scope.newReservationObj.space = v;
+                        calculatePrice();
+                        calculateStartTime();
                         $scope.disabled.method = function (date, mode) {
                             if ($scope.newReservationObj.space) {
                                 //console.log("day:" + $scope.days[date.getDay()] + ": " + ($scope.newReservationObj.space.venue.hoursOfOperation[$scope.days[date.getDay()]]));

@@ -6,9 +6,8 @@
 
     <div class="col w-lg bg-light lter b-l bg-auto">
         <div class="wrapper">
-
             <div >
-                <div class="card" style="padding: 0px;">
+                <div class="card" style="padding: 0px;" ng-repeat="reservation in reservations.list" >
                     <div >
                         <table style="width: 100%;">
                             <tr>
@@ -18,23 +17,15 @@
                                         <div class="container-fluid" >
                                             <div class="row">
                                                 <a >
-                                                    <!--<a ui-sref="app.ui.search({details:'true',venueid:venue.id,spaceid:space.id})">-->
                                                     <h4 class="col font-bold">
-                                                        Jane Smith
+                                                        {{reservation.reservedBy.name+" "+reservation.reservedBy.lastname}}
                                                     </h4>
                                                 </a>
-                                                <!--<small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{space.capacity}}</small>-->
                                             </div>
                                             
                                                 <div class="row text-info">
-                                                    <!--<span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>-->
-                                                    <span class="text-cap">is waiting for your approval!</span>
+                                                    <span class="text-cap">{{reservation.reservationStatus.details}}</span>
                                                 </div>
-                                            
-                                            <!--                                                            <div class="row text-info">
-                                                                                                            <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
-                                                                                                            <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
-                                                                                                        </div>-->
                                             <div class="row text-smoky">
                                                 <span>
                                                     &nbsp;&nbsp;{{space.venue.venueType}}
@@ -44,13 +35,7 @@
                                             </div>
 
                                             <div class="row">
-
-                                                <span class="label bg-warning">new from May 28 2015 - CLP 119.000</span>
-<!--                                                <span class="label bg-light dk">{{space.pricing.perHour| currency:"$":0}}<small>hr</small></span>
-                                                <span class="label bg-light dk">{{space.pricing.perDay| currency:"$":0}}<small>day</small></span>
-                                                <span class="label bg-light dk">&nbsp;{{space.pricing.perMonth| currency:"$":0}}<small>mo</small></span>-->
-
-
+                                                <span class="label bg-warning">from {{createDate(reservation.creationDate) | date : 'MMM d, y'}}{{" - CLP 119.000"}}</span>
                                             </div>
                                         </div>
                                     </div>

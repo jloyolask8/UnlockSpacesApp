@@ -19,12 +19,23 @@
 'use strict';
 
 
-app.controller('DashboardController', ['$scope', '$http', '$state', '$log', 'venuesService', function ($scope, $http, $state, $log, venuesService) {
+app.controller('DashboardController', ['$scope', '$http', '$state', '$log', 'reservationsService',
+    function ($scope, $http, $state, $log, reservationsService) {
 
-        $scope.messageVenue = 'hello from venues VenuesListController';
+        $scope.message = 'hello from DashboardController';
+        $scope.reservations = {list: null};
 
-        $scope.tabs = [
-            {title: 'Dynamic Title 1', content: 'Dynamic content 1'},
-            {title: 'Dynamic Title 2', content: 'Dynamic content 2', disabled: true}
-        ];
+        $scope.getUserReservations = function () {
+
+            console.log('loading user reservations... ');
+
+            var reservations = reservationsService.findReservationsByUserId();
+            reservations.$promise.then(function () {
+                //alert("reservations: "+reservations.length);
+                $scope.reservations.list = reservations;
+            });
+
+        };
+        
+        $scope.getUserReservations();
     }]);

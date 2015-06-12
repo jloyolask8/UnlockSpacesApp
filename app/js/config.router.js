@@ -90,7 +90,8 @@ angular.module('app')
                                             function (uiLoad) {
                                                 return uiLoad.load(['tpl/yourlistings/yourlistings.js',
                                                 'tpl/venues/venues.js',
-                                                'tpl/venues/faq.js']);
+                                                'tpl/venues/faq.js',
+                                                'tpl/reservations/booking-requests.js']);
                                             }]
                                     }
                                 })
@@ -198,6 +199,7 @@ angular.module('app')
                                 .state('app.dashboard', {
                                     url: '/dashboard',
                                     templateUrl: 'tpl/dashboard/dashboard.html',
+                                    controller: 'DashboardController',
                                     data: {requiresLogin: true},
                                     resolve: {
                                         deps: ['$ocLazyLoad',

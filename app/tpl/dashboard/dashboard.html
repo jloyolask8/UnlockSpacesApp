@@ -9,6 +9,7 @@
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
                     <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+                    {{message}}
                 </div>
 
             </div>
@@ -17,56 +18,32 @@
 
 
 
-        <div class="wrapper-md" ng-controller="DashboardController">
+        <div class="wrapper-md">
             <tabset class="tab-container">
                 <tab heading="Spaces statistics">
                     <!-- tasks -->
                     <div class="panel wrapper">
                         <div class="row">
-                            <div class="col-md-6 b-r b-light no-border-xs">
+                            <div class="col-md-9 b-r b-light no-border-xs">
                                 <h4 class="font-thin m-t-none m-b-md text-muted">Active Bookings</h4>
                                 <div class=" m-b">
-                                    <div class="m-b">
-                                        <span class="label text-base bg-warning pos-rlt m-r"><i class="arrow right arrow-warning"></i> 19:30</span>
-                                        <a href>Space 1</a>
+                                    
+                                    <div class="m-b" ng-repeat="reservation in reservations.list">
+                                        <span class="label text-base bg-info pos-rlt m-r">
+                                            <i class="arrow right arrow-info"></i> {{reservation.startDateTime}}</span>
+                                            
+                                            {{reservation.title}}
+                                            {{reservation.space.overview.summary}}
+                                            
+                                            {{reservation.paymentStatus}}
+                                        <a href>{{reservation.reservationStatus.name}}</a>
                                     </div>
-                                    <div class="m-b">
-                                        <span class="label text-base bg-info pos-rlt m-r"><i class="arrow right arrow-info"></i> 12:30</span>
-                                        <a href>Space 2 link</a>
-                                    </div>
-                                    <div class="m-b">
-                                        <span class="label text-base bg-primary pos-rlt m-r"><i class="arrow right arrow-primary"></i> 10:30</span>
-                                        <a href>Space 3</a>
-                                    </div>
-                                    <div class="m-b">
-                                        <span class="label text-base bg-light pos-rlt m-r"><i class="arrow right arrow-light"></i> 07:30</span>
-                                        <a href>Space 4</a>
-                                    </div>
+                                   
                                 </div>
                             </div>
-                            <div class="col-md-6">            
+                            <div class="col-md-3">            
                                 <div class="row row-sm">
-                                    <div class="col-xs-6 text-center">
-                                        <div ui-jq="easyPieChart" ui-options="{
-                                             percent: 75,
-                                             lineWidth: 4,
-                                             trackColor: '{{app.color.light}}',
-                                             barColor: '{{app.color.primary}}',
-                                             scaleColor: false,
-                                             size: 115,
-                                             rotate: 90,
-                                             lineCap: 'butt'
-                                             }" class="inline m-t">
-                                            <div>
-                                                <span class="text-primary h4">75%</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="text-muted font-bold text-xs m-t m-b"
-                                             popover="Respond to inquiries and reservation requests within 24 hours" 
-                                             >Response Rate</div>
-                                    </div>
-                                    <div class="col-xs-6 text-center">
+                                    <div class="text-center">
                                         <div ui-jq="easyPieChart" ui-options="{
                                              percent: 50,
                                              lineWidth: 4,
