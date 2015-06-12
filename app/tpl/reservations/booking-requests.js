@@ -27,11 +27,20 @@ app.controller('BookingRequestsController', function ($scope, $http, $state, $lo
     };
 
     $scope.isPending = function () {
-        return ($scope.selected.reservationStatus.id === '1');
-    }
+        return ($scope.selected.reservationStatus.id === 'PENDING');
+    };
+    
+    $scope.isAproved = function () {
+        return ($scope.selected.reservationStatus.id === 'APROVED');
+    };
 
     $scope.approveBooking = function () {
-        $scope.selected.reservationStatus.id = '2';
+        $scope.selected.reservationStatus.id = 'APROVED';
+        editReservation();
+    };
+    
+    $scope.cancelBooking = function () {
+        $scope.selected.reservationStatus.id = 'CANCELED_BY_OWNER';
         editReservation();
     };
 
