@@ -168,11 +168,11 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
             $scope.newReservationObj.endDateTime.setDate($scope.newReservationObj.startDateTime.getDate() + $scope.durationObj.duration);
         }
         
-        $scope.newReservationObj.reservationStatus = {
-            name: "PENDING",
-            details: "is waiting for your approval",
-            id: "1"
-        };
+//        $scope.newReservationObj.reservationStatus = {
+//            name: "PENDING",
+//            details: "is waiting for your approval",
+//            id: "1"
+//        };
 
 
         $http.post(servicesUrls.baseUrl + 'reservations', $scope.newReservationObj)

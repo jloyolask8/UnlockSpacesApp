@@ -3,29 +3,27 @@
 </div>
 
 <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="">
-
-    <div class="col w-lg bg-light lter b-l bg-auto">
+    <div class="col w-lg bg-light lter b-l ">
         <div class="wrapper">
             <div >
-                <div class="card" style="padding: 0px;" ng-repeat="reservation in reservations.list" >
+                <div class="card" style="padding: 0px;" ng-repeat="reservation in reservations.list" ng-click="selectReservation(reservation)">
                     <div >
                         <table style="width: 100%;">
                             <tr>
-                                
                                 <td style="width: 60%; padding: 10px;">
                                     <div class="ws-content-group" >
                                         <div class="container-fluid" >
                                             <div class="row">
                                                 <a >
                                                     <h4 class="col font-bold">
-                                                        {{reservation.reservedBy.name+" "+reservation.reservedBy.lastname}}
+                                                        {{reservation.reservedBy.name + " " + reservation.reservedBy.lastname}}
                                                     </h4>
                                                 </a>
                                             </div>
-                                            
-                                                <div class="row text-info">
-                                                    <span class="text-cap">{{reservation.reservationStatus.details}}</span>
-                                                </div>
+
+                                            <div class="row text-info">
+                                                <span class="text-cap">{{reservation.reservationStatus.details}}</span>
+                                            </div>
                                             <div class="row text-smoky">
                                                 <span>
                                                     &nbsp;&nbsp;{{space.venue.venueType}}
@@ -35,14 +33,14 @@
                                             </div>
 
                                             <div class="row">
-                                                <span class="label bg-warning">from {{createDate(reservation.creationDate) | date : 'MMM d, y'}}{{" - CLP 119.000"}}</span>
+                                                <span class="label bg-warning">from {{createDate(reservation.creationDate)}} - {{}}</span>
                                             </div>
                                         </div>
                                     </div>
 
 
                                 </td>
-                                
+
                             </tr>
                         </table>
                     </div>
