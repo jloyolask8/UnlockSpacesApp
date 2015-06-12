@@ -91,13 +91,9 @@
                         <div class="panel-heading">
                             <span class="h4">Location</span>
                         </div>
-                        <div class="panel-body">
-                            <static-gmap class="fb-profile"
-                                    size="640x200"
-                                    markers="markers"
-                                    sensor="false"
-                                    zoom="14" ng-cloak>
-                                </static-gmap>
+                        <div class="panel-body" ng-if="isSelectedNotNull()">
+                            <img style="max-width: 100%; height: auto; width: auto\9;" src="{{'http://maps.googleapis.com/maps/api/staticmap?center=&zoom=14&scale=false&size=750x300&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7Clabel:1%7C'+selectedVenue.address.latitude+','+selectedVenue.address.longitude}}" alt="{{selectedVenue.overview.title}}">
+                            
                         </div>
                     </div>
                 </div>
