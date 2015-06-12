@@ -21,9 +21,6 @@ angular.module('app')
                                 .otherwise('/home');
 
                         $stateProvider
-
-                               
-
                                 .state('app', {
                                     abstract: true,
                                     url: '/app',

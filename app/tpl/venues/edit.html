@@ -69,28 +69,18 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Venue website</label>
                                 <div class="col-sm-6">
-                                    <input type="url" name="url" placeholder="http://" class="form-control" ng-model="selectedVenue.contactInfo.website" required />
+                                    <input type="url" name="url" placeholder="http://" class="form-control" ng-model="selectedVenue.contactInfo.website" />
 
                                 </div>
 
                             </div>
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"></label>
-                                <div class="col-sm-6">
-                                    <div class="m-t m-b">
-                                        <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2 = true">Next</button>
-                                    </div>
-                                </div>
-
-                            </div>
+                            
                         </form>
                     </div>
 
 
                 </tab>
                 <tab heading="Details" active="steps.step2" select="steps.percent=30">
-
                     <p>Preview</p>
                     <div class="brdr bgc-fff pad-10 btm-mrg-20 property-listing">
                         <div class="media">
@@ -725,7 +715,7 @@
 
             <div class="m-t m-b">
                 <button class="btn btn-default btn-rounded" ng-click="cancel()">Cancel</button>
-                <button type="submit" class="btn btn-primary btn-rounded" ng-click="edit()">Save</button>
+                <button type="submit" ng-disabled="step1.$invalid" class="btn btn-primary btn-rounded" ng-click="edit()">Save</button>
             </div>
 
         </div>
@@ -735,9 +725,11 @@
     <div class="col w-lg bg-light lter b-l bg-auto">
         <div class="wrapper">
 
-            <!--<pre><code>{{selectedVenue.photos| json}}</code></pre>-->
+            <!---->
 
             help
+            
+            <pre><code>{{selectedVenue | json}}</code></pre>
 
             <!--<pre><code>admin: {{selectedVenueAdmin| json}}</code></pre>-->
 

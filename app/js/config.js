@@ -19,8 +19,8 @@ var app =
 
             authProvider.init({
                 domain: AUTH0_DOMAIN,
-                clientID: AUTH0_CLIENT_ID//, 
-//                loginState: 'access.signin'
+                clientID: AUTH0_CLIENT_ID, 
+                loginState: 'access.signin'
             });
 
             authProvider.on('loginSuccess', function ($state, $timeout) {
@@ -30,9 +30,8 @@ var app =
                 });
             });
 
-           
-
             authProvider.on('authenticated', function (auth, $state) {
+                console.log(auth + " " + $state);
                 console.log('Authenticated - page refresh and user still authenticated');
             });
 

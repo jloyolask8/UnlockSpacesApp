@@ -22,6 +22,7 @@
                          * to add an authentication token.  It must return the request.
                          */
                         loginConfirmed: function (data, configUpdater) {
+                            console.log('send event:auth-loginConfirmed');
                             var updater = configUpdater || function (config) {
                                 return config;
                             };
@@ -72,26 +73,29 @@
 //                                    return response || $q.when(response);
 //                                },
 
-                                responseError: function (rejection) {
-                                    if (!rejection.config.ignoreAuthModule) {
-                                        switch (rejection.status) {
-                                            case 0:
-                                                $rootScope.$broadcast('event:server-error', rejection);
-                                            case 401:
-                                                delete $window.sessionStorage.auth_token;
-                                                var deferred = $q.defer();
-                                                httpBuffer.append(rejection.config, deferred);
-                                                $rootScope.$broadcast('event:auth-loginRequired', rejection);
-                                                return deferred.promise;
-                                            case 403:
-                                                $rootScope.$broadcast('event:auth-forbidden', rejection);
-                                                break;
-                                        }
-                                    }
-
-                                    // otherwise, default behaviour
-                                    return $q.reject(rejection);
-                                }
+//                                responseError: function (rejection) {
+//                                    if (!rejection.config.ignoreAuthModule) {
+//                                        switch (rejection.status) {
+//                                            case 0:
+//                                                $rootScope.$broadcast('event:server-error', rejection);
+//                                            case 401:
+//                                                delete $window.sessionStorage.auth_token;
+//                                                var deferred = $q.defer();
+//                                                httpBuffer.append(rejection.config, deferred);
+//                                                $rootScope.$broadcast('event:auth-loginRequired', rejection);
+//                                                return deferred.promise;
+//                                            case 403:
+//                                                $rootScope.$broadcast('event:auth-forbidden', rejection);
+//                                                break;
+//                                            case 500:
+//                                                $rootScope.$broadcast('event:server-error', rejection);
+//                                                break;
+//                                        }
+//                                    }
+//
+//                                    // otherwise, default behaviour
+//                                    return $q.reject(rejection);
+//                                }
                             };
                         }]);
                 }])
@@ -146,6 +150,7 @@
                          * Retries all the buffered requests clears the buffer.
                          */
                         retryAll: function (updater) {
+                            console.log('retryAll: ' + updater);
                             for (var i = 0; i < buffer.length; ++i) {
                                 retryHttpRequest(updater(buffer[i].config), buffer[i].deferred);
                             }

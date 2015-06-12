@@ -41,31 +41,40 @@ angular.module('app')
             //for example, update breadcrumbs based on the newUrl
 //                });
 
-            $scope.$on('$stateChangeSuccess', function (e, nextRoute) {
-                console.log('stateChangeSuccess: ' + e + ' ' + nextRoute);
-                if (nextRoute.$$route && angular.isDefined(nextRoute.$$route.pageTitle)) {
-                    $scope.pageTitle = nextRoute.$$route.pageTitle + ' | TODO change Auth0 routeChangeSuccess';
+            $scope.$on('$stateChangeSuccess',  function (e, to){
+                console.log('stateChangeSuccess to: ' + to.name);
+
+            });
+            
+            $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+             
+              if (toState.data && toState.data.requiresLogin) {
+                if (!auth.isAuthenticated && !auth.refreshTokenPromise) {
+                  //save 'to' state as the event prevented!
+                  //after successful login we should go there!
+                  console.log("prevented " + toState.name);
+                  auth.lastStateName = toState.name;
+                  auth.toParams = toParams;
                 }
+              }
             });
 
-            $scope.$on('event:auth-loginRequired', function () {
-                console.log('event:auth-loginRequired');
+            $scope.$on('event:auth-loginRequired', function (config) {
+                console.log('got event event:auth-loginRequired for ' + config.url);
                 $state.go('access.signin');
             });
 
             $scope.$on('event:auth-forbidden', function () {
-                alert('forbidden');
+                alert('got event event:auth-forbidden');
             });
 
-            $scope.$on('event:auth-loginConfirmed', function () {
+            $scope.$on('event:auth-loginConfirmed', function (config) {
+                console.log('got event event:auth-loginConfirmed' + config.url);
             });
 
             $scope.$on('event:server-error', function () {
-                alert('Connection Error. Server is not reachable!');
+                alert('Connection Error. Server is not responding!');
             });
-
-
-
 
 
             // config

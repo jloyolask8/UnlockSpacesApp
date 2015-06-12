@@ -19,13 +19,15 @@ app.controller('LoginCtrl', function (auth, authService, $scope, $state, $http, 
 
         store.set('profile', profile);
         store.set('token', token);
+        
+        auth.authenticate(store.get('profile'), token);
 
 
         $http.post(servicesUrls.baseUrl + 'users', profile)
                 .success(function (data, status, headers) {
                     //succesfull login
-                    
-//                    $state.go('app.dashboard');
+
+                    console.log('user updated.');
 
                 })
                 .error(function (data, status) {
@@ -39,14 +41,19 @@ app.controller('LoginCtrl', function (auth, authService, $scope, $state, $http, 
 //                    $state.go('home');
 
                 });
-                
-                authService.loginConfirmed();
+
+        console.log('go to ' + auth.lastStateName);
+        if (auth.lastStateName) {
+            $state.go(auth.lastStateName, auth.toParams);
+        } else {
+            $state.go('app.dashboard');
+        }
+
+//        authService.loginConfirmed();
 
 //        $state.go('app.dashboard');
 //        $scope.loading = false;
-    }
-    ;
-
+    };
 
 
     var onLogin = function (err, profile, id_token) {

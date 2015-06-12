@@ -111,6 +111,24 @@ angular.module('app', [
                 },
                 responseError: function (response) {
 
+                    if (!response.config.ignoreAuthModule) {
+                        switch (response.status) {
+                            case 0:
+                                $rootScope.$broadcast('event:server-error', response);
+                            case 401:
+//                                delete $window.sessionStorage.auth_token;
+                                var deferred = $q.defer();
+//                                httpBuffer.append(rejection.config, deferred);
+                                $rootScope.$broadcast('event:auth-loginRequired', response);
+                                return deferred.promise;
+                            case 403:
+                                $rootScope.$broadcast('event:auth-forbidden', response);
+                                break;
+                            case 500:
+                                $rootScope.$broadcast('event:server-error', response);
+                                break;
+                        }
+                    }
                     if (!(--numLoadings)) {
                         // Hide loader
                         $rootScope.$broadcast("loader_hide");
