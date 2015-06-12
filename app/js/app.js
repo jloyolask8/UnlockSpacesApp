@@ -37,15 +37,15 @@ angular.module('app', [
         .factory('Venues', function (unlockRestResource) {
             return unlockRestResource('venues');
         })
-        
+
         .factory('Users', function (unlockRestResource) {
             return unlockRestResource('users');
         })
-        
-         .factory('SpacesRS', function (unlockRestResource) {
+
+        .factory('SpacesRS', function (unlockRestResource) {
             return unlockRestResource('spaces');
         })
-        
+
         .factory('ReservationsRS', function (unlockRestResource) {
             return unlockRestResource('reservations');
         })
@@ -81,6 +81,8 @@ angular.module('app', [
                 }
 
             });
+
+
         })
 
         .factory('httpInterceptor', function ($q, $rootScope) {
@@ -94,7 +96,7 @@ angular.module('app', [
 
                     // Show loader
                     $rootScope.$broadcast("loader_show");
-                    return config || $q.when(config)
+                    return config || $q.when(config);
 
                 },
                 response: function (response) {
@@ -121,6 +123,10 @@ angular.module('app', [
         .config(function ($httpProvider) {
             $httpProvider.interceptors.push('httpInterceptor');
         })
+
+        .run(['auth', function (auth) {
+                auth.hookEvents();
+            }])
 //                .config([
 //                'datetimepickerProvider',
 //                function (datetimepickerProvider) {
@@ -129,5 +135,5 @@ angular.module('app', [
 //                    });
 //                }
 //            ])
-;
+        ;
 

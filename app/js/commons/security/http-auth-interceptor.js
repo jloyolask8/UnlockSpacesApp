@@ -50,13 +50,16 @@
              */
             .config(['$httpProvider', function ($httpProvider) {
                     $httpProvider.interceptors.push(['$rootScope', '$q', '$window', 'httpBuffer', function ($rootScope, $q, $window, httpBuffer) {
+
                             return {
 //                                request: function (config) {
 //                                    config.headers = config.headers || {};
-////                                    alert("sending request " + config.method + " " + config.url);
+//                                    alert("sending request " + config.method + " " + config.url);
 //                                    if ($window.sessionStorage.auth_token) {
 //                                        config.headers.auth_token = $window.sessionStorage.auth_token;
 //                                    }
+//                                    var deferred = $q.defer();
+//                                    httpBuffer.append(config, deferred);
 //                                    return config;
 //                                },
 //                                response: function (response) {
@@ -68,11 +71,13 @@
 ////                                    }
 //                                    return response || $q.when(response);
 //                                },
+
                                 responseError: function (rejection) {
                                     if (!rejection.config.ignoreAuthModule) {
                                         switch (rejection.status) {
+                                            case 0:
+                                                $rootScope.$broadcast('event:server-error', rejection);
                                             case 401:
-//                                                alert("401")
                                                 delete $window.sessionStorage.auth_token;
                                                 var deferred = $q.defer();
                                                 httpBuffer.append(rejection.config, deferred);
@@ -90,7 +95,7 @@
                             };
                         }]);
                 }])
-            
+
             ;
 
     /**

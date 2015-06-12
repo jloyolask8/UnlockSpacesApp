@@ -12,7 +12,7 @@ angular.module('app')
 
                 if (store.get('profile')) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             };
@@ -41,13 +41,15 @@ angular.module('app')
             //for example, update breadcrumbs based on the newUrl
 //                });
 
-            $scope.$on('$routeChangeSuccess', function (e, nextRoute) {
+            $scope.$on('$stateChangeSuccess', function (e, nextRoute) {
+                console.log('stateChangeSuccess: ' + e + ' ' + nextRoute);
                 if (nextRoute.$$route && angular.isDefined(nextRoute.$$route.pageTitle)) {
                     $scope.pageTitle = nextRoute.$$route.pageTitle + ' | TODO change Auth0 routeChangeSuccess';
                 }
             });
 
             $scope.$on('event:auth-loginRequired', function () {
+                console.log('event:auth-loginRequired');
                 $state.go('access.signin');
             });
 
@@ -57,6 +59,14 @@ angular.module('app')
 
             $scope.$on('event:auth-loginConfirmed', function () {
             });
+
+            $scope.$on('event:server-error', function () {
+                alert('Connection Error. Server is not reachable!');
+            });
+
+
+
+
 
             // config
             $scope.app = {

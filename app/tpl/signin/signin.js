@@ -3,16 +3,20 @@
 /* Controllers */
 // signin controller
 
-app.controller('LoginCtrl', function (auth, $scope, $state, $http, $location, store, Users, servicesUrls) {
+app.controller('LoginCtrl', function (auth, authService, $scope, $state, $http, $location, store, Users, servicesUrls) {
 //    $scope.user = '';
 //    $scope.pass = '';
 
     var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
 
+    var showOptions = {
+        container: 'root'
+    };
+
     var onLoginSuccess = function (profile, token) {
 //        $scope.$parent.userloggedin = true;
         console.log('onLoginSuccess');
-        
+
         store.set('profile', profile);
         store.set('token', token);
 
@@ -20,7 +24,8 @@ app.controller('LoginCtrl', function (auth, $scope, $state, $http, $location, st
         $http.post(servicesUrls.baseUrl + 'users', profile)
                 .success(function (data, status, headers) {
                     //succesfull login
-                    $state.go('app.dashboard');
+                    
+//                    $state.go('app.dashboard');
 
                 })
                 .error(function (data, status) {
@@ -34,15 +39,15 @@ app.controller('LoginCtrl', function (auth, $scope, $state, $http, $location, st
 //                    $state.go('home');
 
                 });
+                
+                authService.loginConfirmed();
 
 //        $state.go('app.dashboard');
 //        $scope.loading = false;
     }
     ;
 
-    var showOptions = {
-        container: 'root'
-    };
+
 
     var onLogin = function (err, profile, id_token) {
         if (err) {

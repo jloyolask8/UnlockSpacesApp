@@ -54,6 +54,7 @@ angular.module('app')
                                     templateUrl: 'tpl/spaces/book_space.html',
                                     controller: 'BookingController',
                                     controllerAs: 'bookingCtrl',
+                                    data: {requiresLogin: true},
                                     resolve: {
                                         deps: ['uiLoad',
                                             function (uiLoad) {
@@ -200,6 +201,7 @@ angular.module('app')
                                 .state('app.dashboard', {
                                     url: '/dashboard',
                                     templateUrl: 'tpl/dashboard/dashboard.html',
+                                    data: {requiresLogin: true},
                                     resolve: {
                                         deps: ['$ocLazyLoad',
                                             function ($ocLazyLoad) {

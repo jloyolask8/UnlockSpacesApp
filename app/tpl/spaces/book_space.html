@@ -14,7 +14,7 @@
                                     <div class="pull-left">
                                         <figure class="changeable-picture">
                                             <!--TODO put the null photo id in a config file-->
-                                            <cl-image ng-show="newReservationObj.space.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
+                                            <cl-image ng-show="bookingCtrl.newReservationObj.space.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="373" height="209" crop="fill">
                                             </cl-image>
 
                                             <cl-image ng-hide="newReservationObj.space.frontPhoto == null" public-id="{{newReservationObj.space.frontPhoto}}" width="373" height="209" crop="fill">
@@ -108,7 +108,7 @@
                                             <!--                                            <pre class="alert alert-info">Selected date is: <em>{{newReservationObj.startDateTime| date:'fullDate' }}</em> </pre> -->
                                         </div>
                                     </div>
-                                    <pre>{{newReservationObj.space | json}}</pre>
+                                    
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Duration</label>
                                         <div class="col-sm-10">
@@ -331,6 +331,8 @@
                     <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/discover.png" data-no-retina="" alt="Discover" height="35"></li>
                 </ul>
             </div>
+            
+            <pre>{{newReservationObj.space | json}}</pre>
 
         </div>
     </div>
