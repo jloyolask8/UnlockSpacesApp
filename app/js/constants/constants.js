@@ -17,7 +17,9 @@
         findVenuesUrl: 'http://'+baseServerAddress+'\\:'+baseServerPort+'/'+appContext+'/search/findspaces/searchVenuesLatLong/:latitude/:longitude/:radiometers',
         spacesCrudUrl: 'http://'+baseServerAddress+'\\:'+baseServerPort+'/'+appContext+'/api/spaces/:id',
         venuesCrudUrl: 'http://'+baseServerAddress+'\\:'+baseServerPort+'/'+appContext+'/api/venues/:id',
-        onlyViewVenuesUrl: 'http://'+baseServerAddress+'\\:'+baseServerPort+'/'+appContext+'/search/venues/:id'
+        onlyViewVenuesUrl: 'http://'+baseServerAddress+'\\:'+baseServerPort+'/'+appContext+'/search/venues/:id',
+        reservationsUrl: 'http://'+baseServerAddress+'\\:'+baseServerPort+'/'+appContext+'/api/reservations/findReservationsByUserId',
+        reservationsByAdminUrl: 'http://'+baseServerAddress+'\\:'+baseServerPort+'/'+appContext+'/api/reservations/findReservationsByAdminId'
     });
 })();
 

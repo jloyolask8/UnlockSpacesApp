@@ -36,6 +36,14 @@
                     radiometers: '@radio'
                 });
     });
+    
+    clientModule.factory('ReservationSearch', function ($resource, servicesUrls) {
+        return $resource(servicesUrls.reservationsUrl,{});
+    });
+    
+    clientModule.factory('ReservationSearchByAdmin', function ($resource, servicesUrls) {
+        return $resource(servicesUrls.reservationsByAdminUrl,{});
+    });
 
     clientModule.service('spacesService', function (SpacesCrud) {
         var spacesService = {};
@@ -64,6 +72,20 @@
         };
 
         return venuesService;
+    });
+    
+    clientModule.service('reservationsService', function (ReservationSearch, ReservationSearchByAdmin) {
+        var reservationsService = {};
+
+        reservationsService.findReservationsByUserId = function () {
+            return ReservationSearch.query();
+        };
+        
+        reservationsService.findReservationsByAdminId = function () {
+            return ReservationSearchByAdmin.query();
+        };
+        
+        return reservationsService;
     });
 
 })();
