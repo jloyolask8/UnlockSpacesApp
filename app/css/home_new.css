@@ -1,9 +1,0 @@
-.container_header {
-    position: relative;
-    top: -50px;
-}
-#hero-container .app-content-body {
-    position: absolute !important;
-    top: 79% !important;
-    left: 0% !important;
-}

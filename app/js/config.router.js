@@ -35,12 +35,14 @@ angular.module('app')
                                  // home state
                                 .state('home', {
                                     url: '/home',
-                                    templateUrl: 'tpl/home/home.html',
+                                    templateUrl: 'tpl/home/home_new.html',
                                     controller: 'HomeController',
+                                    activePage: 'home',
                                     resolve: {
                                         deps: ['uiLoad',
                                             function (uiLoad) {
-                                                return uiLoad.load('tpl/home/home-controller.js');
+                                                return uiLoad.load(['tpl/home/home-controller.js','tpl/home/infobox.js', 'tpl/home/home.js'
+                                                    ]);
                                             }]
                                     }
                                 })

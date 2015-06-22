@@ -4,9 +4,16 @@
 
 angular.module('app')
 
-        .controller('AppCtrl', function MainController($scope, $state, $translate, $localStorage, $window, $location, auth, store) {
+        .controller('AppCtrl', function MainController($scope, $state, $translate, $localStorage, $window, $location, auth, store, $route) {
 
+            $scope.$route = $route;
             $scope.auth = auth;
+            
+            $scope.areInHome = function(){
+                //alert($route.current);
+                //console.log("location: "+$location.$$path);
+                return ($location.$$path === '/home');
+            };
 
             $scope.isUserAuthenticated = function () {
 
