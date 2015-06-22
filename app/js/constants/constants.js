@@ -7,8 +7,8 @@
     var constantsModule = angular.module('constants', []);
     
     var baseServerAddress = 'localhost';
-    var baseServerPort = '8090';
-    var appContext = 'unlockServices';
+    var baseServerPort = '8080';
+    var appContext = 'UnlockServices';
     
     constantsModule.constant('servicesUrls', {
         baseUrl: 'http://'+baseServerAddress+':'+baseServerPort+'/'+appContext+'/api/',

@@ -52,8 +52,11 @@ app.controller('VenuesListController', ['$scope', '$http', '$state', '$log', 'Ve
 
         $scope.fetchAll = function () {
 
+          console.log('loading venues... ');
+
             Venues.query().then(function (venues) {
                 $scope.data = venues;
+                console.log('done loading venues');
                 $state.go("app.yourlistings");
             }, function (errResponse) {
                 if (errResponse.status === 0) {
@@ -594,14 +597,8 @@ app.controller('VenuesCreateController', ['servicesUrls', '$scope', '$http', '$s
                         $scope.data = data;
                         $scope.status = status;
 
-                        $state.go("app.yourlistings");
-
-//                        var newTaskUri = headers()["location"];
-
-//                        console.log("Might be good to GET " + newTaskUri + " and append the task.");
-
-                        // Refetching EVERYTHING every time can get expensive over time
-                        // Better solution would be to $http.get(headers()["location"]) and add it to the list
+//                        $state.go("app.yourlistings");
+                        $state.go("app.venues.edit", {venueId:data.id});
 
                     })
                     .error(function (data, status) {

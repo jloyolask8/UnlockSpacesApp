@@ -3,26 +3,31 @@
 /* Controllers */
 // signin controller
 
-app.controller('LoginCtrl', function (auth, $scope, $state, $http, $location, store, Users, servicesUrls) {
+app.controller('LoginCtrl', function (auth, authService, $scope, $state, $http, $location, store, Users, servicesUrls) {
 //    $scope.user = '';
 //    $scope.pass = '';
 
     var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
 
+    var showOptions = {
+        container: 'root'
+    };
+
     var onLoginSuccess = function (profile, token) {
 //        $scope.$parent.userloggedin = true;
         console.log('onLoginSuccess');
-        
+
         store.set('profile', profile);
         store.set('token', token);
+        
+        auth.authenticate(store.get('profile'), token);
 
 
         $http.post(servicesUrls.baseUrl + 'users', profile)
                 .success(function (data, status, headers) {
+                    //succesfull login
 
-                    
-
-                    $state.go('app.dashboard');
+                    console.log('user updated.');
 
                 })
                 .error(function (data, status) {
@@ -33,18 +38,23 @@ app.controller('LoginCtrl', function (auth, $scope, $state, $http, $location, st
                         return;
                     }
 
-                    $state.go('home');
+//                    $state.go('home');
 
                 });
 
+        console.log('go to ' + auth.lastStateName);
+        if (auth.lastStateName) {
+            $state.go(auth.lastStateName, auth.toParams);
+        } else {
+            $state.go('app.dashboard');
+        }
+
+//        authService.loginConfirmed();
+
 //        $state.go('app.dashboard');
 //        $scope.loading = false;
-    }
-    ;
-
-    var showOptions = {
-        container: 'root'
     };
+
 
     var onLogin = function (err, profile, id_token) {
         if (err) {

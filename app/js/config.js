@@ -12,20 +12,40 @@ $.cloudinary.config().upload_preset = 'xq7agj5x';
 var app =
         angular.module('app')
 
-       
+
 
         .config(function AppConfig($routeProvider, authProvider, $httpProvider, $locationProvider,
                 jwtInterceptorProvider) {
 
             authProvider.init({
                 domain: AUTH0_DOMAIN,
-                clientID: AUTH0_CLIENT_ID,
+                clientID: AUTH0_CLIENT_ID, 
                 loginState: 'access.signin'
             });
 
-//            jwtInterceptorProvider.tokenGetter = function (store) {
-//                return store.get('token');//TODO: note i use auth_token
-//            };
+            authProvider.on('loginSuccess', function ($state, $timeout) {
+                $timeout(function () {
+//                    $state.go('home');
+                      console.log('::loginSuccess::');
+                });
+            });
+
+            authProvider.on('authenticated', function (auth, $state) {
+                console.log(auth + " " + $state);
+                console.log('Authenticated - page refresh and user still authenticated');
+            });
+
+            authProvider.on('loginFailure', function () {
+                console.log("Error authenticating the user");
+            });
+
+            authProvider.on('logout', function () {
+                console.log("User successfully logged out");
+            });
+
+            authProvider.on('forbidden', function () {
+                console.log("Forbidden 401");
+            });
 
             jwtInterceptorProvider.tokenGetter = ['config', 'store', function (config, store) {
                     // Skip authentication for any requests to api.cloudinary.com
@@ -37,9 +57,10 @@ var app =
 //                    return localStorage.getItem('token');
                 }];
 
-            // Add a simple interceptor that will fetch all requests and add the jwt token to its authorization header.
-            // NOTE: in case you are calling APIs which expect a token signed with a different secret, you might
-            // want to check the delegation-token example
+            // Add a simple interceptor that will fetch all requests and add the jwt token to its 
+            // authorization header.
+            // NOTE: in case you are calling APIs which expect a token signed with a different secret, 
+            // you might want to check the delegation-token example
             $httpProvider.interceptors.push('jwtInterceptor');
         })
 

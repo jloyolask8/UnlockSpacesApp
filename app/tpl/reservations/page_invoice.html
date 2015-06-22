@@ -1,8 +1,13 @@
 <div ng-if="selected">
     <div class="bg-light lter b-b wrapper-md hidden-print">
         <a href class="btn btn-sm btn-info pull-right b-r" onClick="window.print();">Print</a>
-        <a ng-show="isPending()" href class="btn btn-sm btn-danger pull-right b-r" ng-click="approveBooking()">Reject</a>&nbsp;
-        <a ng-show="isPending()" href class="btn btn-sm btn-success pull-right b-r" ng-click="approveBooking()">Accept</a>&nbsp;
+        
+         <a ng-show="isAproved()" href 
+           class="btn btn-sm btn-danger pull-right b-r" ng-click="approveBooking()">Cancel</a>&nbsp;
+        <a ng-show="isPending()" href 
+           class="btn btn-sm btn-danger pull-right b-r" ng-click="approveBooking()">Reject</a>&nbsp;
+        <a ng-show="isPending()" href 
+           class="btn btn-sm btn-success pull-right b-r" ng-click="approveBooking()">Accept</a>&nbsp;
 
         <h1 class="m-n font-thin h3">Booking Request</h1>
     </div>
@@ -42,7 +47,7 @@
                 </div>
             </div>
             <p class="m-t m-b">Booking date: <strong>{{createDate(selected.creationDate)}}</strong><br>
-                Reservation status: <span class="label bg-success">Paid</span><br>
+                Reservation status: <span class="label bg-success">{{selected.reservationStatus.name}}</span><br>
                 Booking ID: <strong>#{{selected.id}}</strong>
             </p>
             <div class="line"></div>
