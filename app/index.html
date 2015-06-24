@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-ng-app="app">
-    <head>
+    <head ng-controller="AppCtrl">
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Unlock Spaces</title>
@@ -15,18 +15,17 @@
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css" />
         <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css" type="text/css" />
         <link rel="stylesheet" href="css/font.css" type="text/css" />
-        <link rel="stylesheet" href="css/app.css" type="text/css" />
-        <link rel="stylesheet" href="css/map.css" type="text/css" />
-        <link type="text/css" rel="stylesheet" media="all" href="css/cloudinary.css">
+        <link rel="stylesheet" href="css/app.css" type="text/css" ng-disabled="areInHome()"/>
+        <link rel="stylesheet" href="css/map.css" type="text/css" ng-disabled="areInHome()"/>
+        <link type="text/css" rel="stylesheet" media="all" href="css/cloudinary.css"/>
         <link rel="stylesheet" href="css/animations.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" type="text/css" />
         <link rel="stylesheet" href="css/lightbox.min.css" type="text/css" />
         <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" type="text/css"/>
         <link rel="stylesheet" href="css/box-shadow.css" type="text/css" />
-        <!-- Template externo >
-        <link href="css/fullscreen-slider_home.css" rel="stylesheet">
-        <link href="css/app_home.css" rel="stylesheet">
-        <link href="css/home_new.css" rel="stylesheet"-->
+        <!-- Template externo -->
+        <link href="css/fullscreen-slider.css" rel="stylesheet" ng-disabled="!areInHome()"/>
+        <link href="css/app_home.css" rel="stylesheet" ng-disabled="!areInHome()"/>
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

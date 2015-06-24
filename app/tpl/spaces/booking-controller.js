@@ -101,6 +101,8 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
             $scope.venueFee.value = tarifaBase * $scope.durationObj.duration;
             $scope.venueFee.tax = $scope.venueFee.value * ($scope.newReservationObj.space.pricing.tax / 100);
             $scope.venueFee.total = $scope.venueFee.tax + $scope.venueFee.value;
+            $scope.newReservationObj.paymentAmount = $scope.venueFee.value;
+            $scope.newReservationObj.paymentVat = $scope.venueFee.tax;
         }
     };
 
@@ -167,6 +169,8 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
         } else {
             $scope.newReservationObj.endDateTime.setDate($scope.newReservationObj.startDateTime.getDate() + $scope.durationObj.duration);
         }
+        
+        $scope.newReservationObj.paymentStatus = "PAID";
         
 //        $scope.newReservationObj.reservationStatus = {
 //            name: "PENDING",

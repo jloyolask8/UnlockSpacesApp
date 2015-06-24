@@ -7,6 +7,9 @@ app.controller('VenueViewController', ['$scope', '$http', '$state', '$log', '$st
         $scope.messageVenue = 'hello from venues VenuesViewController';
         $log.log($scope.messageVenue);
         $scope.selectedVenue = null;
+        $scope.isSelectedNotNull = function(){
+            return !($scope.selectedVenue === null);
+        };
         $scope.markers = [{
                             color: 'blue',
                             label: 'S',
