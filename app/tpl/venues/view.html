@@ -139,6 +139,14 @@
                                                         {{space.overview.title}}
                                                         <!-- end ngIf: item.workvenue.capacity -->
                                                     </h5>
+                                                    <a ui-sref="app.pages.space({spaceId:space.id})">
+                                            <div class="row text-info">
+                                                <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
+                                                <span class="text-cap">&nbsp;{{space.overview.title}}</span>
+                                            </div>
+                                        </a>
+                                                    
+                                                    
                                                     <!--                                                        <span class="text-smoky ng-binding ng-scope" >
                                                                                                                 <i class="fa fa-users" aria-hidden="true"></i> 1
                                                                                                             </span>-->

@@ -151,6 +151,5 @@ angular.module('app')
             };
 
         });
-//            }]);
 
 

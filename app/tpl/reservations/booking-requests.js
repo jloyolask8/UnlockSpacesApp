@@ -31,11 +31,11 @@ app.controller('BookingRequestsController', function ($scope, $http, $state, $lo
     };
     
     $scope.isAproved = function () {
-        return ($scope.selected.reservationStatus.id === 'APROVED');
+        return ($scope.selected.reservationStatus.id === 'ACCEPTED');
     };
 
     $scope.approveBooking = function () {
-        $scope.selected.reservationStatus.id = 'APROVED';
+        $scope.selected.reservationStatus.id = 'ACCEPTED';
         editReservation();
     };
     

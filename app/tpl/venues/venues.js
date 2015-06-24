@@ -117,14 +117,15 @@ app.controller('VenueViewController', ['$scope', '$http', '$state', '$log', '$st
 
     }]);
 
-app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootScope', '$http', '$state', 'Venues', '$stateParams', 'Upload', 'SpaceTypes', 'VenueTypes', 'Currencies', 'Amenities',
-    function (servicesUrls, $log, $scope, $rootScope, $http, $state, Venues, $stateParams, Upload, SpaceTypes, VenueTypes, Currencies, Amenities) {
+app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootScope', '$http', '$state', 'Venues', '$stateParams', 'Upload', 'SpaceTypes', 'VenueTypes', 'Currencies', 'Amenities', 'CancelationPTypes',
+    function (servicesUrls, $log, $scope, $rootScope, $http, $state, Venues, $stateParams, Upload, SpaceTypes, VenueTypes, Currencies, Amenities, CancelationPTypes) {
         var vm = this;
         //amenities
         //
         // load from db
         $scope.amenitiesList = [];
         $scope.spaceTypeList = [];
+        $scope.cpTypeList = [];
         $scope.venueTypeList = ['Bussiness Center', 'Corporate Office', 'Coworking spaces', 'Startup offices'];
         $scope.differentHoursOfOperation = {"state": false};
         $scope.mondayToFriday = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
@@ -142,6 +143,7 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
 //        getVenueTypes();
         getAmenities();
         getSpaceTypes();
+        getCancelationPolicyTypes();
 
         $scope.$watch('defaultHour', function (nv, ov) {
             //$log.info("$scope.differentHoursOfOperation: "+$scope.differentHoursOfOperation);
@@ -161,7 +163,7 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
                     });
                 }
             }
-        }
+        };
 
         $scope.$watch('selectedVenue.hoursOfOperation', function (nv, ov) {
             if ($scope.selectedVenue.hoursOfOperation) {
@@ -204,7 +206,7 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
 
         $scope.removeSpacePhoto = function (index) {
             $scope.space.photos.splice(index, 1);
-        }
+        };
 
         //      selectedVenueAdmin
         $scope.selectedVenueAdmin = {};//new and selected selectedVenueAdmin for edit
@@ -372,9 +374,14 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
                 overview: {
                     summary: '',
                     title: ''
-                }
+                },
+                spaceStatus: {
+                    id: 'PENDING',
+                    name: 'PENDING'
+                },
+                instantBooking: true
             };
-
+            
             $scope.space.isNew = true;
 
             $scope.editSpace($scope.space);
@@ -528,13 +535,31 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
         }
         ;
 
+        //cancelation types - it would be nice to cache this values in a service somehow
+
+        function getCancelationPolicyTypes() {
+
+            CancelationPTypes.query().then(function (data) {
+                console.log("done getting cpTypeList.");
+                $scope.cpTypeList = data;
+            }, function (errResponse) {
+                if (errResponse.status === 0) {
+                    alert("Cannot load cpTypeList types. Connection to server Lost!");
+                } else {
+                    alert("Sorry we are not able to complete the operation. " + errResponse.status);
+                }
+            });
+
+        };
+        
         //space types - it would be nice to cache this values somehow
 
         function getSpaceTypes() {
 
-            console.log('get space types');
+            console.log('get space types...');
 
             SpaceTypes.query().then(function (data) {
+                console.log("done getting space types.");
                 $scope.spaceTypeList = data;
             }, function (errResponse) {
                 if (errResponse.status === 0) {
@@ -544,10 +569,9 @@ app.controller('VenueEditController', ['servicesUrls', '$log', '$scope', '$rootS
                 }
             });
 
-        }
-        ;
+        };
+        
         //amenities - it would be nice to cache this values somehow
-
         function getAmenities() {
 
             console.log('get amenities');

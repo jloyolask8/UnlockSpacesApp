@@ -140,10 +140,16 @@ angular.module('app')
                                     }
                                 })
 
-                                .state('pages.space', {
+                                .state('app.pages.space', {
                                     url: '/space/{spaceId:[0-9]{1,20}}',
                                     templateUrl: 'tpl/spaces/view.html',
-                                    controller: 'SpaceViewController'
+                                    controller: 'SpaceViewController',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load('tpl/spaces/space-view.js');
+                                            }]
+                                    }
                                 })
 
 

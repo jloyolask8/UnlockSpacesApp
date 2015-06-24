@@ -24,11 +24,7 @@
 
     <!-- accordion -->      
     <div ng-controller="FAQAccordionCtrl">
-
-        <label class="checkbox i-checks m-l-sm m-b-sm">
-            <input type="checkbox" ng-model="oneAtATime"><i></i>
-            Open only one at a time
-        </label>
+       
         <accordion close-others="oneAtATime">
             <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
                 {{group.content}}
