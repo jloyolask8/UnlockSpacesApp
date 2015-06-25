@@ -23,18 +23,18 @@
                                 </div>
 
                             </div>
-<!--                            <div class="line line-dashed b-b line-lg pull-in"></div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">City</label>
-                                <div class="col-sm-6">
-                                    <input type="text" id="city" ng-model="selectedVenue.address.city" class="form-control" 
-                                           ng-autocomplete options="autocompleteCityOptions" details="autocompleteCityDetails"
-                                           />
-                                </div>
-                                <pre>{{selectedVenue.address.city | json}}</pre>
-
-                            </div>-->
+                            <!--                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 control-label">City</label>
+                                                            <div class="col-sm-6">
+                                                                <input type="text" id="city" ng-model="selectedVenue.address.city" class="form-control" 
+                                                                       ng-autocomplete options="autocompleteCityOptions" details="autocompleteCityDetails"
+                                                                       />
+                                                            </div>
+                                                            <pre>{{selectedVenue.address.city | json}}</pre>
+                            
+                                                        </div>-->
                             <div class="line line-dashed b-b line-lg pull-in"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Postal code</label>
@@ -74,7 +74,7 @@
                                 </div>
 
                             </div>
-                            
+
                         </form>
                     </div>
 
@@ -164,7 +164,6 @@
                             </div>
 
 
-                            <!--<pre>{{selectedVenue.hoursOfOperation| json}}</pre>-->
                             <div class="line line-dashed b-b line-lg pull-in"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Opening Hours</label>
@@ -191,12 +190,12 @@
                                             <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="selectedVenue.hoursOfOperation[key].availabilityOption"><i></i>
                                             Open
                                         </label>
-                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption == 'true'">
                                             <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].startTime">
                                                 <option ng-show="$index < operationHours.indexOf(selectedVenue.hoursOfOperation[key].endTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
                                             </select>
                                         </div>
-                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption == 'true'">
                                             <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].endTime">
                                                 <option ng-show="$index > operationHours.indexOf(selectedVenue.hoursOfOperation[key].startTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
                                             </select>
@@ -211,12 +210,12 @@
                                             <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="selectedVenue.hoursOfOperation[key].availabilityOption"><i></i>
                                             Open
                                         </label>
-                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption == 'true'">
                                             <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].startTime">
                                                 <option ng-show="$index < operationHours.indexOf(selectedVenue.hoursOfOperation[key].endTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
                                             </select>
                                         </div>
-                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption == 'true'">
                                             <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].endTime">
                                                 <option ng-show="$index > operationHours.indexOf(selectedVenue.hoursOfOperation[key].startTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
                                             </select>
@@ -228,12 +227,12 @@
                                             <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="selectedVenue.hoursOfOperation[key].availabilityOption"><i></i>
                                             Open
                                         </label>
-                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption == 'true'">
                                             <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].startTime">
                                                 <option ng-show="$index < operationHours.indexOf(selectedVenue.hoursOfOperation[key].endTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
                                             </select>
                                         </div>
-                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption=='true'">
+                                        <div class="col-sm-3" ng-show="selectedVenue.hoursOfOperation[key].availabilityOption == 'true'">
                                             <select class="form-control" ng-model="selectedVenue.hoursOfOperation[key].endTime">
                                                 <option ng-show="$index > operationHours.indexOf(selectedVenue.hoursOfOperation[key].startTime)" ng-repeat="hour in operationHours track by $index">{{hour}}</option>
                                             </select>
@@ -543,6 +542,29 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Booking</label>
+                                    <div class="col-sm-4">
+                                        <div class="checkbox m-l m-r-xs">
+                                            <label class="i-checks">
+                                                <input type="checkbox" ng-model="space.instantBooking"><i></i> Enable Instant Booking
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Cancelation Policy</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" 
+                                                ng-model="space.cancelationPolicy" ng-options="cptype.name for cptype in cpTypeList track by cptype.id">
+                                            <option value="">-- choose policy --</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label"></label>
@@ -728,8 +750,8 @@
             <!---->
 
             help
-            
-            <pre><code>{{selectedVenue | json}}</code></pre>
+
+            <pre><code>{{selectedVenue| json}}</code></pre>
 
             <!--<pre><code>admin: {{selectedVenueAdmin| json}}</code></pre>-->
 

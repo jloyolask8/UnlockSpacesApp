@@ -7,9 +7,9 @@
         <div class="wrapper-md">
 
             <div class="row">
-                <div class="col-md-4 col-lg-4" ng-repeat="venue in data track by $index" >
+                <div class="col-md-4 col-lg-3" ng-repeat="venue in data track by $index" >
                     <div class="panel b-a">
-                        <div class="panel-heading no-border bg-primary">          
+                        <div class="panel-heading no-border bg-dark">          
                             <span class="text-lt">{{venue.overview.title}}</span>
                         </div>
                         <div class="item m-l-n-xxs m-r-n-xxs">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-lg-4">
+                <div class="col-md-4 col-lg-3">
                     <a ui-sref="app.venues.create" href="#/app/venues/create" class="flex-align--middle">
 
                         <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">

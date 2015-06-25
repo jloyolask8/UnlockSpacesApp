@@ -30,10 +30,14 @@ angular.module('app', [
     'spacesRestClient',
     'uiGmapgoogle-maps',
     'wu.staticGmap',
-    'mapControllers',
-    //'HomeController',
-    , 'http-auth-interceptor'
+    'mapControllers'
+            //'HomeController',
+//    , 'http-auth-interceptor'
 ])
+
+.factory('CancelationPTypes', function (unlockRestResource) {
+            return unlockRestResource('cp');
+        })
         .factory('Venues', function (unlockRestResource) {
             return unlockRestResource('venues');
         })
@@ -91,26 +95,27 @@ angular.module('app', [
 
             return {
                 request: function (config) {
-
+                    console.log('httpInterceptor request:' + config.url);
                     numLoadings++;
-
                     // Show loader
                     $rootScope.$broadcast("loader_show");
                     return config || $q.when(config);
 
                 },
                 response: function (response) {
-
+                    console.log('httpInterceptor response from:' + response.url);
                     if ((--numLoadings) === 0) {
                         // Hide loader
                         $rootScope.$broadcast("loader_hide");
+                    }else{
+                        console.log('loader_hide didnt go cause numLoadings:'+numLoadings);
                     }
 
                     return response || $q.when(response);
 
                 },
                 responseError: function (response) {
-
+                    console.log('httpInterceptor responseError:' + response);
                     if (!response.config.ignoreAuthModule) {
                         switch (response.status) {
                             case 0:

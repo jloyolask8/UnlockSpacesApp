@@ -8,8 +8,7 @@
         <div class="bg-light lter b-b wrapper-md">
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
-                    <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
-                    {{message}}
+                    <h1 class="m-n font-thin h3 text-black" >Dashboard</h1>
                 </div>
 
             </div>
@@ -24,73 +23,106 @@
                     <!-- tasks -->
                     <div class="panel wrapper">
                         <div class="row">
-                            <div class="col-md-9 b-r b-light no-border-xs">
+                            <div class="b-r b-light no-border-xs">
                                 <h4 class="font-thin m-t-none m-b-md text-muted">Active Bookings</h4>
-                                <div class=" m-b">
-                                    
-                                    <div class="m-b" ng-repeat="reservation in reservations.list">
-                                        <span class="label text-base bg-info pos-rlt m-r">
-                                            <i class="arrow right arrow-info"></i> {{reservation.startDateTime}}</span>
-                                            
-                                            {{reservation.title}}
-                                            {{reservation.space.overview.summary}}
-                                            
-                                            {{reservation.paymentStatus}}
-                                        <a href>{{reservation.reservationStatus.name}}</a>
+
+                                <div class="card box-shadow" ng-repeat="reservation in reservations.list">
+                                    <div >
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div set-ng-animate="false">
+                                                        <cl-image public-id="{{reservation.space.frontPhoto}}" width="238" height="159" crop="fill"></cl-image>
+                                                    </div>
+                                                </td>
+
+                                                <td style="padding: 10px;">
+                                                    <div class="ws-content-group" >
+                                                        <div class="container-fluid" >
+                                                            <div class="row">
+                                                                <!--<a ng-click="viewDetailOfSpace(space, venue); resizeScrollPanel()">-->
+                                                                <!--<a ui-sref="app.ui.search({details:'true',venueid:venue.id,spaceid:space.id})">-->
+                                                                <h4 class="col font-bold">
+                                                                    {{reservation.space.overview.title}}&nbsp;&nbsp;<small class="pull-right">{{reservation.space.venue.address.line1}}</small>
+                                                                </h4>
+                                                                <!--</a>-->
+                                                                <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{reservation.space.capacity}}</small>
+
+                                                                <span class="text-muted m-l-sm pull-right">
+                                                                    <i class="fa fa-clock-o"></i>
+                                                                    {{reservation.creationDate}}
+                                                                </span>
+
+                                                            </div>
+                                                            <a ui-sref="app.venues.preview({venueId:reservation.space.venue.id})">
+                                                                <div class="row text-info">
+                                                                    <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
+                                                                    <span class="text-cap">&nbsp;{{reservation.space.venue.overview.title}}</span>
+                                                                </div>
+                                                            </a>
+                                                            <div class="row text-smoky">
+                                                                <span>
+                                                                    &nbsp;&nbsp;{{reservation.space.venue.venueType}}
+                                                                </span>
+
+                                                                <span ng-if="reservation.space.reviews.length == 1" class="ng-scope"> 1 review</span>
+                                                            </div>
+
+                                                            <div class="row">
+
+                                                                <label class="label bg-info m-l-xs">{{reservation.reservationStatus.name}}</label>
+
+                                                                <span class="label bg-light dk"><small>from</small>{{reservation.startDateTime}}</span>
+                                                                <span class="label bg-light dk"><small>to</small>{{reservation.endDateTime}}</span>
+                                                                <span class="label bg-light dk">&nbsp;{{reservation.space.pricing.perMonth| currency:"$":0}}<small>mo</small></span>
+                                                            </div>
+
+                                                            <div class="m-t-sm">
+
+                                                                <a href class="btn btn-default btn-xs">
+                                                                    <i class="fa fa-mail-reply text-muted"></i> Reply
+                                                                </a>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </td>
+
+                                            </tr>
+                                        </table>
                                     </div>
-                                   
                                 </div>
+
+                                <nav class="text-center">
+                                    <ul class="pagination">
+                                        <li>
+                                            <a href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li>
+                                            <a href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
                             </div>
-                            <div class="col-md-3">            
-                                <div class="row row-sm">
-                                    <div class="text-center">
-                                        <div ui-jq="easyPieChart" ui-options="{
-                                             percent: 50,
-                                             lineWidth: 4,
-                                             trackColor: '{{app.color.light}}',
-                                             barColor: '{{app.color.info}}',
-                                             scaleColor: false,
-                                             size: 115,
-                                             rotate: 180,
-                                             lineCap: 'butt'
-                                             }" class="inline m-t">
-                                            <div>
-                                                <span class="text-info h4">50%</span>
-                                            </div>
-                                        </div>
-                                        <div class="text-muted font-bold text-xs m-t m-b" 
-                                             popover="Don't cancel confirmed reservations at your listings" 
-                                             >Commitment Rate</div>
-                                    </div>
-                                </div>            
-                            </div>
+                            
                         </div>
                     </div>
                     <!-- / tasks -->
 
-                    <!-- service -->
-                    <div class="panel hbox hbox-auto-xs no-border">
 
-
-                    </div>
-                    <!-- / service -->
-
-                    <div class="row row-sm text-center">
-
-
-                    </div>
-
-
-
-                    <!-- tips -->
-                    <div class="panel hbox hbox-auto-xs no-border">
-                        <div class="col wrapper">
-
-                            <h4 class="font-thin m-t-none m-b-none text-primary-lt">Tips to get guest's Attention</h4>
-
-                        </div>
-
-                    </div>
                 </tab>
             </tabset>
             <!-- / tips -->
