@@ -1,61 +1,139 @@
 <div class="hbox hbox-auto-xs hbox-auto-sm">
-  <div class="col">
-    <div style="">
-      <div class="wrapper-lg bg-white-opacity">
-        <div class="row m-t">
-          <div class="col-sm-7">
-            <a href class="thumb-lg pull-left m-r">
-                <img ng-src="{{auth.profile.picture}}" alt="{{auth.profile.nickname}}" class="img-circle"/>
-            </a>
-            <div class="clear m-b">
-              <div class="m-b m-t-sm">
-                <span class="h3 text-black">{{auth.profile.name}}</span>
-                <small class="m-l">{{auth.profile.email}}</small>
-              </div>
-                
-                Verified by
-                <p class="m-b">
-                    <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon" ng-if="auth.profile.email_verified === true"><i class="fa fa-envelope"></i></a>
-                <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-google-plus"></i></a>
-              </p>
-              
+    <div class="col">
+        <div style="background:url(img/texture_default_blue.jpg) center center; background-size:cover">
+            <div class="wrapper-lg bg-white-opacity">
+                <div class="row m-t">
+                    <a href class="thumb-lg pull-left m-r">
+                        <img ng-src="{{auth.profile.picture}}" class="img-circle"/>
+                    </a>
+                    <div class="clear m-b">
+                        <div class="m-b m-t-sm">
+                            <span class="h3 text-black">{{auth.profile.given_name}} {{auth.profile.family_name}}</span><br/>
+                            <small class="m-l">{{auth.profile.email}}</small>
+                        </div>
+                        Verified by
+                        <!--identities-->
+                        <p class="m-b">
+                            <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon" ng-if="auth.profile.email_verified === true">
+                                <i class="fa fa-envelope"></i></a>
+
+                            <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon" 
+                               ng-repeat="ident in auth.profile.identities"
+                               ng-switch="ident.provider">
+                                <i class="fa fa-google-plus" ng-switch-when="google-oauth2"></i>
+                                <i class="fa fa-facebook" ng-switch-when="facebook"></i>
+                                <i class="fa fa-twitter" ng-switch-when="twitter"></i>
+                                <i class="fa fa-linkedin" ng-switch-when="linkedin"></i>
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
             </div>
-          </div>
-          <div class="col-sm-5">
-            <div class="pull-right pull-none-xs text-center">
-              <a href class="m-b-md inline m">
-                <span class="h3 block font-bold">2</span>
-                <small>Venues</small>
-              </a>
-              <a href class="m-b-md inline m">
-                <span class="h3 block font-bold">250</span>
-                <small>Spaces</small>
-              </a>
-            </div>
-          </div>
         </div>
-      </div>
+        <div class="wrapper bg-white b-b">
+            <ul class="nav nav-pills nav-sm">
+                <li class="active"><a href>Profile</a></li>
+                <!--<li><a href>Messages</a></li>-->
+            </ul>
+        </div>
+        <div class="padder">      
+
+            <br/>
+
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    Edit my personal info
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">nickname</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="nickname" class="form-control" ng-model="auth.profile.nickname" readonly="true"
+                                       required />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="name" class="form-control" ng-model="auth.profile.given_name" 
+                                       required />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Last Name</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="lastname" class="form-control" ng-model="auth.profile.family_name" 
+                                       required />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="email" class="form-control" ng-model="auth.profile.email" readonly="true"
+                                       required />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Locale</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="locale" class="form-control" ng-model="auth.profile.locale" readonly="true"
+                                       required />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Genre</label>
+                            <div class="col-sm-6">
+                                <input type="text" name="genre" class="form-control" ng-model="auth.profile.gender" readonly="true"
+                                       required />
+                            </div>
+
+                        </div>
+
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-6">
+                                <div class="m-t m-b">
+                                    <button type="button" class="btn btn-primary btn-rounded" ng-click="edit(auth.profile)">Save</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--                        <div class="panel panel-default">
+                                        <div class="panel-heading font-bold">
+                                            User Json
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="form-horizontal">
+                                                
+                                                 <pre><code>{{auth.profile| json}}</code></pre>
+                        
+                                                <pre><code>{{user| json}}</code></pre>
+                        
+                                            </div>
+                                        </div>
+                                    </div>-->
+
+        </div>
     </div>
-    <div class="wrapper bg-white b-b">
-      <ul class="nav nav-pills nav-sm">
-        <li class="active"><a href>Profile</a></li>
-        <li><a href>Messages</a></li>
-      </ul>
-    </div>
-    <div class="padder">      
-        
- <div>
-  <br />
-  <div style="margin-top: 10px">User Profile</div>
-  <pre><code>{{auth.profile | json}}</code></pre>
-</div>       
-        
-    </div>
-  </div>
-  <div class="col w-lg bg-light lter b-l bg-auto">
-    <div class="wrapper">
-      
-      
-    </div>
-  </div>
+
 </div>

@@ -24,7 +24,7 @@
           <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
             <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
           </a>
-          <a href class="btn no-shadow navbar-btn" ui-toggle-class="show" target="#aside-user">
+          <a href class="btn no-shadow navbar-btn" ui-toggle-class="show" target="#aside-user" ng-if="auth.isAuthenticated">
             <i class="icon-user fa-fw"></i>
           </a>
         </div>
@@ -53,7 +53,7 @@
           <li class="hidden-xs">
             <a ui-fullscreen></a>
           </li>
-          <li class="dropdown" dropdown ng-if="isUserAuthenticated()">
+          <li class="dropdown" dropdown ng-if="auth.isAuthenticated">
               
               <a href class="dropdown-toggle" dropdown-toggle title="{{auth.profile}}">
               <i class="icon-bell fa-fw"></i>
@@ -91,7 +91,7 @@
             </div>
             <!-- / dropdown -->
           </li>
-          <li class="dropdown" dropdown ng-if="isUserAuthenticated()">
+          <li class="dropdown" dropdown ng-if="auth.isAuthenticated">
             <a href class="dropdown-toggle clear" dropdown-toggle>
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
                 <img ng-src="{{auth.profile.picture}}" alt="..."/>
@@ -103,13 +103,7 @@
             <ul class="dropdown-menu animated fadeInRight w">
               
               <li>
-                <a href>
-                  <span class="badge bg-danger pull-right">30%</span>
-                  <span>Settings</span>
-                </a>
-              </li>
-              <li>
-                <a ui-sref="app.page.profile">Profile</a>
+                <a ui-sref="app.page.profile({profileId:auth.profile.user_id})">Profile</a>
               </li>
               <li>
                 <a ui-sref="app.docs">

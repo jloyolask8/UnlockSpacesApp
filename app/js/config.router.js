@@ -31,8 +31,8 @@ angular.module('app')
                                     url: '/ui',
                                     template: '<div ui-view class="fade-in-up"></div>'
                                 })
-                                
-                                 // home state
+
+                                // home state
                                 .state('home', {
                                     url: '/home',
                                     templateUrl: 'tpl/home/home_new.html',
@@ -41,8 +41,8 @@ angular.module('app')
                                     resolve: {
                                         deps: ['uiLoad',
                                             function (uiLoad) {
-                                                return uiLoad.load(['tpl/home/home-controller.js','tpl/home/infobox.js', 'tpl/home/home.js'
-                                                    ]);
+                                                return uiLoad.load(['tpl/home/home-controller.js', 'tpl/home/infobox.js', 'tpl/home/home.js'
+                                                ]);
                                             }]
                                     }
                                 })
@@ -91,9 +91,9 @@ angular.module('app')
                                         deps: ['uiLoad',
                                             function (uiLoad) {
                                                 return uiLoad.load(['tpl/yourlistings/yourlistings.js',
-                                                'tpl/venues/venues.js',
-                                                'tpl/venues/faq.js',
-                                                'tpl/reservations/booking-requests.js']);
+                                                    'tpl/venues/venues.js',
+                                                    'tpl/venues/faq.js',
+                                                    'tpl/reservations/booking-requests.js']);
                                             }]
                                     }
                                 })
@@ -267,8 +267,15 @@ angular.module('app')
                                 })
 
                                 .state('app.page.profile', {
-                                    url: '/profile',
+                                    url: '/profile/{profileId}',
                                     templateUrl: 'tpl/user_profile/profile.html',
+                                    controller: 'ProfileViewController',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load(['tpl/user_profile/profile.js']);
+                                            }]
+                                    },
                                     data: {requiresLogin: true}
                                 })
 
