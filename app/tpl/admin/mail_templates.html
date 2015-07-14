@@ -1,0 +1,51 @@
+<div class="panel panel-default" ng-if="ready">
+    <div class="panel-heading font-bold">
+      Mandrill Templates Notifications
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal" method="get">
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Rent Request</label>
+          <div class="col-sm-10">
+              <input type="text" class="form-control rounded" ng-model="templates[indexOfTemplate('Rent_Request')].template">
+              <pre>{{templates | json}}</pre>
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Request Accepted</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control rounded" ng-model="templates[indexOfTemplate('Request_Accepted')].template">                        
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Request Rejected</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control rounded" ng-model="templates[indexOfTemplate('Request_Rejected')].template">                        
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Rent Cancelled by owner</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control rounded" ng-model="templates[indexOfTemplate('Rent_Cancelled_by_Owner')].template">                        
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Rent Cancelled by client</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control rounded" ng-model="templates[indexOfTemplate('Rent_Cancelled_by_Client')].template">                        
+          </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+          <div class="col-sm-4 col-sm-offset-2">
+              <button type="submit" class="btn btn-default" ng-click="fetchAll()">Cancel</button>
+              <button type="submit" class="btn btn-primary" ng-click="edit()">Save changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>

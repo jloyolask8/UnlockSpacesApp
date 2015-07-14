@@ -6,7 +6,9 @@
     <div class="col w-lg bg-light lter b-l ">
         <div class="wrapper">
             <div >
-                <div class="card" style="padding: 0px;" ng-repeat="reservation in reservations.list" ng-click="selectReservation(reservation)">
+                <div class="card" ng-if="renderList"
+                     style="padding: 0px;"
+                     ng-repeat="reservation in reservations.list" ng-click="selectReservation(reservation)">
                     <div >
                         <table style="width: 100%;">
                             <tr>
@@ -21,7 +23,7 @@
                                                 </a>
                                             </div>
 
-                                            <div class="row text-info">
+                                            <div class="row {{getStatusStyle(reservation)}}">
                                                 <span class="text-cap">{{reservation.reservationStatus.details}}</span>
                                             </div>
                                             <div class="row text-smoky">
@@ -33,7 +35,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <span class="label bg-warning">from {{createDate(reservation.creationDate)}} - {{}}</span>
+                                                <span class="label bg-warning">from {{createDate(reservation.creationDate)+" - "+((reservation.paymentAmount + reservation.paymentVat)| currency : "$":0)}}</span>
                                             </div>
                                         </div>
                                     </div>

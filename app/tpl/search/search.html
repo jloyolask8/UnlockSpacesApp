@@ -60,14 +60,11 @@
                                 </div>
 
                                 <div class="input-group col-md-7 col-lg-3" style="padding-left: 0px !important;padding-right: 5px !important;">
-                                    <div class="hackyhack">
-                                        <input type="text" class="form-control" datepicker-popup="dd/MMMM/yy" ng-model="dt"
-                                               is-open="opened" min-date="datePickerOptions.mindate" datepicker-options="datePickerOptions"
-                                               close-text="Close" style="padding-left: 2px !important; padding-right: 2px !important;"/>
-                                    </div>
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                    </span>
+                                    <input ng-if="loaded" type="text" class="form-control"
+                                                   datetimepicker
+                                                   datetimepicker-options="{{ dateOptions }}"
+                                                   name="time" attrbind="dateTimeStartTime"
+                                                   ng-model="vm.dateTimeStartTime" ng-cloak="true"/>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +74,7 @@
                             </div>
                             <div ng-repeat="venue in venues">
                                 <div class="card box-shadow" ng-mouseenter="highlightMarker(venue)" ng-mouseleave="normalizeMarker(venue)" ng-show="evalShowVenue(venue, 'results')" ng-repeat="space in venue.spaces">
-                                    <div >
+                                    <div ng-if="evalShowSpace(space)">
                                         <table style="width: 100%;">
                                             <tr>
                                                 <td style="width: 60%; padding: 10px;">

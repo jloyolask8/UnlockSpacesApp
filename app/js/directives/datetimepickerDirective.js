@@ -1,41 +1,37 @@
-app.directive('app', function ($rootScope) {
+'use strict';
+angular
+        .module('datetimepicker', [])
+.directive('datetimepicker', function($timeout, $parse) {
+        return {
+            link: function($scope, element, $attrs) {
+                return $timeout(function() {
+                    var ngModelGetter = $parse($attrs['ngModel']);
 
-    return {
-        require: '?ngModel',
-        restrict: 'AE',
-        scope: {
-            pick12HourFormat: '@',
-            language: '@',
-            useCurrent: '@',
-            location: '@'
-        },
-        link: function (scope, elem, attrs) {
-            elem.datetimepicker({
-                pick12HourFormat: scope.pick12HourFormat,
-                language: scope.language,
-                useCurrent: scope.useCurrent
-            })
-
-            //Local event change
-            elem.on('blur', function () {
-
-                console.info('this', this);
-                console.info('scope', scope);
-                console.info('attrs', attrs);
-
-
-                /*// returns moments.js format object
-                 scope.dateTime = new Date(elem.data("DateTimePicker").getDate().format());
-                 // Global change propagation
-                 
-                 $rootScope.$broadcast("emit:dateTimePicker", {
-                 location: scope.location,
-                 action: 'changed',
-                 dateTime: scope.dateTime,
-                 example: scope.useCurrent
-                 });
-                 scope.$apply();*/
-            })
-        }
-    };
-});
+                    return $(element).datetimepicker(
+                        {
+                            minDate:moment().add(1, 'd').toDate(),
+                            sideBySide:true,
+                            allowInputToggle:true,
+                            //locale:"tr",
+                            useCurrent:false,
+                            defaultDate:moment().add(1, 'd').add(1,'h'),
+                            icons:{
+                                time: 'icon-back-in-time',
+                                date: 'icon-calendar-outlilne',
+                                up: 'icon-up-open-big',
+                                down: 'icon-down-open-big',
+                                previous: 'icon-left-open-big',
+                                next: 'icon-right-open-big',
+                                today: 'icon-bullseye',
+                                clear: 'icon-cancel'
+                            }
+                        }
+                    ).on('dp.change', function(event) {
+                            $scope.$apply(function() {
+                                return ngModelGetter.assign($scope, event.target.value);
+                            });
+                    });
+                });
+            }
+        };
+    });

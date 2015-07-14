@@ -9,7 +9,6 @@
 
         <!-- Setting the right viewport -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="bower_components/animate.css/animate.css" type="text/css" />
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css" />
@@ -33,7 +32,7 @@
         
     </head>
     <body class="ng-cloak notransition no-hidden no-touch" ng-controller="AppCtrl">
-        <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>
+        <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view autoscroll="true"></div>
 
 
         <!--<script type="text/javascript" src="//use.typekit.net/iws6ohy.js"></script>-->

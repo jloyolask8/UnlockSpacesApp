@@ -93,7 +93,8 @@ angular.module('app')
                                                 return uiLoad.load(['tpl/yourlistings/yourlistings.js',
                                                 'tpl/venues/venues.js',
                                                 'tpl/venues/faq.js',
-                                                'tpl/reservations/booking-requests.js']);
+                                                'tpl/reservations/booking-requests.js',
+                                                'tpl/admin/mailtemplates.js']);
                                             }]
                                     }
                                 })

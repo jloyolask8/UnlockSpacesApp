@@ -3,6 +3,7 @@
 
 
 angular.module('app', [
+    //'pickadate',
     'datetimepicker',
     'ngAnimate',
     'ngCookies',
@@ -69,6 +70,10 @@ angular.module('app', [
         .factory('Amenities', function (unlockRestResource) {
             return unlockRestResource('amenity');
         })
+        
+        .factory('MailTemplate', function (unlockRestResource) {
+            return unlockRestResource('mailtemplate');
+        })
 
         .run(function ($rootScope, auth, store, jwtHelper, $location) {
             $rootScope.$on('$locationChangeStart', function () {
@@ -95,7 +100,7 @@ angular.module('app', [
 
             return {
                 request: function (config) {
-                    console.log('httpInterceptor request:' + config.url);
+                    //console.log('httpInterceptor request:' + config.url);
                     numLoadings++;
                     // Show loader
                     $rootScope.$broadcast("loader_show");
@@ -103,19 +108,19 @@ angular.module('app', [
 
                 },
                 response: function (response) {
-                    console.log('httpInterceptor response from:' + response.url);
+                    //console.log('httpInterceptor response from:' + response.url);
                     if ((--numLoadings) === 0) {
                         // Hide loader
                         $rootScope.$broadcast("loader_hide");
                     }else{
-                        console.log('loader_hide didnt go cause numLoadings:'+numLoadings);
+                        //console.log('loader_hide didnt go cause numLoadings:'+numLoadings);
                     }
 
                     return response || $q.when(response);
 
                 },
                 responseError: function (response) {
-                    console.log('httpInterceptor responseError:' + response);
+                    //console.log('httpInterceptor responseError:' + response);
                     if (!response.config.ignoreAuthModule) {
                         switch (response.status) {
                             case 0:

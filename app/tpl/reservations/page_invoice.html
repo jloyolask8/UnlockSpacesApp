@@ -3,9 +3,9 @@
         <a href class="btn btn-sm btn-info pull-right b-r" onClick="window.print();">Print</a>
         
          <a ng-show="isAproved()" href 
-           class="btn btn-sm btn-danger pull-right b-r" ng-click="approveBooking()">Cancel</a>&nbsp;
+           class="btn btn-sm btn-danger pull-right b-r" ng-click="cancelBooking()">Cancel</a>&nbsp;
         <a ng-show="isPending()" href 
-           class="btn btn-sm btn-danger pull-right b-r" ng-click="approveBooking()">Reject</a>&nbsp;
+           class="btn btn-sm btn-danger pull-right b-r" ng-click="rejectBooking()">Reject</a>&nbsp;
         <a ng-show="isPending()" href 
            class="btn btn-sm btn-success pull-right b-r" ng-click="approveBooking()">Accept</a>&nbsp;
 
@@ -38,9 +38,9 @@
                         <h4>{{selected.reservedBy.name+" "+selected.reservedBy.lastname}}</h4>
                         <p>
                             {{selected.space.type.name}}<br>
-                            2 Days<br>
-                            from {{selected.startDateTime | date : 'EEE. MMM dd, yyyy'}}
-                            to {{selected.endDateTime | date : 'EEE. MMM dd, yyyy'}}
+                            {{selected.duration+" "+selected.durationUnit}}<br>
+                            from {{selected.startDateTime | date : 'EEE. MMM dd, yyyy - HH:mm'}}
+                            to {{selected.endDateTime | date : 'EEE. MMM dd, yyyy - HH:mm'}}
                         </p>
                     </div>
 
@@ -64,20 +64,20 @@
                         <td>Free</td>
                     </tr>
                     <tr>
-                        <td>Total Price</td>
-                        <td>{{selected.id | currency : "$":0}}</td>
+                        <td>Space Price</td>
+                        <td>{{selected.paymentAmount | currency : "$":0}}</td>
                     </tr>
                     <tr>
                         <td  class="text-right"><strong>Subtotal</strong></td>
-                        <td>{{selected.id | currency : "$":0}}</td>
+                        <td>{{selected.paymentAmount | currency : "$":0}}</td>
                     </tr>
                     <tr>
                         <td class="text-right no-border"><strong>VAT Included in Total</strong></td>
-                        <td>{{selected.id | currency : "$":0}}</td>
+                        <td>{{selected.paymentVat | currency : "$":0}}</td>
                     </tr>
                     <tr>
                         <td class="text-right no-border"><strong>Total</strong></td>
-                        <td><strong>{{selected.id | currency : "$":0}}</strong></td>
+                        <td><strong>{{(selected.paymentAmount + selected.paymentVat) | currency : "$":0}}</strong></td>
                     </tr>
                 </tbody>
             </table>              

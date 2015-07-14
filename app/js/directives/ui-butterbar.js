@@ -18,12 +18,12 @@ angular.module('app')
                         });
                         //unlock spaces http interceptor events
                         scope.$on("loader_show", function () {
-                            console.log('loader_show');
+                            //console.log('loader_show');
                             $anchorScroll();
                             el.removeClass('hide').addClass('active');
                         });
                         return scope.$on("loader_hide", function (event) {
-                            console.log('loader_hide');
+                            //console.log('loader_hide');
                             event.targetScope.$watch('$viewContentLoaded', function () {
                                 el.addClass('hide').removeClass('active');
                             });

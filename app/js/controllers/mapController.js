@@ -31,29 +31,85 @@
             date: ''
         };
 
+        $scope.vm = {dateTimeStartTime: '',
+            dateTimeEndTime: ''};
+
+        $scope.dateOptions = {
+            locale: 'es',
+            daysOfWeekDisabled: [],
+            useCurrent: true,
+            minDate: new Date()
+        };
+
         $scope.today = function () {
             $scope.dt = new Date();
+            $scope.dt.setDate($scope.dt.getDate() + 1);
+            $scope.dt.setHours(9);
+            $scope.dt.setMinutes(0);
+            $scope.vm.dateTimeStartTime = $scope.dt.getDate() + '/' +
+                    ($scope.dt.getMonth() + 1) + '/' + $scope.dt.getFullYear() +
+                    ' ' + $scope.dt.getHours() + ':' + $scope.dt.getMinutes();
+            $scope.loaded = true;
         };
         $scope.today();
 
+        $scope.$watch('vm.dateTimeStartTime', function (newvar, oldvar) {
+            var datetime = newvar.split(' ');
+            var date = datetime[0].split('/');
+            var time = datetime[1].split(':');
+            var dateVar = new Date(date[1] + '/' + date[0] + '/' + date[2]);
+            dateVar.setHours(time[0]);
+            dateVar.setMinutes(time[1]);
+
+            //console.log("dateTimeStartTime oldvar:" + oldvar + " dateTimeStartTime newvar:" + dateVar.toString());
+            $scope.dt = dateVar;
+        }, true);
+
         $scope.evalShowVenue = function (venue, from) {
-//            var ret = false;
-//            if(venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]]){
-//                ret = true;
-//            }
-////            console.log(from+"-> "+venue.overview.title+" return: "+ret);
-            if (venue.hoursOfOperation) {
-                return (venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]]);
-            }else{
-                return true;
+            var ret = true;
+
+            if ((venue.spaces) && (venue.spaces.length > 0)){
+                if (venue.hoursOfOperation) {
+                    var infoDay = venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]];
+                    ret = (infoDay) && (infoDay.availabilityOption === 'true');
+                }
+                for (var i = 0; i < venue.spaces.length; i++) {
+                    if (!$scope.evalShowSpace(venue.spaces[i])) {
+                        ret = false;
+                        break;
+                    }
+                }
+                //console.log("evalShowVenue venue id:" + venue.overview.title + " from: " + from + " ret:" + ret);
+//                if (venue.overview.title === "minee") {
+//                    console.log("evalShowVenue venue id:" + venue.overview.title + " from: " + from + " ret:" + ret);
+//                }
+                return ret;
             }
+            return false;
+        };
+
+        $scope.evalShowSpace = function (space) {
+            var ret = true;
+            if (($scope.filterSpaceSearch.spaceType === null) || ($scope.filterSpaceSearch.spaceType === ''))
+                return true;
+            if (space.type) {
+                if ($scope.filterSpaceSearch.spaceType === 'Work')
+                {
+                    return ((space.type.id === '1') || (space.type.id === '2'));
+                } else {
+                    return (space.type.id === '3');
+                }
+            } else {
+                return false;
+            }
+            return ret;
         };
 
         Date.prototype.formatMMDDYYYY = function () {
             return (this.getMonth() + 1) +
                     "-" + this.getDate() +
                     "-" + this.getFullYear();
-        }
+        };
 
         $scope.datePickerOptions = {
             position: {left: "-120px"},
