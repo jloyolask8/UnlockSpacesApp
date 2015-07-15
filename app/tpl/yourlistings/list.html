@@ -6,11 +6,11 @@
     <div class="col col-lg-8">
         <div class="wrapper-md">
             <tabset class="tab-container">
-                <tab heading="Venue Manager">
+                <tab heading="Venue Manager" active="tabs[0].active">
                     <div data-ng-include="'tpl/venues/list.html'" ng-controller="VenuesListController">
                     </div>
                 </tab>
-                <tab heading="Booking Requests">
+                <tab heading="Booking Requests" active="tabs[1].active">
                     <div data-ng-include="'tpl/reservations/list.html'" ng-controller="BookingRequestsController">
                     </div>
                 </tab>

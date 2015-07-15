@@ -386,3 +386,24 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.drawer').drawer({
+                desktopEvent: 'click'
+            });
+            
+            var header = $(".menu-position");
+            $(window).scroll(function () {
+                var scroll = $(window).scrollTop();
+
+                if (scroll >= 10) {
+                    header.removeClass('ws-header-menu').addClass("ws-true-fixed");
+                } else {
+                    header.removeClass("ws-true-fixed").addClass('ws-header-menu');
+                }
+            });
+        });
+
+
+    </script>

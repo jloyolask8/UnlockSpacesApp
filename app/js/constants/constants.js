@@ -6,7 +6,7 @@
 (function () {
     var constantsModule = angular.module('constants', []);
     
-    var baseServerAddress = 'localhost';
+    var baseServerAddress = 'www.unlockspaces.com';
     var baseServerPort = '8090';
     var appContext = 'unlockServices';
     

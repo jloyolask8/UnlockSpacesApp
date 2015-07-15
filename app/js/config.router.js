@@ -41,7 +41,12 @@ angular.module('app')
                                     resolve: {
                                         deps: ['uiLoad',
                                             function (uiLoad) {
-                                                return uiLoad.load(['tpl/home/home-controller.js','tpl/home/infobox.js', 'tpl/home/home.js'
+                                                return uiLoad.load([
+                                                    'tpl/home/home-controller.js',
+                                                    'tpl/home/infobox.js',
+                                                    'tpl/home/home.js',
+//                                                    'tpl/home/menu-position.js',
+                                                    'tpl/home/menu.all.js'
                                                     ]);
                                             }]
                                     }
