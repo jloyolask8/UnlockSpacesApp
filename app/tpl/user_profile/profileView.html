@@ -1,0 +1,116 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+    <div class="col">
+        <div style="background:url(img/texture_default_blue.jpg) center center; background-size:cover">
+            <div class="wrapper-lg bg-white-opacity">
+                <div class="row m-t">
+                    <a href class="thumb-lg pull-left m-r">
+                        <img ng-src="{{user.picture}}" class="img-circle"/>
+                    </a>
+                    <div class="clear m-b">
+                        <div class="m-b m-t-sm">
+                            <span class="h3 text-black">{{user.name}} {{user.lastname}}</span><br/>
+                            <small class="m-l">{{user.email}}</small>
+                        </div>
+                        Verified by
+                        <!--identities-->
+                        <p class="m-b">
+                            <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon" ng-if="user.emailVerified === true">
+                                <i class="fa fa-envelope"></i></a>
+
+                            <a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon" 
+                               ng-repeat="ident in user.identities"
+                               ng-switch="ident.provider">
+                                <i class="fa fa-google-plus" ng-switch-when="google-oauth2"></i>
+                                <i class="fa fa-facebook" ng-switch-when="facebook"></i>
+                                <i class="fa fa-twitter" ng-switch-when="twitter"></i>
+                                <i class="fa fa-linkedin" ng-switch-when="linkedin"></i>
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <br/>
+        <div class="padder">
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading font-bold">
+                            User info
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">username</label>
+                                    <div class="col-sm-6">
+                                        {{user.username}}
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-6">
+                                        {{user.name}} {{user.lastname}}
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Email</label>
+                                    <div class="col-sm-6">
+                                        {{user.email}}
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Date of Join</label>
+                                    <div class="col-sm-6">
+                                        {{user.creationDate}}
+                                    </div>
+
+                                </div>
+
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <!--                                    <div class="panel panel-default">
+                                                <div class="panel-heading font-bold">
+                                                    User Json
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div class="form-horizontal">
+                                                        
+                                                         <pre><code>{{user | json}}</code></pre>
+                                
+                                                        <pre><code>{{user| json}}</code></pre>
+                                
+                                                    </div>
+                                                </div>
+                                            </div>-->
+
+
+    </div>
+
+</div>

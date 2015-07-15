@@ -67,128 +67,125 @@
 
                 <div class="col-lg-6">
 
-
-                    <!-- carousel -->
                     <div class="panel panel-default" set-ng-animate="false">
                         <div class="panel-heading">
                             <span class="h4">Details</span>
                         </div>
                         <div class="panel-body">
                             {{selectedVenue.overview.summary}}
-<!--                            <pre><code>{{selectedVenue.address| json}}</code></pre>
-                            <pre><code>{{markers| json}}</code></pre>-->
+                            <!--                            <pre><code>{{selectedVenue.address| json}}</code></pre>
+                                                        <pre><code>{{markers| json}}</code></pre>-->
                         </div>
                         <!--                        <div class="panel-footer">
                                                     <button type="button" class="btn btn-default m-r" ng-click="">button</button>
                                                 </div>-->
                     </div>
-                    <!-- / carousel -->
 
-                </div>
-                
-                <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <span class="h4">Location</span>
                         </div>
                         <div class="panel-body" ng-if="isSelectedNotNull()">
                             <img style="max-width: 100%; height: auto; width: auto\9;" src="{{'http://maps.googleapis.com/maps/api/staticmap?center=&zoom=14&scale=false&size=750x300&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7Clabel:1%7C'+selectedVenue.address.latitude+','+selectedVenue.address.longitude}}" alt="{{selectedVenue.overview.title}}">
-                            
+
                         </div>
                     </div>
                 </div>
 
-<!--                <div class="col-lg-6">
-
-
-                     carousel 
-                    <div class="panel b-a" set-ng-animate="false">
+                <div class="col-lg-6">
+                    
+                    
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            Venue Photos
+                            <span class="h4">Owner</span>
                         </div>
-
-                        <div class="panel-footer">
-                            <button type="button" class="btn btn-default m-r" ng-click="">button</button>
+                        <div class="panel-body" ng-if="isSelectedNotNull()">
+                            
+                            <a ui-sref="app.page.profileView({profileId:selectedVenue.createdBy.userId})">{{selectedVenue.createdBy.name}} ({{selectedVenue.createdBy.email}})</a>
+                            
+                            
                         </div>
                     </div>
-                     / carousel 
-
-                </div>-->
-
-                <div class="col-lg-6">
-
-
-                    <!-- carousel -->
-                    <div class="panel b-a" set-ng-animate="false">
+                    
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            Spaces
+                            <span class="h4">Spaces</span>
                         </div>
-
                         <div class="panel-body">
-                            <div class="card" ng-repeat="space in selectedVenue.spaces">
+                            <div class="card box-shadow" ng-repeat="space in selectedVenue.spaces">
                                 <div >
                                     <table style="width: 100%;">
                                         <tr>
-                                            <td style="width: 60%; padding: 10px;" ng-click="viewDetailOfSpace(space)">
-                                                <div class="ws-content-group">
-                                                    <h5 class="ws-item-title text-overflow-dot ng-binding" style="width: 200px;">
-                                                        {{space.overview.title}}
-                                                        <!-- end ngIf: item.workvenue.capacity -->
-                                                    </h5>
-                                                    <a ui-sref="app.pages.space({spaceId:space.id})">
-                                            <div class="row text-info">
-                                                <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
-                                                <span class="text-cap">&nbsp;{{space.overview.title}}</span>
-                                            </div>
-                                        </a>
-                                                    
-                                                    
-                                                    <!--                                                        <span class="text-smoky ng-binding ng-scope" >
-                                                                                                                <i class="fa fa-users" aria-hidden="true"></i> 1
-                                                                                                            </span>-->
-                                                    <small class="text-smoky"><em>at</em> <span class="text-cap">{{venue.overview.title}}</span></small>
-                                                </div>
-
-                                                <div class="ws-content-group">
-                                                    <div class="ws-item-emphasis flex-row flex-gutter-sm">
-                                                        <div class="flex-cell-auto flex-align--top">
-                                                            <i aria-hidden="true" class="icon icon-marker-thin-alt align-middle"></i>
+                                            <td style="width: 60%; padding: 10px;">
+                                                <div class="ws-content-group" >
+                                                    <div class="container-fluid" >
+                                                        <div class="row">
+                                                            <a ng-click="viewDetailOfSpace(space, selectedVenue);
+                                                                    resizeScrollPanel()">
+                                                                <!--<a ui-sref="app.ui.search({details:'true',venueid:venue.id,spaceid:space.id})">-->
+                                                                <h4 class="col font-bold">
+                                                                    {{space.overview.title}}&nbsp;&nbsp;
+                                                                </h4>
+                                                            </a>
+                                                            <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{space.capacity}}</small>
                                                         </div>
-                                                        <div class="flex-cell flex-align--top">
-                                                            <p>
-                                                                {{space.overview.summary}}
-                                                            </p>
-                                                            <p class="p-xs text-smoky text-overflow-dot ng-binding">
-                                                                Business Center
-                                                                <span ng-if="space.reviews == 1" class="ng-scope"> • 1 review</span><!-- end ngIf: item.venue.reviews == 1 -->
-                                                            </p>
+                                                        <a ui-sref="app.venues.preview({venueId:venue.id})">
+                                                            <div class="row text-info">
+                                                                <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
+                                                                <span class="text-cap">&nbsp;{{selectedVenue.overview.title}}</span>
+                                                            </div>
+                                                        </a>
+                                                        <!--                                                            <div class="row text-info">
+                                                                                                                        <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
+                                                                                                                        <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
+                                                                                                                    </div>-->
+                                                        <div class="row text-smoky">
+                                                            <span>
+                                                                &nbsp;&nbsp;{{space.venue.venueType}}
+                                                            </span>
+
+                                                            <span ng-if="space.reviews.length == 1" class="ng-scope"> • 1 review</span>
+                                                        </div>
+
+                                                        <div class="row">
+
+                                                            <span class="label bg-info">&nbsp;{{space.pricing.currency.currencyCode}}</span>
+                                                            <span class="label bg-light dk">{{space.pricing.perHour| currency:"$":0}}<small>hr</small></span>
+                                                            <span class="label bg-light dk">{{space.pricing.perDay| currency:"$":0}}<small>day</small></span>
+                                                            <span class="label bg-light dk">&nbsp;{{space.pricing.perMonth| currency:"$":0}}<small>mo</small></span>
+
+
                                                         </div>
                                                     </div>
                                                 </div>
+
+
                                             </td>
                                             <td>
-                                                <div style="width: 100%; height: 100%;" set-ng-animate="false">
-                                                    <carousel>
-                                                        <slide ng-repeat="slide in space.slides" active="slide.active">
-                                                            <cl-image public-id="{{slide.image}}" width="238" height="159" crop="fill">
-                                                            </cl-image>
-                                                        </slide>
-                                                    </carousel>
-                                                </div>
-                                            </td>
+
+                                        <cl-image ng-show="space.frontPhoto == null" public-id="hhvzs6odg4v9wmg0qfjr" width="238" height="159" crop="fill">
+                                        </cl-image>
+
+                                        <cl-image ng-hide="space.frontPhoto == null" public-id="{{space.frontPhoto}}" width="238" height="159" crop="fill">
+                                        </cl-image>
+
+
+                                        </td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="panel-footer">
-                            <button type="button" class="btn btn-default m-r" ng-click="">button</button>
-                        </div>
                     </div>
-                    <!-- / carousel -->
+
 
                 </div>
+
+
+
+
+
+
             </div>
         </div>
 
@@ -197,15 +194,15 @@
 
 
 
-<!--        <div class="padder">      
-
-            <div>
-                <br />
-                <div style="margin-top: 10px">venue json</div>
-                <pre><code>{{selectedVenue| json}}</code></pre>
-            </div>       
-
-        </div>-->
+                <div class="padder">      
+        
+                    <div>
+                        <br />
+                        <div style="margin-top: 10px">venue json</div>
+                        <pre><code>{{selectedVenue| json}}</code></pre>
+                    </div>       
+        
+                </div>
 
 
 

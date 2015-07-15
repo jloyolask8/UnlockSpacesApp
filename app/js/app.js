@@ -42,6 +42,10 @@ angular.module('app', [
         .factory('Venues', function (unlockRestResource) {
             return unlockRestResource('venues');
         })
+        
+        .factory('NotificationService', function (unlockRestResource) {
+            return unlockRestResource('notifications');
+        })
 
         .factory('Users', function (unlockRestResource) {
             return unlockRestResource('users');

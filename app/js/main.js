@@ -4,7 +4,8 @@
 
 angular.module('app')
 
-        .controller('AppCtrl', function MainController($scope, $state, $translate, $localStorage, $window, $location, auth, store, $route) {
+        .controller('AppCtrl', 
+             function MainController($scope, $state, $translate, $localStorage, $window, $location, auth, store, $route) {
 
             $scope.$route = $route;
             $scope.auth = auth;
@@ -15,14 +16,7 @@ angular.module('app')
                 return ($location.$$path === '/home');
             };
 
-            $scope.isUserAuthenticated = function () {
-
-                if (store.get('profile')) {
-                    return true;
-                } else {
-                    return false;
-                }
-            };
+           
 
             $scope.$watch('auth.profile', function (profile) {
                 if (!profile) {
