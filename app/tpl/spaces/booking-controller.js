@@ -186,6 +186,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
                     $scope.data = data;
                     $scope.status = status;
 
+$state.go("app.dashboard");
                     $scope.showResponseModal(data);
 
                 })

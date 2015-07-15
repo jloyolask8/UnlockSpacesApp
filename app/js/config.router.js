@@ -278,6 +278,19 @@ angular.module('app')
                                     },
                                     data: {requiresLogin: true}
                                 })
+                                
+                                .state('app.page.profileView', {
+                                    url: '/profile/{profileId}/view',
+                                    templateUrl: 'tpl/user_profile/profileView.html',
+                                    controller: 'ProfileViewController',
+                                    resolve: {
+                                        deps: ['uiLoad',
+                                            function (uiLoad) {
+                                                return uiLoad.load(['tpl/user_profile/profile.js']);
+                                            }]
+                                    },
+                                    data: {requiresLogin: true}
+                                })
 
                                 .state('access', {
                                     url: '/access',

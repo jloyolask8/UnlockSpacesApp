@@ -7,16 +7,16 @@ app.controller('ProfileViewController', ['auth', '$scope', '$http', '$state', '$
         $scope.message = 'hello from venues ProfileViewController';
         $log.log($scope.message);
 
-//        $scope.user = {};
-//
-//        Users.getById($stateParams.profileId).then(
-//                function (v) {
-//                    $scope.user = v;
-//                },
-//                function (err) {
-//                    alert('error:' + err);
-//                }
-//        );
+        $scope.user = {};
+
+        Users.getById($stateParams.profileId).then(
+                function (v) {
+                    $scope.user = v;
+                },
+                function (err) {
+                    alert('error:' + err);
+                }
+        );
 //        $scope.containsGoogleIdentity = function () {
 //            var found = false;
 //            for (var i = 0; i < auth.profile.identities.length; i++) {
