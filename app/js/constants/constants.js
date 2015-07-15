@@ -6,13 +6,13 @@
 (function () {
     var constantsModule = angular.module('constants', []);
     
-<<<<<<< HEAD
-    var baseServerAddress = 'www.unlockspaces.com';
-    var baseServerPort = '8090';
-=======
+
     var baseServerAddress = 'localhost';
-    var baseServerPort = '8080';
->>>>>>> jonathan_branch
+    var baseServerPort = '8090';
+
+//    var baseServerAddress = 'localhost';
+//    var baseServerPort = '8080';
+
     var appContext = 'unlockServices';
     
     constantsModule.constant('servicesUrls', {
