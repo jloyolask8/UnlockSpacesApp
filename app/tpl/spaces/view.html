@@ -8,7 +8,7 @@
                 </cl-image>
                 <!--                <div align="left" class="fb-image-profile thumbnail" set-ng-animate="false">
                                     <carousel>
-                                        <slide ng-repeat="slide in selectedVenue.slides" active="slide.active">
+                                        <slide ng-repeat="slide in selected.venue.slides" active="slide.active">
                                             <cl-image public-id="{{slide.image}}" width="238" height="159" crop="fill">
                                             </cl-image>
                                         </slide>
@@ -41,7 +41,7 @@
                             <div class="col-sm-5">
                                 <div class="pull-right pull-none-xs text-center">
                                     <!--                                    <a href class="m-b-md inline m">
-                                                                            <span class="h3 block font-bold">{{selectedVenue.spaces.length}}</span>
+                                                                            <span class="h3 block font-bold">{{selected.venue.spaces.length}}</span>
                                                                             <small>Venues</small>
                                                                         </a>-->
 
@@ -74,7 +74,7 @@
                         </div>
                         <div class="panel-body">
                             {{selected.venue.overview.summary}}
-                            <!--                            <pre><code>{{selectedVenue.address| json}}</code></pre>
+                            <!--                            <pre><code>{{selected.venue.address| json}}</code></pre>
                                                         <pre><code>{{markers| json}}</code></pre>-->
                         </div>
                         <!--                        <div class="panel-footer">
@@ -114,12 +114,8 @@
                             <span class="h4">Location</span>
                         </div>
                         <div class="panel-body">
-                            <static-gmap class="fb-profile"
-                                         size="640x200"
-                                         markers="markers"
-                                         sensor="false"
-                                         zoom="14" ng-cloak>
-                            </static-gmap>
+                           <img style="max-width: 100%; height: auto; width: auto\9;" src="{{'http://maps.googleapis.com/maps/api/staticmap?center=&zoom=14&scale=false&size=750x300&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:red%7Clabel:1%7C'+selected.venue.address.latitude+','+selected.venue.address.longitude}}" alt="{{selected.venue.overview.title}}">
+
                         </div>
                     </div>
                 </div>
@@ -160,7 +156,7 @@
                     <div>
                         <br />
                         <div style="margin-top: 10px">venue json</div>
-                        <pre><code>{{selectedVenue| json}}</code></pre>
+                        <pre><code>{{selected.venue| json}}</code></pre>
                     </div>       
         
                 </div>-->

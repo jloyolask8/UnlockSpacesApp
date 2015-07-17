@@ -15,7 +15,7 @@ app.controller('NotificationsCtl', function ($scope, $http, $state, $log, $state
             NotificationService.query().then(function (notifications) {
                 $scope.notifications = notifications;
                 console.log('done loading notifications');
-                console.log(notifications);
+                console.log($scope.notifications);
             }, function (errResponse) {
                 if (errResponse.status === 0) {
                     alert("Connection Lost!");

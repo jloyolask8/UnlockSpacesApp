@@ -42,9 +42,14 @@
                                                             <div class="row">
                                                                 <!--<a ng-click="viewDetailOfSpace(space, venue); resizeScrollPanel()">-->
                                                                 <!--<a ui-sref="app.ui.search({details:'true',venueid:venue.id,spaceid:space.id})">-->
+                                                                 <a ui-sref="app.pages.space({spaceId:reservation.space.id})">
+                                                                <!--<a ui-sref="app.ui.search({details:'true',venueid:venue.id,spaceid:space.id})">-->
                                                                 <h4 class="col font-bold">
                                                                     {{reservation.space.overview.title}}&nbsp;&nbsp;<small class="pull-right">{{reservation.space.venue.address.line1}}</small>
                                                                 </h4>
+                                                            </a>
+                                                                
+                                                                
                                                                 <!--</a>-->
                                                                 <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{reservation.space.capacity}}</small>
 

@@ -53,23 +53,24 @@
           <li class="hidden-xs">
             <a ui-fullscreen></a>
           </li>
-          <li class="dropdown" dropdown ng-if="auth.isAuthenticated">
+          <li class="dropdown" dropdown ng-if="auth.isAuthenticated" ng-controller="NotificationsCtl">
               
-              <a href class="dropdown-toggle" dropdown-toggle title="{{auth.profile}}">
+              <a href class="dropdown-toggle" dropdown-toggle>
               <i class="icon-bell fa-fw"></i>
               <span class="visible-xs-inline">Notifications</span>
-              <span ng-show="notificationsCtl.notifications.length" class="badge badge-sm up bg-danger pull-right-xs">{{notificationsCtl.notifications.length}}</span>
+              <span ng-show="notifications.length" 
+                    class="badge badge-sm up bg-danger pull-right-xs">{{notifications.length}}</span>
             </a>
             <!-- dropdown -->
-            <div class="dropdown-menu w-xl animated fadeInUp" ng-controller="NotificationsCtl as notificationsCtl">
-              <div class="panel bg-white">
+            <div class="dropdown-menu w-xl animated fadeInUp"  >
+              <div class="panel bg-white" ui-jq="slimScroll" ui-options="{height:'250px', size:'8px'}">
                 <div class="panel-heading b-light bg-light">
-                  <strong ng-show="notificationsCtl.notifications.length">You have <span>{{notificationsCtl.notifications.length}}</span> notifications</strong>
-                  <strong  ng-hide="notificationsCtl.notifications.length">You have cero notifications</strong>
+                  <strong ng-show="notifications.length">You have <span>{{notifications.length}}</span> notifications</strong>
+                  <strong  ng-hide="notifications.length">You have cero notifications</strong>
                   
                 </div>
                 <div class="list-group">
-                    <a href class="media list-group-item" ng-repeat="notification in notificationsCtl.notifications track by $index">
+                    <a href class="media list-group-item" ng-repeat="notification in notifications track by $index">
                     <span class="pull-left thumb-sm">
                       <img src="img/a0.jpg" alt="..." class="img-circle">
                     </span>
@@ -80,7 +81,7 @@
                   </a>
                   
                 </div>
-                <div class="panel-footer text-sm" ng-show="notificationsCtl.notifications.length">
+                <div class="panel-footer text-sm" ng-show="notifications.length">
                   <a href class="pull-right"><i class="fa fa-cog"></i></a>
                   <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
                 </div>
