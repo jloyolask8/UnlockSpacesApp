@@ -120,16 +120,15 @@
                                                 <div class="ws-content-group" >
                                                     <div class="container-fluid" >
                                                         <div class="row">
-                                                            <a ng-click="viewDetailOfSpace(space, selectedVenue);
-                                                                    resizeScrollPanel()">
+                                                            <a ui-sref="app.pages.space({spaceId:space.id})">
                                                                 <!--<a ui-sref="app.ui.search({details:'true',venueid:venue.id,spaceid:space.id})">-->
                                                                 <h4 class="col font-bold">
-                                                                    {{space.overview.title}}&nbsp;&nbsp;
+                                                                    {{space.overview.title}}
                                                                 </h4>
                                                             </a>
                                                             <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{space.capacity}}</small>
                                                         </div>
-                                                        <a ui-sref="app.venues.preview({venueId:venue.id})">
+                                                        <a ui-sref="app.venues.preview({venueId:selectedVenue.id})">
                                                             <div class="row text-info">
                                                                 <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
                                                                 <span class="text-cap">&nbsp;{{selectedVenue.overview.title}}</span>
