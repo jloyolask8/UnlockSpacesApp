@@ -101,7 +101,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
                             }
                         }
                         $scope.calculateStartTime($scope.newReservationObj);
-                        $scope.loaded = true;
+
                         //$scope.$apply();
 
                         $scope.disabled.method = function (date, mode) {
@@ -115,6 +115,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
                             }
                             return true;
                         };
+                        $scope.loaded = true;
                     },
                     function (err) {
                         alert('error:' + err);
@@ -155,12 +156,6 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
 
     $scope.days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
-
-    //$scope.initDate = $scope.newReservationObj.startDateTime;
-    //$scope.mytime = new Date();
-
-
-
     $scope.hstep = 1;
     $scope.mstep = 30;
 
@@ -184,10 +179,12 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
 
     $scope.$watch('durationObj', function (newvar, oldvar) {
         console.log("durationObj oldvar:" + oldvar + " newvar:" + newvar);
-        calculatePrice();
-        calculateEndTime();
-        $scope.newReservationObj.duration = parseInt($scope.durationObj.duration) || 0;
-        $scope.newReservationObj.durationUnit = $scope.durationObj.durationUnit;
+        if ($scope.loaded) {
+            calculatePrice();
+            calculateEndTime();
+            $scope.newReservationObj.duration = parseInt($scope.durationObj.duration) || 0;
+            $scope.newReservationObj.durationUnit = $scope.durationObj.durationUnit;
+        }
     }, true);
 
     var calculatePrice = function () {
@@ -213,16 +210,18 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
     }, true);
 
     $scope.$watch('vm.dateTimeStartTime', function (newvar, oldvar) {
-        var datetime = newvar.split(' ');
-        var date = datetime[0].split('/');
-        var time = datetime[1].split(':');
-        var dateVar = new Date(date[1] + '/' + date[0] + '/' + date[2]);
-        dateVar.setHours(time[0]);
-        dateVar.setMinutes(time[1]);
+        if ($scope.loaded) {
+            var datetime = newvar.split(' ');
+            var date = datetime[0].split('/');
+            var time = datetime[1].split(':');
+            var dateVar = new Date(date[1] + '/' + date[0] + '/' + date[2]);
+            dateVar.setHours(time[0]);
+            dateVar.setMinutes(time[1]);
 
-        console.log("dateTimeStartTime oldvar:" + oldvar + " dateTimeStartTime newvar:" + dateVar.toString());
-        $scope.newReservationObj.startDateTime = dateVar;
-        calculateEndTime();
+            console.log("dateTimeStartTime oldvar:" + oldvar + " dateTimeStartTime newvar:" + dateVar.toString());
+            $scope.newReservationObj.startDateTime = dateVar;
+            calculateEndTime();
+        }
     }, true);
 
     $scope.clear = function () {
@@ -264,9 +263,9 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
     console.log('hello from BookingController');
 
     var calculateEndTime = function () {
-        
+
         var duration = parseInt($scope.durationObj.duration) || 0;
-        
+
         $scope.newReservationObj.endDateTime = new Date($scope.newReservationObj.startDateTime);
         var adjustEndHour = false;
         if ($scope.durationObj.durationUnit === 'Hours') {
@@ -303,8 +302,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
                 ($scope.newReservationObj.endDateTime.getMonth() + 1) + '/' + $scope.newReservationObj.endDateTime.getFullYear() +
                 ' ' + $scope.newReservationObj.endDateTime.getHours() + ':' + $scope.newReservationObj.endDateTime.getMinutes();
         console.info("endTime: " + $scope.newReservationObj.endDateTime.toString());
-
-    }
+    };
 
     function createReservation() {
 
@@ -325,7 +323,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
                     $scope.data = data;
                     $scope.status = status;
 
-$state.go("app.dashboard");
+                    $state.go("app.dashboard");
                     $scope.showResponseModal(data);
 
                 })

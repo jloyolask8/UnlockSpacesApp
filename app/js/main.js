@@ -12,7 +12,7 @@ angular.module('app')
             
             $scope.areInHome = function(){
                 //alert($route.current);
-                //console.log("location: "+$location.$$path);
+                //console.log("areInHome return: "+($location.$$path === '/home')+" location: "+$location.$$path);
                 return ($location.$$path === '/home');
             };
 

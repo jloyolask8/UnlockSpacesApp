@@ -181,6 +181,11 @@ angular.module('app')
                                     url: '/search/:venuesSearchText/:lat/:lon/:details/:venueid/:spaceid',
                                     templateUrl: 'tpl/search/search.html',
                                 })
+                                
+                                .state('app.ui.simplesearch', {
+                                    url: '/search',
+                                    templateUrl: 'tpl/search/search.html',
+                                })
 
                                 // mail
                                 .state('app.mail', {
