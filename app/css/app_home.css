@@ -1998,6 +1998,9 @@ a.card, div.card {
     cursor: pointer;
     text-decoration: none;
 }
+.no-touch div.card:hover h4 {
+    color: #00A550;
+}
 .figure {
     background-color: #000;
     width: 100%;
@@ -3392,12 +3395,16 @@ h1.pageTitle {
 .nav-tabs > li {
     text-align: center;
     margin-bottom: 0;
+    padding: 0px 10px;
 }
 .tabsWidget .nav-tabs > li {
     width: 50%;
 }
 .nav-tabs > li.active {
-    background-color: #fff;
+    background-color: #FFF;
+    border-color: #E8E8E8;
+    border-width: 1px 1px 0px;
+    border-style: solid;
 }
 .nav-tabs > li > a {
     margin-right: 2px;
@@ -3408,13 +3415,13 @@ h1.pageTitle {
     font-size: 12px;
     padding: 15px 0;
     background-color: #e8e8e8;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 1px solid #E8E8E8;
 }
 .no-touch .nav-tabs > li > a:hover {
     border-color: transparent;
     background-color: transparent;
     color: #333;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 1px solid #E8E8E8;
 }
 .nav-tabs > li.active > a,
 .no-touch .nav-tabs > li.active > a:hover,

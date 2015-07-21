@@ -1,5 +1,5 @@
-<div class="bg-light lter b-b wrapper-md">
-    <h3 class="m-n font-thin h4">Add/Edit venues </h3>
+<div class="bg-light lter b wrapper">
+    <h3 class="m-n font-thin h4">Add/Edit venues</h3>
 </div>
 
 <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="">
@@ -7,7 +7,7 @@
         <div class="wrapper-md">
 
             <div class="row">
-                <div class="col-md-4 col-lg-3" ng-repeat="venue in data track by $index" >
+                <div class="col-md-6" ng-repeat="venue in data track by $index" >
                     <div class="panel b-a">
                         <div class="panel-heading no-border bg-dark">          
                             <span class="text-lt">{{venue.overview.title}}</span>
@@ -37,8 +37,8 @@
                                 <span>Remove</span>
                             </a>
                             <a ui-sref="app.venues.preview({venueId:venue.id})"
-                               class="col padder-v text-muted">
-                                <i class="fa fa-edit block m-b-xs fa-2x"></i>
+                               class="col padder-v text-muted b-r b-light">
+                                <i class="fa fa-eye block m-b-xs fa-2x"></i>
                                 <span>Preview</span>
                             </a>
                             <a ui-sref="app.venues.edit({venueId:venue.id})"
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-lg-3">
+                <div class="col-md-6">
                     <a ui-sref="app.venues.create" href="#/app/venues/create" class="flex-align--middle">
 
                         <div class="b-a b-2x b-dashed wrapper-lg bg-white text-center m-b">

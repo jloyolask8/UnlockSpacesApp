@@ -18,15 +18,15 @@
       <!-- / navbar header -->
 
       <!-- navbar collapse -->
-      <div class="collapse pos-rlt navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
+      <div class="collapse pos-rlt navbar-collapse box-shadow-app {{app.settings.navbarCollapseColor}}">
         <!-- buttons -->
         <div class="nav navbar-nav hidden-xs">
-          <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
-            <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
+          <a href class="btn-open-new btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+            <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-bars"></i>
           </a>
-          <a href class="btn no-shadow navbar-btn" ui-toggle-class="show" target="#aside-user" ng-if="auth.isAuthenticated">
+          <!-- <a href class="btn no-shadow navbar-btn" ui-toggle-class="show" target="#aside-user" ng-if="auth.isAuthenticated">
             <i class="icon-user fa-fw"></i>
-          </a>
+          </a> -->
         </div>
         <!-- / buttons -->
 
@@ -43,7 +43,7 @@
               {{selectLang}} <b class="caret"></b>
             </a>
             <!-- dropdown -->
-            <ul class="dropdown-menu animated fadeInRight w">
+            <ul class="dropdown-menu animated fadeInUp w">
               <li ng-repeat="(langKey, label) in langs">
                 <a ng-click="setLang(langKey, $event)" href>{{label}}</a>
               </li>
@@ -98,7 +98,7 @@
               <span class="hidden-sm">{{auth.profile.nickname}}</span> <b class="caret"></b>
             </a>
             <!-- dropdown -->
-            <ul class="dropdown-menu animated fadeInRight w">
+            <ul class="dropdown-menu animated fadeInUp w">
               
               <li>
                 <a ui-sref="app.page.profile({profileId:auth.profile.user_id})">Profile</a>

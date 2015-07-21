@@ -13,7 +13,7 @@
 }
 
 .filter-results-container{
-    background: rgba(255, 255, 255, 1); height: 100px; padding-top: 30px !important;
+    background: rgba(255, 255, 255, 1); height: 100px; padding-top: 34px !important;
 }
 
 /* fix for Twitter Bootstrap handling of responsive images */
@@ -166,20 +166,21 @@ img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
 }
 
 #pac-input {
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 20px;
-    border: 3px solid #fff;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    //background-color: #fff;
-    //font-weight: bold;
-    //color: #FFF;
+    background: #fff;
+    border-radius: 0px;
+    border: none;
     font-family: Roboto;
     font-size: 15px;
     font-weight: 400;
     margin-left: 12px;
-    padding: 0 11px 0 13px;
+    padding: 17px 15px 15px;
     text-overflow: ellipsis;
     width: 60%;
+    box-shadow: none;
+    border: solid 1px #E8E8E8;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
 }
 
 #pac-input:focus {

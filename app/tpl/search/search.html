@@ -5,7 +5,7 @@
 
 <div id="main-mapsearch-container" class="fullheight-map" ng-cloak>
     <div ng-controller="MapController as mapCtrl" class="hbox hbox-auto-xs hbox-auto-sm fill-height">
-        <input id="pac-input" class="controls" type="text" placeholder="Enter location" ng-cloak>
+        <input id="pac-input" class="controls" type="text" placeholder="Busca y encuetra tu espacio..." ng-cloak>
 
 
         <div id="opciones" class="controls map-opciones" ng-cloak>
@@ -87,12 +87,11 @@
                                                                         {{space.overview.title}}&nbsp;&nbsp;
                                                                     </h4>
                                                                 </a>
-                                                                <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{space.capacity}}</small>
+                                                                <small class="text-smoky col v-middle"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;Capacity:&nbsp;{{space.capacity}}&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;Reviews:&nbsp;<span ng-if="space.reviews.length == 0" class="ng-scope">0</span></small>
                                                             </div>
                                                             <a ui-sref="app.venues.preview({venueId:venue.id})">
                                                                 <div class="row text-info">
-                                                                    <span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>
-                                                                    <span class="text-cap">&nbsp;{{venue.overview.title}}</span>
+                                                                    <small class="text-cap"><span class="glyphicon glyphicon-map-marker left" aria-hidden="true"></span>&nbsp;{{venue.overview.title}}</small>
                                                                 </div>
                                                             </a>
                                                             <!--                                                            <div class="row text-info">
@@ -109,12 +108,11 @@
 
                                                             <div class="row">
 
-                                                                <span class="label bg-info">&nbsp;{{space.pricing.currency.currencyCode}}</span>
-                                                                <span class="label bg-light dk">{{space.pricing.perHour| currency:"$":0}}<small>hr</small></span>
-                                                                <span class="label bg-light dk">{{space.pricing.perDay| currency:"$":0}}<small>day</small></span>
-                                                                <span class="label bg-light dk">&nbsp;{{space.pricing.perMonth| currency:"$":0}}<small>mo</small></span>
-
-
+                                                                <span class="label-nw-ppt label bg-info">&nbsp;{{space.pricing.currency.currencyCode}}</span>
+                                                                <span class="label-nw-ppt label bg-light dk">{{space.pricing.perHour| currency:"$":0}}<small>hr</small></span>
+                                                                <span class="label-nw-ppt label bg-light dk">{{space.pricing.perDay| currency:"$":0}}<small>day</small></span>
+                                                                <span class="label-nw-ppt label bg-light dk">&nbsp;{{space.pricing.perMonth| currency:"$":0}}<small>mo</small></span>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -162,14 +160,13 @@
                                 <div class="cell">
                                     <div class="cell-inner">
                                         <div class="wrapper-md">
+                                            <carousel>
+                                                <slide ng-repeat="slide in spaceSelected.slides" active="slide.active">
+                                                    <cl-image public-id="{{slide.image}}" width="513" height="300" crop="fill" class="img-full">
+                                                    </cl-image>
+                                                </slide>
+                                            </carousel>  
 
-                                           
-                                                    <carousel>
-                                                        <slide ng-repeat="slide in spaceSelected.slides" active="slide.active">
-                                                            <cl-image public-id="{{slide.image}}" width="513" height="300" crop="fill" class="img-full">
-                                                            </cl-image>
-                                                        </slide>
-                                                    </carousel>
                                                     <div class="container-fluid" >
                                                         <div class="row">
                                                             <h4 class="col font-bold">
