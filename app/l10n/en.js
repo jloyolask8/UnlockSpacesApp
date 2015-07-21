@@ -23,9 +23,11 @@
 "aside" : {
   "nav" : {
     "HOWITWORKS": "How It works",
-    "LOGINMSG": "Log in/Sign up",
+    "LOGINMSG": "Log in",
+    "SIGNUPMSG": "Sign up",
     "SEARCH" : "Search for a space",
     "EDITSPACES" : "Your Listings",
+    "PUBLISH" : "List your space",
     "HEADER" : "Navigation",
     "DASHBOARD" : "Dashboard",
     "TODO": "My TODOs",

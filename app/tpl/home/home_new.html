@@ -27,9 +27,21 @@
         </div>
         <div class="logotype-ppt"></div>
         <div class="header-menu-content-link">
-            <div class="btn-white-ppt btn-login-menu"><a href="#"><span class="icon-mr8 fa fa-user"></span>Iniciar Sesi&oacute;n</a></div>
-            <div class="btn-white-ppt btn-border-radius"><a href="#">Registrarse</a></div>
-            <div class="btn-white-ppt btn-border-radius"><a href="#">Publica tu Espacio</a></div>
+            
+            <div class="btn-white-ppt btn-login-menu" ng-if="!auth.isAuthenticated">
+                <a ui-sref="access.signin">
+                    <span class="icon-mr8 fa fa-user"></span>
+                    <span translate="aside.nav.LOGINMSG"/>
+                </a>
+            </div>
+            <div class="btn-white-ppt btn-border-radius" ng-if="!auth.isAuthenticated">
+                <a ui-sref="access.signin"><span translate="aside.nav.SIGNUPMSG"></span></a>
+            </div>
+            <div class="btn-white-ppt btn-border-radius">
+                <a ui-sref="app.venues.create">
+                    <span translate="aside.nav.PUBLISH"></span>
+                </a>
+            </div>
         </div>
     </nav>
 
@@ -38,10 +50,30 @@
         <nav class="drawer-nav" role="navigation">
             <div class="drawer-brand"></div>
             <ul id="drawer-nav-ul" class="nav drawer-nav-list">
-                <li><a href="#"><span class="icon-mr8 icon-fs18 icon-user"></span>Iniciar Sesión</a></li>
-                <li><a href="#"><span class="icon-mr8 icon-fs18 icon-arrow-right"></span>Registrate</a></li>
-                <li><a href="#"><span class="icon-mr8 icon-fs18 icon-magnifier"></span>Buscar un Espacio</a></li>
-                <li><a href="#"><span class="icon-mr8 icon-fs18 icon-pointer"></span>Publica un Espacio</a></li>
+                <li ng-if="!auth.isAuthenticated">
+                    <a ui-sref="access.signin">
+                        <span class="icon-mr8 icon-fs18 icon-user"></span>
+                        <span translate="aside.nav.LOGINMSG"></span>
+                    </a>
+                </li>
+                <li ng-if="!auth.isAuthenticated">
+                    <a ui-sref="access.signin">
+                        <span class="icon-mr8 icon-fs18 icon-arrow-right"></span>
+                        <span translate="aside.nav.SIGNUPMSG"></span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.ui.search">
+                        <span class="icon-mr8 icon-fs18 icon-magnifier"></span>
+                        <span translate="aside.nav.SEARCH"></span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="app.venues.create">
+                        <span class="icon-mr8 icon-fs18 icon-pointer"></span>
+                        <span translate="aside.nav.PUBLISH"></span>
+                    </a>
+                </li>
                 <li><a href="#"><span class="icon-mr8 icon-fs18 icon-book-open"></span>Acerca de Nosotros</a></li>
             </ul>
         </nav>
@@ -53,10 +85,11 @@
             <div class="form-middle-content">
                 <h1 class="tl-h1">Ecuentra tu espacio ideal</h1>
                 <h2 class="tl-h2">Unlock Spaces te permite buscar & reservar cientos de espacios</h2>
-                <form class="form-middle-ppt" role="form">
+                <div class="form-middle-ppt" >
                     <input id="city" type="text" ng-model="venuesSearchInputText" class="btn-pri-search" placeholder="Busca y encuentra tu espacio" options="autocompleteAddressOptions" details="addressDetails" ng-autocomplete/>
-                    <button class="btn-pri-search-click" ui-sref="app.ui.search({venuesSearchText:addressDetails.result.formatted_address, lat:addressDetails.result.geometry.location.lat(), lon:addressDetails.result.geometry.location.lng()})"><span class="fa fa-chevron-right"></span></button>
-                </form>
+                    <button id="searchButton" class="btn-pri-search-click"
+                            ui-sref="app.ui.search({venuesSearchText:addressDetails.result.formatted_address, lat:addressDetails.result.geometry.location.lat(), lon:addressDetails.result.geometry.location.lng()})"><span class="fa fa-chevron-right"></span></button>
+                </div>
             </div>
             <div class="header-banner-line-bottom"></div>
         </div>

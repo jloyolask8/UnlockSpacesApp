@@ -9,8 +9,8 @@ app.controller('YourListingsController', ['$scope', '$http', '$state', '$log', '
         $log.log($scope.messageVenue);
         
         $scope.tabs = [
-            {title: 'Dynamic Title 1', content: 'Dynamic content 1', active: false},
-            {title: 'Dynamic Title 2', content: 'Dynamic content 2', active: true}
+            {title: 'Dynamic Title 1', content: 'Dynamic content 1', active: true},
+            {title: 'Dynamic Title 2', content: 'Dynamic content 2', active: false}
         ];
         
     }]);

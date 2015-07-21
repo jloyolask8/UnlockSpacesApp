@@ -61,10 +61,10 @@
 
                                 <div class="input-group col-md-7 col-lg-3" style="padding-left: 0px !important;padding-right: 5px !important;">
                                     <input ng-if="loaded" type="text" class="form-control"
-                                                   datetimepicker
+                                           datetimepicker
                                                    datetimepicker-options="{{ dateOptions }}"
-                                                   name="time" attrbind="dateTimeStartTime"
-                                                   ng-model="vm.dateTimeStartTime" ng-cloak="true"/>
+                                           name="time" attrbind="dateTimeStartTime"
+                                           ng-model="vm.dateTimeStartTime" ng-cloak="true"/>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                                                     <cl-image public-id="{{slide.image}}" width="513" height="300" crop="fill" class="img-full">
                                                     </cl-image>
                                                 </slide>
-                                            </carousel>  
+                                            </carousel>
 
                                                     <div class="container-fluid" >
                                                         <div class="row">
@@ -184,36 +184,36 @@
                                                             </small>
                                                         </div>
                                                         &nbsp;
-                                                        <div class="row">
-                                                            <div class="bg-light text-info col-lg-12 text-left h4">
-                                                                <br/>
-                                                                <a ui-sref="app.venues.preview({venueId:venueSelected.id})"
-                                                                   <span>{{venueSelected.overview.title}}</span>
-                                                                </a>
-                                                                <!--<span>{{venueSelected.overview.title}}</span>-->
-                                                                <br/>
-                                                                &nbsp;
-                                                            </div>
-                                                        </div>
-                                                        <div class="row container-fluid">
-                                                            <span >{{venueSelected.overview.summary}}</span>
-                                                        </div>
+                                                <div class="row">
+                                                    <div class="bg-light text-info col-lg-12 text-left h4">
+                                                        <br/>
+                                                        <a ui-sref="app.venues.preview({venueId:venueSelected.id})"
+                                                           <span>{{venueSelected.overview.title}}</span>
+                                                        </a>
+                                                        <!--<span>{{venueSelected.overview.title}}</span>-->
+                                                        <br/>
                                                         &nbsp;
-                                                        <div class="row">
-                                                            <div class="bg-light col-lg-12 text-left h4">
-                                                                <br/>
-                                                                <span>Princing options</span>
-                                                                <br/>
-                                                                &nbsp;
-                                                            </div>
-                                                        </div>
-
-
-
-                                                        <pre>{{dt| json}}</pre>
-
                                                     </div>
-                                               
+                                                </div>
+                                                <div class="row container-fluid">
+                                                    <span >{{venueSelected.overview.summary}}</span>
+                                                </div>
+                                                &nbsp;
+                                                <div class="row">
+                                                    <div class="bg-light col-lg-12 text-left h4">
+                                                        <br/>
+                                                        <span>Princing options</span>
+                                                        <br/>
+                                                        &nbsp;
+                                                    </div>
+                                                </div>
+
+
+
+                                                <pre>{{dt| json}}</pre>
+
+                                            </div>
+
 
                                         </div>
                                     </div>

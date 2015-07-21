@@ -139,15 +139,17 @@
         },
         resize: function (value) {
             var $this = $(this);
-            if ($this.data(namespace).options) {
-                options = $this.data(namespace).options;
-                var windowHeight = $(window).height();
-                var $overlay = $('.' + options.overlay);
-                methods.close.call(this, options);
-                $overlay.css({
-                    'min-height': windowHeight,
-                });
-                console.log(value);
+            if ($this.data(namespace)) {
+                if ($this.data(namespace).options) {
+                    options = $this.data(namespace).options;
+                    var windowHeight = $(window).height();
+                    var $overlay = $('.' + options.overlay);
+                    methods.close.call(this, options);
+                    $overlay.css({
+                        'min-height': windowHeight,
+                    });
+                    console.log(value);
+                }
             }
         },
         toggle: function (init, options) {

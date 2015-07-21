@@ -23,9 +23,11 @@
 "aside" : {
   "nav" : {
       "HOWITWORKS": "Como funciona",
-      "LOGINMSG": "Log in/Sign up",
+      "LOGINMSG": "Iniciar Sesión",
+      "SIGNUPMSG": "Registrate",
       "SEARCH" : "Buscar espacios",
       "EDITSPACES" : "Mis espacios",
+      "PUBLISH" : "Publica tu espacio",
     "HEADER" : "Navigation",
     "DASHBOARD" : "Dashboard",
     "TODO": "Tareas por hacer",
