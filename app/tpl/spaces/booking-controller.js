@@ -61,7 +61,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
     this.loadParams = function () {
         $scope.newReservationObj = {};
         if ($stateParams.dateSelected) {
-            $scope.newReservationObj.startDateTime = new Date($stateParams.dateSelected);
+            $scope.newReservationObj.startDateTime = new Date($stateParams.dateSelected.replace(/-/g, "/"));
         } else {
             $scope.newReservationObj.startDateTime = new Date();
         }
@@ -290,6 +290,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
         }
         //Ajusta la hora de termino
         if (adjustEndHour) {
+            if ($scope.newReservationObj.space.venue.hoursOfOperation) {
             var infoDay = $scope.newReservationObj.space.venue.hoursOfOperation[$scope.days[$scope.newReservationObj.endDateTime.getDay()]];
             console.info("infoDay: " + infoDay);
             var startTimeParts = infoDay.endTime.split(':');
@@ -297,6 +298,7 @@ app.controller('BookingController', function (servicesUrls, $http, $modal, $scop
             var hour = parseInt(startTimeParts[0]) + ((ampm[1] === "PM") ? 12 : 0);
             $scope.newReservationObj.endDateTime.setHours(hour);
             $scope.newReservationObj.endDateTime.setMinutes(parseInt(ampm[0]));
+        }
         }
         $scope.vm.dateTimeEndTime = $scope.newReservationObj.endDateTime.getDate() + '/' +
                 ($scope.newReservationObj.endDateTime.getMonth() + 1) + '/' + $scope.newReservationObj.endDateTime.getFullYear() +

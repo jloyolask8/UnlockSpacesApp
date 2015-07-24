@@ -308,18 +308,20 @@
                 $scope.lastRadioUsed = calcRadio(map);
                 $scope.lastCenterUsed = map.getCenter();
             }
-            venuesList = venuesService.geoSearchAvailable($scope.lastCenterUsed.lat(), $scope.lastCenterUsed.lng(), $scope.lastRadioUsed, dateFormat($scope.dt), dateFormat($scope.vm.dateTimeEndTime));
+            if ($scope.lastCenterUsed) {
+                venuesList = venuesService.geoSearchAvailable($scope.lastCenterUsed.lat(), $scope.lastCenterUsed.lng(), $scope.lastRadioUsed, dateFormat($scope.dt), dateFormat($scope.vm.dateTimeEndTime));
 //            venuesList = venuesService.geoSearch(center.lat(), center.lng(), radio);
-            venuesList.$promise.then(function () {
-                refreshMapMarkers();
-                if (venuesList.length === 0) {
-                    findFormattedAddress($scope.lastCenterUsed);
-                }
+                venuesList.$promise.then(function () {
+                    refreshMapMarkers();
+                    if (venuesList.length === 0) {
+                        findFormattedAddress($scope.lastCenterUsed);
+                    }
 //                $log.info("markers length:" + $scope.markers.length);
-                if (firstTime) {
-                    firstTime = false;
-                }
-            });
+                    if (firstTime) {
+                        firstTime = false;
+                    }
+                });
+            }
         };
 
         var findFormattedAddress = function (center) {
@@ -529,6 +531,14 @@
     });
     //Controller para manejar el template de la ventanita que se muestra en un marker del mapa.
     mapControllers.controller("winTemplateCtrl", ["$scope", function ($scope) {
+            $scope.viewDetailOfSpace = function (space, venue) {
+                var scope = angular.element(document.getElementById("divMapContainter")).scope();
+                scope.viewDetailOfSpace(space, venue);
+//                scope.$apply(function () {
+//                    
+//                });
+            };
+
         }]);
 
     mapControllers.directive('ngAutocomplete', function (uiGmapGoogleMapApi) {

@@ -9,8 +9,8 @@
                                 <div class="ws-content-group" >
                                     <div class="container-fluid" >
                                         <div class="row">
-                                            <!--<a ng-click="viewDetailOfSpace(space, venue); resizeScrollPanel()">-->
-                                            <a ui-sref="app.ui.search({details:'true',lat:parameter.venue.address.latitude,lon:parameter.venue.address.longitude,venueid:parameter.venue.id,spaceid:space.id})">
+                                            <a ng-click="viewDetailOfSpace(space, parameter.venue); resizeScrollPanel()">
+                                            <!--<a ui-sref="app.ui.search({details:'true',lat:parameter.venue.address.latitude,lon:parameter.venue.address.longitude,venueid:parameter.venue.id,spaceid:space.id})">-->
                                                 <h4 class="col font-bold">
                                                     {{space.overview.title}}&nbsp;&nbsp;
                                                 </h4>

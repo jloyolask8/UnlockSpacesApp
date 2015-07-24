@@ -4,7 +4,7 @@
 <!--<div class="wrapper-md">-->
 
 <div id="main-mapsearch-container" class="fullheight-map" ng-cloak>
-    <div ng-controller="MapController as mapCtrl" class="hbox hbox-auto-xs hbox-auto-sm fill-height">
+    <div id="divMapContainter" ng-controller="MapController as mapCtrl" class="hbox hbox-auto-xs hbox-auto-sm fill-height">
         <input id="pac-input" class="controls" type="text" placeholder="Busca y encuetra tu espacio..." ng-cloak>
 
 
@@ -237,51 +237,6 @@
                                                     <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-desktop"></span> TV Cable</div>
                                                 </div>
                                             </div>
-
-                                            <!-- <div class="container-fluid" >
-                                                <div class="row">
-                                                    <h4 class="col font-bold">
-                                                        {{spaceSelected.overview.title}}&nbsp;&nbsp;
-                                                    </h4>
-                                                    <small class="text-smoky col v-middle">
-                                                        -
-                                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                                        &nbsp;
-                                                        <ng-pluralize count="spaceSelected.capacity"
-                                                                              when="{'0': 'not defined yet',
-                                                                              'one': '1 person',
-                                                                              'other': '{} persons'}">
-                                                        </ng-pluralize>
-                                                    </small>
-                                                </div>
-                                                &nbsp;
-                                                <div class="row">
-                                                    <div class="bg-light text-info col-lg-12 text-left h4">
-                                                        <br/>
-                                                        <a ui-sref="app.venues.preview({venueId:venueSelected.id})"
-                                                           <span>{{venueSelected.overview.title}}</span>
-                                                        </a>
-                                                        <br/>
-                                                        &nbsp;
-                                                    </div>
-                                                </div>
-                                                <div class="row container-fluid">
-                                                    <span >{{venueSelected.overview.summary}}</span>
-                                                    <pre>{{venueSelected | json}}</pre>
-                                                </div>
-                                                &nbsp;
-                                                <div class="row">
-                                                    <div class="bg-light col-lg-12 text-left h4">
-                                                        <br/>
-                                                        <span>Princing options</span>
-                                                        <br/>
-                                                        &nbsp;
-                                                    </div>
-                                                </div>
-                                                <pre>{{dt| json}}</pre>
-                                            </div>
-                                            <pre>{{venueSelected | json}}</pre> -->
-                                            
                                         </div>
                                     </div>
                                 </div>
