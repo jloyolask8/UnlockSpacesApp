@@ -16,7 +16,11 @@ angular.module('app')
                 return ($location.$$path === '/home');
             };
 
-           
+            $scope.areInHomeOrSignin = function(){
+                //alert($route.current);
+                //console.log("areInHome return: "+($location.$$path === '/home')+" location: "+$location.$$path);
+                return $scope.areInHome() || ($location.$$path === '/access/signin');
+            };
 
             $scope.$watch('auth.profile', function (profile) {
                 if (!profile) {

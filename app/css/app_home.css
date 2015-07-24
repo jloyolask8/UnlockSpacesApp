@@ -330,7 +330,7 @@ p.promo-msg-p{
 *::-moz-focus-inner {
     border: 0;
 }
-.notransition * {
+.notransition { /* apara afectar a todas las clases .notransition * */
     -webkit-transition: none !important;
     -moz-transition: none !important;
     -o-transition: none !important;
@@ -4796,6 +4796,7 @@ h3.s-sub {
     -o-transition: all 200ms linear;
     -ms-transition: all 200ms linear;
     transition: all 200ms linear;
+    font-weight: 300;
 }
 .no-touch .s-menu-item:hover {
     background-color: #00A550;
