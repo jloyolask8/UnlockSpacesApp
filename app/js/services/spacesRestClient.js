@@ -37,6 +37,18 @@
                 });
     });
     
+    clientModule.factory('VenuesAvailableGeoSearch', function ($resource, servicesUrls) {
+        return $resource(servicesUrls.findVenuesAvailablesUrl,
+                {
+                    //apiKey: '4fb51e55e4b02e56a67b0b66',
+                    latitude: '@lat',
+                    longitude: '@lon',
+                    radiometers: '@radio',
+                    start: '@start',
+                    end: '@end'
+                });
+    });
+    
     clientModule.factory('ReservationSearch', function ($resource, servicesUrls) {
         return $resource(servicesUrls.reservationsUrl,{});
     });
@@ -60,11 +72,15 @@
         return spacesService;
     });
     
-    clientModule.service('venuesService', function (VenuesGeoSearch, VenuesSearch) {
+    clientModule.service('venuesService', function (VenuesGeoSearch, VenuesSearch, VenuesAvailableGeoSearch) {
         var venuesService = {};
 
         venuesService.geoSearch = function (lat, lon, radio) {
             return VenuesGeoSearch.query({latitude: lat, longitude: lon, radiometers: radio});
+        };
+        
+        venuesService.geoSearchAvailable = function (lat, lon, radio, start, end) {
+            return VenuesAvailableGeoSearch.query({latitude: lat, longitude: lon, radiometers: radio, start: start, end: end});
         };
         
         venuesService.find = function (id){
