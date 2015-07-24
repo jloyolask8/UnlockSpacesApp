@@ -11,14 +11,36 @@
 
     mapControllers.controller("MapController", function ($scope, $log, uiGmapGoogleMapApi, venuesService, $stateParams) {
 
+        Date.prototype.addHours = function (h) {
+            this.setHours(this.getHours() + h);
+            return this;
+        };
+
+        function isValidDate(d) {
+            if (Object.prototype.toString.call(d) !== "[object Date]")
+                return false;
+            return !isNaN(d.getTime());
+        }
+
+        Date.prototype.getDaysInMonth = function () {
+            if (isValidDate(this)) {
+                return new Date(Date.UTC(this.getYear(), this.getMonth() + 1, 0)).getUTCDate();
+            } else {
+                return 0;
+            }
+        };
+
+        Date.prototype.addMonths = function (value) {
+            var n = this.getDate();
+            this.setDate(1);
+            this.setMonth(this.getMonth() + value);
+            var daysInMonth = this.getDaysInMonth();
+            this.setDate(Math.min(n, daysInMonth));
+            return this;
+        };
+
         $scope.venuesSearchText = '';
         $scope.days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-
-//        loadParams();
-//        
-//        function loadParams(){
-//            
-//        }
 
         var firstTime = true;
         var venuesList = [];
@@ -33,6 +55,27 @@
 
         $scope.vm = {dateTimeStartTime: '',
             dateTimeEndTime: ''};
+
+        $scope.$watch('filterSpaceSearch', function (newvar, oldvar) {
+            $scope.calculateEndDay();
+        }, true);
+
+        $scope.calculateEndDay = function () {
+            var duration = parseInt($scope.filterSpaceSearch.duration) || 0;
+            $scope.vm.dateTimeEndTime = new Date($scope.dt);
+            if ($scope.filterSpaceSearch.durationUnit === 'Hours') {
+                $scope.vm.dateTimeEndTime.addHours(duration);
+            } else if ($scope.filterSpaceSearch.durationUnit === 'Months') {
+                $scope.vm.dateTimeEndTime.addMonths(duration);
+                //$scope.filterSpaceSearch.dateTimeEndTime.setDate($scope.newReservationObj.startDateTime.getDate() - 1);
+//                adjustEndHour = true;
+            } else {
+                var dateVar = $scope.vm.dateTimeEndTime.getDate();
+                $scope.vm.dateTimeEndTime.setDate(dateVar + (duration - 1));
+            }
+            console.log("dateTimeEndTime: " + $scope.vm.dateTimeEndTime);
+            searchVenuesOnMapBound(null);
+        };
 
         $scope.dateOptions = {
             locale: 'es',
@@ -61,23 +104,26 @@
             dateVar.setHours(time[0]);
             dateVar.setMinutes(time[1]);
 
-            //console.log("dateTimeStartTime oldvar:" + oldvar + " dateTimeStartTime newvar:" + dateVar.toString());
+            console.log("dateTimeStartTime oldvar:" + oldvar + " dateTimeStartTime newvar:" + dateVar.toString());
             $scope.dt = dateVar;
+            $scope.calculateEndDay();
         }, true);
 
         $scope.evalShowVenue = function (venue, from) {
             var ret = true;
-
-            if ((venue.spaces) && (venue.spaces.length > 0)){
+            var spacesToShow = venue.spaces.length;
+            if ((venue.spaces) && (venue.spaces.length > 0)) {
                 if (venue.hoursOfOperation) {
                     var infoDay = venue.hoursOfOperation[$scope.days[$scope.dt.getDay()]];
                     ret = (infoDay) && (infoDay.availabilityOption === 'true');
                 }
                 for (var i = 0; i < venue.spaces.length; i++) {
                     if (!$scope.evalShowSpace(venue.spaces[i])) {
-                        ret = false;
-                        break;
+                        spacesToShow--;
                     }
+                }
+                if (spacesToShow === 0) {
+                    ret = false;
                 }
                 //console.log("evalShowVenue venue id:" + venue.overview.title + " from: " + from + " ret:" + ret);
 //                if (venue.overview.title === "minee") {
@@ -248,17 +294,26 @@
             }
         };
 
+        var dateFormat = function (date) {
+            var stringDate = date.getFullYear() + '-' +
+                    (date.getMonth() + 1) + '-' + date.getDate() +
+                    '-' + date.getHours() + '-' + date.getMinutes();
+            return stringDate;
+        };
+
         var searchVenuesOnMapBound = function (map) {
 //            $log.info("loadSpaceMarkers");
             //$scope.markers = [];
-            var radio = calcRadio(map);
-            var center = map.getCenter();
-
-            venuesList = venuesService.geoSearch(center.lat(), center.lng(), radio);
+            if (map !== null) {
+                $scope.lastRadioUsed = calcRadio(map);
+                $scope.lastCenterUsed = map.getCenter();
+            }
+            venuesList = venuesService.geoSearchAvailable($scope.lastCenterUsed.lat(), $scope.lastCenterUsed.lng(), $scope.lastRadioUsed, dateFormat($scope.dt), dateFormat($scope.vm.dateTimeEndTime));
+//            venuesList = venuesService.geoSearch(center.lat(), center.lng(), radio);
             venuesList.$promise.then(function () {
                 refreshMapMarkers();
                 if (venuesList.length === 0) {
-                    findFormattedAddress(center);
+                    findFormattedAddress($scope.lastCenterUsed);
                 }
 //                $log.info("markers length:" + $scope.markers.length);
                 if (firstTime) {
