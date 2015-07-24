@@ -31,7 +31,13 @@
             <div class="btn-white-ppt btn-login-menu" ng-if="!auth.isAuthenticated">
                 <a ui-sref="access.signin">
                     <span class="icon-mr8 fa fa-user"></span>
-                    <span translate="aside.nav.LOGINMSG"/>
+                    <span translate="aside.nav.LOGINMSG"></span>
+                </a>
+            </div>
+            <div class="btn-white-ppt btn-login-menu" ng-if="auth.isAuthenticated">
+                <a ui-sref="app.page.profile({profileId:auth.profile.user_id})">
+                    <span class="icon-mr8 fa fa-user"></span>
+                    <span>{{auth.profile.given_name}} {{auth.profile.family_name}}</span>
                 </a>
             </div>
             <div class="btn-white-ppt btn-border-radius" ng-if="!auth.isAuthenticated">
@@ -50,6 +56,12 @@
         <nav class="drawer-nav" role="navigation">
             <div class="drawer-brand"></div>
             <ul id="drawer-nav-ul" class="nav drawer-nav-list">
+                <li ng-if="auth.isAuthenticated">
+                    <a ui-sref="app.page.profile({profileId:auth.profile.user_id})">
+                        <span class="icon-mr8 icon-fs18 icon-user"></span>
+                        <span>Profile</span>
+                    </a>
+                </li>
                 <li ng-if="!auth.isAuthenticated">
                     <a ui-sref="access.signin">
                         <span class="icon-mr8 icon-fs18 icon-user"></span>

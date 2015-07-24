@@ -62,7 +62,7 @@
                                 <div class="input-group col-md-7 col-lg-3" style="padding-left: 0px !important;padding-right: 5px !important;">
                                     <input ng-if="loaded" type="text" class="form-control"
                                            datetimepicker
-                                                   datetimepicker-options="{{ dateOptions }}"
+                                           datetimepicker-options="{{ dateOptions}}"
                                            name="time" attrbind="dateTimeStartTime"
                                            ng-model="vm.dateTimeStartTime" ng-cloak="true"/>
                                 </div>
@@ -112,7 +112,7 @@
                                                                 <span class="label-nw-ppt label bg-light dk">{{space.pricing.perHour| currency:"$":0}}<small>hr</small></span>
                                                                 <span class="label-nw-ppt label bg-light dk">{{space.pricing.perDay| currency:"$":0}}<small>day</small></span>
                                                                 <span class="label-nw-ppt label bg-light dk">&nbsp;{{space.pricing.perMonth| currency:"$":0}}<small>mo</small></span>
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -159,38 +159,108 @@
                             <div class="row-row">
                                 <div class="cell">
                                     <div class="cell-inner">
-                                        <div class="wrapper-md">
+                                        <div class="content-descrip-ppt">
                                             <carousel>
                                                 <slide ng-repeat="slide in spaceSelected.slides" active="slide.active">
                                                     <cl-image public-id="{{slide.image}}" width="513" height="300" crop="fill" class="img-full">
                                                     </cl-image>
                                                 </slide>
                                             </carousel>
+                                            <!-- singleTop -->
+                                            <div class="singleTop">
+                                                <div class="summary">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <div class="summaryItem">
+                                                                <h1 class="pageTitle">{{spaceSelected.overview.title}}</h1>
+                                                                <div class="address"><span class="icon-pointer"></span> {{venueSelected.address.line1}}</div>
+                                                                <ul class="rating">
+                                                                    <li><a href="#"><span class="fa fa-star"></span></a></li>
+                                                                    <li><a href="#"><span class="fa fa-star"></span></a></li>
+                                                                    <li><a href="#"><span class="fa fa-star"></span></a></li>
+                                                                    <li><a href="#"><span class="fa fa-star"></span></a></li>
+                                                                    <li><a href="#"><span class="fa fa-star-o"></span></a></li>
+                                                                    <li>(146)</li>
+                                                                </ul>
+                                                                <div class="favLink"><a href="#"><span class="icon-users"></span></a> {{spaceSelected.capacity}} Capacity</div>
+                                                                <div class="favLink"><a href="#"><span class="icon-bubble"></span></a> 0 Reviews</div>
+                                                                <div class="clearfix"></div>
+                                                                <ul class="features">
+                                                                    <li><span>{{spaceSelected.pricing.perHour| currency:"$":0}}</span><div>1 Hour</div></li>
+                                                                    <li><span>{{spaceSelected.pricing.perDay| currency:"$":0}}</span><div>1 Day</div></li>
+                                                                    <li><span>{{spaceSelected.pricing.perMonth| currency:"$":0}}</span><div>1 Month</div></li>
+                                                                </ul>
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <!-- Description -->
+                                            <div class="description">
+                                                <h3>Description</h3>
+                                                <p>{{spaceSelected.overview.summary}}</p>
+                                            </div>
+                                            <!-- Share -->
+                                            <div class="share">
+                                                <h3>Share this Space</h3>
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 shareItem">
+                                                        <a href="#" class="btn btn-sm btn-round btn-o btn-facebook"><span class="fa fa-facebook"></span> Facebook</a>
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 shareItem">
+                                                        <a href="#" class="btn btn-sm btn-round btn-o btn-twitter"><span class="fa fa-twitter"></span> Twitter</a>
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 shareItem">
+                                                        <a href="#" class="btn btn-sm btn-round btn-o btn-google"><span class="fa fa-google-plus"></span> Google+</a>
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 shareItem">
+                                                        <a href="#" class="btn btn-sm btn-round btn-o btn-pinterest"><span class="fa fa-pinterest"></span> Pinterest</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- amenities -->
+                                            <div class="amenities">
+                                                <h3>Amenities</h3>
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-car"></span> Parking</div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-coffee"></span> Coffee Machine</div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-bus"></span> Easy Access</div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-shield"></span> 24hrs. Security</div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-wifi"></span> Internet</div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-phone"></span> Private Phone</div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-asterisk"></span> Air Conditioning</div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-sun-o"></span> Heating</div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-print"></span> Printer</div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem inactive"><span class="fa fa-users"></span> Meeting Room</div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 amItem"><span class="fa fa-desktop"></span> TV Cable</div>
+                                                </div>
+                                            </div>
 
-                                                    <div class="container-fluid" >
-                                                        <div class="row">
-                                                            <h4 class="col font-bold">
-                                                                {{spaceSelected.overview.title}}&nbsp;&nbsp;
-                                                            </h4>
-                                                            <small class="text-smoky col v-middle">
-                                                                -
-                                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                                                &nbsp;
-                                                                <ng-pluralize count="spaceSelected.capacity"
+                                            <!-- <div class="container-fluid" >
+                                                <div class="row">
+                                                    <h4 class="col font-bold">
+                                                        {{spaceSelected.overview.title}}&nbsp;&nbsp;
+                                                    </h4>
+                                                    <small class="text-smoky col v-middle">
+                                                        -
+                                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                                        &nbsp;
+                                                        <ng-pluralize count="spaceSelected.capacity"
                                                                               when="{'0': 'not defined yet',
                                                                               'one': '1 person',
                                                                               'other': '{} persons'}">
-                                                                </ng-pluralize>
-                                                            </small>
-                                                        </div>
-                                                        &nbsp;
+                                                        </ng-pluralize>
+                                                    </small>
+                                                </div>
+                                                &nbsp;
                                                 <div class="row">
                                                     <div class="bg-light text-info col-lg-12 text-left h4">
                                                         <br/>
                                                         <a ui-sref="app.venues.preview({venueId:venueSelected.id})"
                                                            <span>{{venueSelected.overview.title}}</span>
                                                         </a>
-                                                        <!--<span>{{venueSelected.overview.title}}</span>-->
                                                         <br/>
                                                         &nbsp;
                                                     </div>
@@ -208,14 +278,10 @@
                                                         &nbsp;
                                                     </div>
                                                 </div>
-
-
-
                                                 <pre>{{dt| json}}</pre>
-
                                             </div>
-
-
+                                            <pre>{{venueSelected | json}}</pre> -->
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -224,7 +290,7 @@
                                 <!--price-->
                                 <a ui-sref="app.bookspace({spaceId:spaceSelected.id,dateSelected:dt.formatMMDDYYYY()})"
                                    class="btn btn-info">
-                                    <i class="icon-edit block m-b-xs fa-2x"></i>
+                                    <!--<i class="icon-edit block m-b-xs fa-2x"></i>-->
                                     <span>Book now</span>
                                 </a>
 

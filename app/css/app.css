@@ -1917,8 +1917,8 @@ fieldset[disabled] .btn-success.active {
 
 .btn-info {
     color: #ffffff !important;
-    background-color: #23b7e5;
-    border-color: #23b7e5;
+    background-color: #213837;
+    border-color: #213837;
 }
 
 .btn-info:hover,
@@ -1927,8 +1927,8 @@ fieldset[disabled] .btn-success.active {
 .btn-info.active,
 .open .dropdown-toggle.btn-info {
     color: #ffffff !important;
-    background-color: #19a9d5;
-    border-color: #189ec8;
+    background-color: #00A550;
+    border-color: #00A550;
 }
 
 .btn-info:active,
@@ -3813,7 +3813,13 @@ a.text-info:hover {
 } */
 
 .text-info-dk {
-    color: #19a9d5;
+    color: #213837;
+}
+
+.text-info-dk:hover,
+.text-info-dk:focus,
+.text-info-dk:active {
+    color: #00A550;
 }
 
 /* .text-info-dker {
@@ -4977,6 +4983,259 @@ a.text-#000000:hover {
     opacity: 0.8;
     filter: alpha(opacity=80);
 }
+
+/* Buttons */
+
+.btn {
+    border-radius: 2px;
+    text-decoration: none;
+}
+.btn-round {
+    border-radius: 50px;
+}
+.btn-o {
+    border-width: 1px;
+    border-style: solid;
+}
+.btn-facebook {
+    background-color: #43609c;
+    color: #fff;
+}
+.btn-o.btn-facebook {
+    background-color: transparent;
+    color: #43609c;
+    border-color: #43609c;
+}
+.no-touch .btn-facebook:hover,
+.btn-facebook:focus,
+.btn-facebook:active,
+.btn-facebook.active,
+.open > .dropdown-toggle.btn-facebook {
+    background-color: #395285;
+    color: #fff;
+}
+.no-touch .btn-o.btn-facebook:hover,
+.btn-o.btn-facebook:focus,
+.btn-o.btn-facebook:active,
+.btn-o.btn-facebook.active,
+.open > .dropdown-toggle.btn-o.btn-facebook {
+    background-color: #43609c;
+    color: #fff;
+}
+.btn-twitter {
+    background-color: #55acee;
+    color: #fff;
+}
+.btn-o.btn-twitter {
+    background-color: transparent;
+    color: #55acee;
+    border-color: #55acee;
+}
+.no-touch .btn-twitter:hover,
+.btn-twitter:focus,
+.btn-twitter:active,
+.btn-twitter.active,
+.open > .dropdown-toggle.btn-twitter {
+    background-color: #4993cc;
+    color: #fff;
+}
+.no-touch .btn-o.btn-twitter:hover,
+.btn-o.btn-twitter:focus,
+.btn-o.btn-twitter:active,
+.btn-o.btn-twitter.active,
+.open > .dropdown-toggle.btn-o.btn-twitter {
+    background-color: #55acee;
+    color: #fff;
+}
+.btn-google {
+    background-color: #dd4b39;
+    color: #fff;
+}
+.btn-o.btn-google {
+    background-color: transparent;
+    color: #dd4b39;
+    border-color: #dd4b39;
+}
+.no-touch .btn-google:hover,
+.btn-google:focus,
+.btn-google:active,
+.btn-google.active,
+.open > .dropdown-toggle.btn-google {
+    background-color: #c44433;
+    color: #fff;
+}
+.no-touch .btn-o.btn-google:hover,
+.btn-o.btn-google:focus,
+.btn-o.btn-google:active,
+.btn-o.btn-google.active,
+.open > .dropdown-toggle.btn-o.btn-google {
+    background-color: #dd4b39;
+    color: #fff;
+}
+.btn-pinterest {
+    background-color: #cb2027;
+    color: #fff;
+}
+.btn-o.btn-pinterest {
+    background-color: transparent;
+    color: #cb2027;
+    border-color: #cb2027;
+}
+.no-touch .btn-pinterest:hover,
+.btn-v:focus,
+.btn-pinterest:active,
+.btn-pinterest.active,
+.open > .dropdown-toggle.btn-pinterest {
+    background-color: #b51d22;
+    color: #fff;
+}
+.no-touch .btn-o.btn-pinterest:hover,
+.btn-o.btn-pinterest:focus,
+.btn-o.btn-pinterest:active,
+.btn-o.btn-pinterest.active,
+.open > .dropdown-toggle.btn-o.btn-pinterest {
+    background-color: #cb2027;
+    color: #fff;
+}
+
+/* Buttons */
+
+.content-descrip-ppt {
+    background-color: rgba(245, 245, 245, 1)
+}
+.singleTop {
+    background-color: #fff;
+    border-bottom: 1px solid #e8e8e8;
+}
+.singleTop .summary {
+	padding: 20px 20px 0 20px;
+}
+.summaryItem {
+    margin-bottom: 20px;
+}
+h1.pageTitle {
+    margin: 0;
+    padding: 0 0 5px 0;
+    font-size: 18px;
+    line-height: 19px;
+    font-weight: normal;
+}
+.singleTop .address {
+    font-size: 12px;
+    line-height: 14px;
+    color: #999;
+    padding: 0 0 15px 0;
+}
+.singleTop ul.rating {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    padding: 0;
+    float: left;
+}
+.singleTop ul.rating li {
+    font-size: 12px;
+    line-height: 13px;
+    color: #333;
+    float: left;
+    margin-right: 3px;
+}
+.singleTop ul.rating li a span {
+    font-size: 14px;
+    color: #eab134;
+}
+.favLink {
+    float: left;
+    font-size: 13px;
+    line-height: 14px;
+    margin-left: 10px;
+}
+.favLink a {
+    width: 100%;
+}
+.favLink a span {
+    font-size: 14px;
+    display: block;
+    float: left;
+    height: 14px;
+    vertical-align: middle;
+    line-height: 14px;
+    width: 24px;
+    text-align: center;
+    -webkit-transition: font-size .2s;
+    -o-transition: font-size .2s;
+    transition: font-size .2s;
+}
+.no-touch .favLink a:hover span {
+    font-size: 20px;
+}
+.singleTop ul.features {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 20px;
+    border: 1px solid #e8e8e8;
+    float: left;
+    width: 100%;
+}
+.singleTop ul.features li {
+    float: left;
+    width: 33.33%;
+    text-align: center;
+    padding: 15px 0;
+    border-right: 1px solid #e8e8e8;
+}
+.singleTop ul.features li:last-child {
+    border-right: 0 none;
+}
+.singleTop ul.features li span {
+    display: block;
+    height: 24px;
+    font-size: 16px;
+    line-height: 24px;
+}
+.singleTop ul.features li div {
+    font-size: 13px;
+    color: #999;
+}
+.singleTop ul.features li:hover,
+.singleTop ul.features li:focus,
+.singleTop ul.features li:active {
+    background-color: #f3f3f3;
+}
+.description, .share, .similar {
+    padding: 20px 20px 0 20px;
+}
+.amenities {
+    padding: 20px;
+}
+#content h3 {
+    font-size: 14px;
+    line-height: 16px;
+    margin: 0;
+    padding: 0 0 10px 0;
+    font-weight: bold;
+}
+.description p {
+    font-size: 13px;
+}
+.shareItem {
+    margin-bottom: 10px;
+}
+.amItem {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+.amItem span {
+    color: #00A550;
+}
+.amItem.inactive, .amItem.inactive span {
+    color: #b4b4b4;
+}
+.amItem span {
+    width: 20px;
+    text-align: center;
+}		
 
 /*desktop*/
 

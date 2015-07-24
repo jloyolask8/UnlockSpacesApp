@@ -134,6 +134,11 @@ img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
         width: 345px;
         vertical-align: top;
     }
+    
+    .share .col-sm-6,
+    .amenities .col-sm-6 {
+        width: 50%;
+    }
 
     .filter-results-container{
         background: rgba(255, 255, 255, 1); height: 100px; padding-top: 15px !important;

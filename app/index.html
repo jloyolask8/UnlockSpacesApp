@@ -14,8 +14,8 @@
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css" />
         <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css" type="text/css" />
         <link rel="stylesheet" href="css/font.css" type="text/css" />
-        <link rel="stylesheet" href="css/app.css" type="text/css" ng-if="!areInHome()"/>
-        <link rel="stylesheet" href="css/map.css" type="text/css" ng-if="!areInHome()"/>
+        <link rel="stylesheet" href="css/app.css" type="text/css" ng-if="!areInHomeOrSignin()"/>
+        <link rel="stylesheet" href="css/map.css" type="text/css" ng-if="!areInHomeOrSignin()"/>
         <link type="text/css" rel="stylesheet" media="all" href="css/cloudinary.css"/>
         <link rel="stylesheet" href="css/animations.css">
         <link rel="stylesheet" href="css/box-shadow.css">
@@ -44,6 +44,9 @@ mixpanel.init("4cccfde57039dc6084d670528f49b5e6");</script><!-- end Mixpanel -->
         <script src="//use.typekit.net/uvn1tmt.js"></script>
         <script>try{Typekit.load();}catch(e){}</script>
 
+        <!-- GoogleFonts -->
+        <script src="js/googlefonts.js"></script>
+        
         <!-- jQuery -->
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         
