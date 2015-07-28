@@ -102,6 +102,13 @@ angular.module('app')
                                             }]
                                     }
                                 })
+                                
+                                .state('app.notifications', {
+                                    url: '/notifications',
+                                    templateUrl: 'tpl/notifications/list.html',
+                                    controller: 'NotificationsCtl',
+                                    data: {requiresLogin: true}
+                                })
 
                                 .state('app.venues.edit', {
                                     url: '/{venueId:[0-9]{1,20}}/edit',
