@@ -1,0 +1,70 @@
+<!-- hbox layout -->
+<div class="hbox hbox-auto-xs bg-light " ng-init="
+  app.settings.asideFixed = true;
+  app.settings.asideDock = false;
+  app.settings.container = false;
+  app.hideAside = false;
+  app.hideFooter = true;
+  ">
+  <!-- column -->
+  <div class="col w-lg lt b-r">
+    <div class="vbox">
+      <div class="wrapper">
+       
+        <div class="h4">Notifications</div>
+      </div>
+      <div class="wrapper b-t m-t-xxs">
+        <div class="input-group">
+          <span class="input-group-addon input-sm"><i class="fa fa-search"></i></span>
+          <input type="text" class="form-control input-sm" placeholder="search" ng-model="query">
+        </div>
+      </div>
+      <div class="row-row">
+        <div class="cell scrollable hover">
+          <div class="cell-inner">
+            <div class="padder">
+              <div class="list-group">
+                <a ng-repeat="notification in notifications | filter:query | orderBy:'creationDate':true" class="list-group-item b-l-{{notification.color}} b-l-3x hover-anchor" ng-class="{'hover': notification.selected }" ng-click="selectNotification(notification, false)">
+                  
+                  <span class="block text-ellipsis">{{ note.details ? note.details : 'Empty notification' }}</span>
+                  <small class="text-muted">{{ notification.creationDate | fromNow }}</small>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /column -->
+
+  <!-- column -->
+  <div class="col">
+    <div class="vbox">
+      <div class="wrapper bg-light lt b-b">
+       {{ notification.title}} <span class="text-muted">Created on:</span> <span>{{ notification.creationDate  | date:'MMM-dd-yyyy H:mm' }}</span>
+        <div class="m-l inline dropdown" dropdown>
+          <a class="v-middle pos-rlt inline bg-{{notification.color}}" dropdown-toggle style="width:16px;height:16px;top:-2px"></a>
+          <div class="dropdown-menu animated fadeInUp w wrapper">
+            <a ng-repeat="color in colors" class="inline m-xs bg-{{color}}" style="width:18px;height:18px" ng-click=" notification.color = color "></a>
+          </div>
+        </div>
+      </div>
+      <div class="row-row">
+        <div class="cell">
+          <div class="cell-inner">
+              <textarea class="form-control no-radius no-border no-bg wrapper-lg text-md" style="height:100%;" ng-model="notification.details">
+            </textarea>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /column -->
+</div>
+<!-- /hbox layout -->
+
+
+
+

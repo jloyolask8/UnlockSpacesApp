@@ -58,7 +58,7 @@
               <a href class="dropdown-toggle" dropdown-toggle>
               <i class="icon-bell fa-fw"></i>
               <span class="visible-xs-inline">Notifications</span>
-              <span ng-show="notifications.length" 
+              <span ng-show="notifications.length && user.hasNewNotifications" 
                     class="badge badge-sm up bg-danger pull-right-xs">{{notifications.length}}</span>
             </a>
             <!-- dropdown -->
@@ -70,13 +70,13 @@
                   
                 </div>
                 <div class="list-group">
-                    <a href class="media list-group-item" ng-repeat="notification in notifications track by $index">
+                    <a href class="media list-group-item" ng-repeat="notification in notifications track by $index" ng-click="selectNotification(notification, true)">
                     <span class="pull-left thumb-sm">
                       <img src="img/a0.jpg" alt="..." class="img-circle">
                     </span>
-                    <span class="media-body block m-b-none">
+                    <span class="media-body block m-b-none" >
                       {{notification.details}}<br>
-                      <small class="text-muted">{{notification.creationDate}}</small>
+                      <small class="text-muted">{{notification.creationDate | fromNow}}</small>
                     </span>
                   </a>
                   
