@@ -1,254 +1,199 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">You are booking...</h1>
+</div>
 
 <div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.container = false;">
-    <div class="col col-lg-8">
+    <div class="col-nw-ppt col col-lg-8">
         <div class="wrapper-md">
-            <!--content here-->
-            <div class="row">
-                <div class="panel">
-                    <div class="wrapper-lg">
-                        <h2 class="m-t-none">You are booking...</h2>
-                        <div>
-                            <div class="brdr bgc-fff pad-10 btm-mrg-20 property-listing">
-                                <div class="media">
-
-                                    <div class="pull-left">
-                                        <figure class="changeable-picture">
-                                            <!--TODO put the null photo id in a config file-->
-                                            <cl-image ng-hide="newReservationObj.space.frontPhoto == null" public-id="{{newReservationObj.space.frontPhoto}}" width="373" height="209" crop="fill">
-                                            </cl-image>
-                                        </figure>
-                                    </div>
-
-                                    <div class="clearfix visible-sm"></div>
-
-                                    <div class="media-body fnt-smaller">
-                                        <h4 class="media-heading">
-                                            {{newReservationObj.space.overview.title}} <small class="pull-right">{{newReservationObj.space.venue.address.line1}}</small></h4>
-
-
-                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                            <li>
-                                                <div class="bg-white text-center m-b">
-                                                    <i class="glyphicon glyphicon-user icon text-info-dker"></i>
-                                                    Max Capacity:<span class="font-bold">{{newReservationObj.space.capacity}}</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-
-                                        <p class="hidden-xs">{{newReservationObj.space.overview.summary}}</p>
-
-                                        <i class="glyphicon glyphicon-user icon text-info-dker"></i>
-                                        Included:
-
-                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                            <li ng-repeat="amenit in newReservationObj.space.venue.amenitiesAvailable">
-                                                <div class="bg-white text-center m-b">
-                                                    {{amenit.name}}
-                                                </div>
-                                            </li>
-                                        </ul>
-
-                                        <span class="fnt-smaller fnt-lighter fnt-arial">
-                                            <div>phone: {{newReservationObj.space.venue.contactInfo.phone}}</div><div> email: {{newReservationObj.space.venue.contactInfo.email}}</div><div> website: {{newReservationObj.space.venue.contactInfo.website}}</div>
-                                        </span>
-
-
-
+            <tabset class="tab-container">
+                <tab heading="New Booking" active="tabs[0].active">
+                    <div class="bg-light lter b wrapper">
+                        <h3 class="m-n font-thin h4">Details</h3>
+                    </div>
+                    <div class="m-t-md m-b-md brdr bgc-fff pad-10 btm-mrg-20 property-listing">
+                        <div class="media">
+                            <div class="pull-left">
+                                <figure class="changeable-picture">
+                                    <cl-image ng-hide="newReservationObj.space.frontPhoto == null" public-id="{{newReservationObj.space.frontPhoto}}" width="373" height="209" crop="fill"></cl-image>
+                                </figure>
+                            </div>
+                            <div class="clearfix visible-sm"></div>
+                            <div class="media-body fnt-smaller">
+                                <!-- singleTop -->
+                                <div class="singleTop-n-bb singleTop">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="summaryItem">
+                                                <h1 class="pageTitle">{{newReservationObj.space.overview.title}}</h1>
+                                                <div class="address"><span class="icon-pointer"></span> {{newReservationObj.space.venue.address.line1}}</div>
+                                                <ul class="rating">
+                                                    <li><a href="#"><span class="fa fa-star"></span></a></li>
+                                                    <li><a href="#"><span class="fa fa-star"></span></a></li>
+                                                    <li><a href="#"><span class="fa fa-star"></span></a></li>
+                                                    <li><a href="#"><span class="fa fa-star"></span></a></li>
+                                                    <li><a href="#"><span class="fa fa-star-o"></span></a></li>
+                                                    <li>(146)</li>
+                                                </ul>
+                                                <div class="favLink"><a href="#"><span class="icon-users"></span></a> {{newReservationObj.space.capacity}} Capacity</div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="description-n-b description">
+                                                <h4>Description</h4>
+                                                <p>{{newReservationObj.space.overview.summary}}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-                            </div><!-- End Listing-->
-
+                                <div class="clearfix"></div>
+                            </div>
                         </div>
-
                     </div>
-                </div>
-
-                <div class="panel" >
-                    <div class="wrapper-lg">
-                        <h2 class="m-t-none">Booking details</h2>
-                        <div>
-
-                            <!--input data here-->     
-                            <div class="panel-body">
-                                <div class="form-horizontal">
-
-
-                                    <div class="line line-dashed b-b line-lg pull-in"></div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Check in</label>
-
-                                        <div class="col-sm-10" >
-                                            <div class="input-group">
-                                                <span class="input-group-addon">
-                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                </span>
-
-                                                <input ng-if="loaded" type="text" class="form-control"
-                                                   datetimepicker
-                                                   datetimepicker-options="{{ dateOptions }}"
-                                                   name="time" attrbind="dateTimeStartTime"
-                                                   ng-model="vm.dateTimeStartTime" ng-cloak="true"/>
-                                            </div>
-
-                                            
-<!--                                            <pre>{{vm.dateTimeStartTime| json}}</pre>
-                                            <pre>{{vm.dateTimeEndTime | json}}</pre>-->
-                                            
-                                            <!--<pre class="alert alert-info">Selected date is: <em>{{newReservationObj.startDateTime}}</em> </pre> -->
-                                        </div>
-                                    </div>
-                                    <!--<pre>{{newReservationObj.space | json}}</pre>-->
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Duration</label>
-                                        <div class="col-sm-10">
-                                            <div class="col-md-12 col-lg-6" style="padding-left: 0px !important;padding-right: 0px !important;">
-                                                <div class="row-fluid">
-                                                    <div class="col-md-5 col-lg-4" style="padding-left: 0px !important;padding-right: 5px !important;">
-                                                        <input ui-jq="TouchSpin" type="text" ng-model="durationObj.duration" value="1" class="form-control"  data-min='1' data-max="20" data-step="1" data-decimals="0">
-                                                    </div>
-                                                    <div class="btn-group col-md-7 col-lg-8" style="padding-left: 0px !important;padding-right: 0px !important;">
-                                                        <label tooltip="Hours" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Hours'" >Hours</label>
-                                                        <label tooltip="Days" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Days'" >Days</label>
-                                                        <label tooltip="Months" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Months'" >Months</label>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
+                    
+                    <div class="bg-light lter b wrapper">
+                        <h3 class="m-n font-thin h4">Booking Details</h3>
+                    </div>
+                    <div class="m-t-md m-b-md brdr bgc-fff pad-10 btm-mrg-20 property-listing">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Check in</label>
+                                <div class="col-sm-5" >
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </span>
+                                        <input ng-if="loaded" type="text" class="form-control"
+                                               datetimepicker
+                                               datetimepicker-options="{{ dateOptions }}"
+                                               name="time" attrbind="dateTimeStartTime"
+                                               ng-model="vm.dateTimeStartTime" ng-cloak="true"/>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Cost details</h3>
-                    </div>
-                    <div class="panel-body">
-
-                        <div class="form-horizontal">
-
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Duration</label>
-                                <div class="col-sm-6">
-                                    {{durationObj.duration + " " + durationObj.durationUnit}}
+                                <div class="col-sm-10">
+                                    <div class="col-nw-ppt col-md-12 col-lg-6">
+                                        <div class="row-fluid">
+                                            <div class="col-md-5 col-lg-4" style="padding-left: 0px !important;padding-right: 5px !important;">
+                                                <input ui-jq="TouchSpin" type="text" ng-model="durationObj.duration" value="1" class="form-control"  data-min='1' data-max="20" data-step="1" data-decimals="0">
+                                            </div>
+                                            <div class="col-nw-ppt btn-group col-md-7 col-lg-8">
+                                                <label tooltip="Hours" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Hours'" >H</label>
+                                                <label tooltip="Days" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Days'" >D</label>
+                                                <label tooltip="Months" tooltip-placement="top" tooltip-trigger="mouseenter" class="btn btn-default" ng-model="durationObj.durationUnit" btn-radio="'Months'" >M</label>
+                                            </div>
+                                        </div> 
+                                    </div>
                                 </div>
-
-                            </div>
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Venue fee</label>
-                                <div class="col-sm-6">
-                                    {{venueFee.value}}
-                                </div>
-
-                            </div>
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Unlock spaces fee</label>
-                                <div class="col-sm-6">
-                                    FREE
-                                </div>
-
-                            </div>
-                            <!--                            <div class="line line-dashed b-b line-lg pull-in"></div>
-                                                        <div class="form-group">
-                                                            <label class="col-sm-2 control-label">Promo code</label>
-                                                            <div class="col-sm-6">
-                                                                field value
-                                                            </div>
-                            
-                                                        </div>-->
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Tax</label>
-                                <div class="col-sm-6">
-                                    {{venueFee.tax}}
-                                </div>
-
-                            </div>
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Total</label>
-                                <div class="col-sm-6">
-                                    {{venueFee.total}}
-                                </div>
-
                             </div>
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        <span class="help-block">Your card will be charged 24 hours before each reservation. Changes and cancellations are free of charge with a 24 hours notice. Cancellation Policy.</span>
-
+                    
+                    <div class="bg-light lter b wrapper">
+                        <h3 class="m-n font-thin h4">Cost Details</h3>
                     </div>
-                </div>
+                    <div class="m-t-xs m-b-xs brdr bgc-fff pad-10 btm-mrg-20 property-listing">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
 
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Duration</label>
+                                    <div class="fg-false-input col-sm-6">
+                                        {{durationObj.duration + " " + durationObj.durationUnit}}
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg"></div>
 
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <img class="pull-right" src="http://i76.imgup.net/accepted_c22e0.png">Payment Details</h3>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Venue Cost</label>
+                                    <div class="fg-false-input col-sm-6">
+                                        {{venueFee.value| currency:"$":0}}
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg"></div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><b>Booking Fees</b></label>
+                                    <div class="fg-false-input col-sm-6">
+                                        <b>FREE</b>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg"></div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Tax</label>
+                                    <div class="fg-false-input col-sm-6">
+                                        {{venueFee.tax| currency:"$":0}}
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg"></div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><b>Total</b></label>
+                                    <div class="fg-false-input col-sm-6">
+                                        <b>{{venueFee.total| currency:"$":0}}</b>
+                                    </div>
+                                </div>
+                                
+                                <div class="m-b-none alert alert-info">
+                                    <strong>Payment Policy:</strong> Your card will be charged 24 hours before each reservation. Changes and cancellations are free of charge with a 24 hours notice. Cancellation Policy.
+                                </div>
+                                
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <form role="form" id="payment-form">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <label for="cardNumber">CARD NUMBER</label>
+                    
+                    <div class="bg-light lter b wrapper">
+                        <h3 class="m-n font-thin h4">Payment Details</h3>
+                    </div>
+                    <div class="m-t-xs m-b-xs brdr bgc-fff pad-10 btm-mrg-20 property-listing">
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Card Number</label>
+                                    <div class="fg-false-input col-sm-6">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
+                                            <input type="text" class="form-control" name="cardNumber" placeholder="1234 5678 9012 3456" required autofocus data-stripe="number" />
                                             <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                                         </div>
-                                    </div>                            
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-7 col-md-7">
-                                    <div class="form-group">
-                                        <label for="expMonth" class="pull-left">EXPIRATION DATE</label>
-                                        <div class="col-xs-6 col-lg-6 pl-ziro">
-                                            <input type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
+                                <div class="line line-dashed b-b line-lg"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Expiry Date</label>
+                                    <div class="fg-false-input col-sm-6">
+                                        <div class="col-nw-ppt m-r-xs col-xs-4 col-lg-2 pl-ziro">
+                                            <input type="text" class="form-control" name="expMonth" placeholder="mm" required data-stripe="exp_month" />
                                         </div>
-                                        <div class="col-xs-6 col-lg-6 pl-ziro">
-                                            <input type="text" class="form-control" name="expYear" placeholder="YY" required data-stripe="exp_year" />
+                                        <div class="col-nw-ppt col-xs-4 col-lg-2 pl-ziro">
+                                            <input type="text" class="form-control" name="expYear" placeholder="yy" required data-stripe="exp_year" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-5 col-md-5 pull-right">
-                                    <div class="form-group">
-                                        <label for="cvCode">CV CODE</label>
-                                        <input type="password" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc" />
+                                <div class="line line-dashed b-b line-lg"></div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">CVC</label>
+                                    <div class="fg-false-input col-sm-2">
+                                        <input type="password" class="form-control" name="cvCode" placeholder="123" required data-stripe="cvc" />
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row" style="display:none;">
-                                <div class="col-xs-12">
-                                    <p class="payment-errors"></p>
+                                <div class="line line-dashed b-b line-lg"></div>
+                                
+                                <div class="m-b-xs alert">
+                                    <i class="fa fa-info-circle text-muted"></i> By clicking <b>Book Now</b> you are agreeing to the <a href="">Terms of Service</a> and <a href="">Cancellation Policy</a>.
                                 </div>
+                                
+                                <button class="pull-right btn btn-success btn-lg btn-blocsk" ng-click="createReservation()" type="submit">Book Now</button>
+                                
                             </div>
-                        </form>
+                        </div>
                     </div>
-
-                    <div class="line line-lg b-b b-light"></div>
-                    <div class="text-muted">
-                        <i class="fa fa-user text-muted"></i> I agree to the <a href="" class="m-r-sm">terms of service</a> and 
-                        <a href="" class="m-r-sm">cancellation policy</a>
-                    </div>
-
-                    <button class="btn btn-success btn-lg btn-block" ng-click="createReservation()" type="submit">Book Now</button>
-                </div>
-            </div>
+                </tab>
+            </tabset>
         </div>
-
-
     </div>
 
     <div class="col w-lg bg-light lter b-l bg-auto">
@@ -256,27 +201,21 @@
 
             <div class="mq-desktop section-guarantee-block">
                 <p class="mb0"><strong>Why book on UnlockSpaces?</strong></p>
-                <ul class="list-bullet text-smoky">
+                <ul class="m-b-md nw-list-ppt text-smoky">
                     <li class="list-bullet-item"><p class="p-sm mb0">No booking fees</p></li>
                     <li class="list-bullet-item"><p class="p-sm mb0">100% safe and trusted</p></li>
                     <li class="list-bullet-item"><p class="p-sm mb0">Secure payments and confirmation</p></li>
                     <li class="list-bullet-item"><p class="p-sm mb0">24/7 customer support</p></li>
                     <li class="list-bullet-item"><p class="p-sm mb0">Verified venues</p></li>
                     <li class="list-bullet-item"><p class="p-sm mb0">Flexible cancellation policy</p></li>
-                </ul>
-                <ul class="list-linear">
-                    <li class="list-linear-item"><img src="https://www.sharedesk.net/images/booking/trustwave.png" alt="Trustwave" height="35"></li>
-                    <li class="list-linear-item"><img src="https://www.sharedesk.net/images/booking/secure.png" alt="Secure" height="35"></li>
+                    <li class="list-bullet-item"><img src="https://www.sharedesk.net/images/booking/trustwave.png" alt="Trustwave" height="35"> <img src="https://www.sharedesk.net/images/booking/secure.png" alt="Secure" height="35"></li>
                 </ul>
 
                 <p><strong>Accepted payments</strong></p>
-                <ul class="list-ccards">
+                <ul class="nw-list-ppt list-ccards">
                     <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/paypal.png" data-no-retina="" alt="PayPal" height="35"></li>
                     <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/visa.png" data-no-retina="" alt="Visa" height="35"></li>
                     <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/mastercard.png" data-no-retina="" alt="Mastercard" height="35"></li>
-                </ul>
-                <ul class="list-ccards mb0">
-                    <!-- li class="list-ccards-item"><img src="/images/booking/amex.png" data-no-retina alt="American Express" height="35" /></li -->
                     <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/jcb.png" data-no-retina="" alt="JCB" height="35"></li>
                     <li class="list-ccards-item"><img src="https://www.sharedesk.net/images/booking/discover.png" data-no-retina="" alt="Discover" height="35"></li>
                 </ul>
